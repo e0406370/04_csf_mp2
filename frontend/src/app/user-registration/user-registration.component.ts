@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { PASSWORD_REGEX } from '../utility/constants';
+import { UserRegistrationService } from './user-registration.service';
 
 @Component({
   selector: 'app-user-registration',
@@ -6,6 +10,54 @@ import { Component } from '@angular/core';
   styleUrl: './user-registration.component.css'
 })
   
-export class UserRegistrationComponent {
+export class UserRegistrationComponent implements OnInit {
 
+  private fb = inject(FormBuilder);
+  private userRegistrationSvc = inject(UserRegistrationService) 
+
+  userRegistrationForm!: FormGroup;
+
+  ngOnInit(): void {
+
+    this.userRegistrationForm = this.createRegistrationForm();
+  }
+
+  createRegistrationForm(): FormGroup {
+
+    return this.fb.group({
+
+      name: this.fb.control<string>('', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(25),
+      ]),
+
+      email: this.fb.control<string>('', [
+        Validators.required,
+        Validators.email,
+        Validators.maxLength(254),
+      ]),
+
+      birthDate: this.fb.control<Date>(new Date(), [
+        Validators.required,
+        this.userRegistrationSvc.pastDateValidator.bind(this),
+      ]),
+
+      username: this.fb.control<string>('', [
+        Validators.required,
+        Validators.minLength(7),
+        Validators.maxLength(20),
+      ]),
+
+      password: this.fb.control<string>('', [
+        Validators.required,
+        Validators.pattern(PASSWORD_REGEX)
+      ])
+
+    });
+  }
+
+  submitRegistrationForm(): void {
+
+  }
 }
