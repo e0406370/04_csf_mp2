@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 
-import vttp.csf.mp2.backend.utility.Utility;
+import vttp.csf.mp2.backend.utility.Constants;
 
 @Configuration
 public class MongoConfig {
@@ -33,7 +33,7 @@ public class MongoConfig {
     return client;
   }
 
-  @Bean(Utility.BEAN_MONGO)
+  @Bean(Constants.BEAN_MONGO)
   public MongoTemplate mongoTemplate() {
 
     // creates the MongoTemplate with the respective client and the database name

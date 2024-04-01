@@ -13,7 +13,7 @@ import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
-import vttp.csf.mp2.backend.utility.Utility;
+import vttp.csf.mp2.backend.utility.Constants;
 
 @Configuration
 public class RedisConfig {
@@ -79,7 +79,7 @@ public class RedisConfig {
     return jedisFac;
   }
 
-  @Bean(Utility.BEAN_REDIS)
+  @Bean(Constants.BEAN_REDIS)
   public RedisTemplate<String, String> createRedisConnection() {
 
     // creates an instance of JedisConnectionFactory, initialised by the method written above
