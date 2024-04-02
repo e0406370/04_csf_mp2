@@ -9,7 +9,7 @@ CREATE TABLE `users` (
     user_email VARCHAR(254) NOT NULL,
     user_dob DATE NOT NULL,
     user_username VARCHAR(20) NOT NULL,
-    user_password VARCHAR(60) NOT NULL,
+    user_password CHAR(60) NOT NULL,
 
     is_confirmed BOOLEAN DEFAULT FALSE,
     created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

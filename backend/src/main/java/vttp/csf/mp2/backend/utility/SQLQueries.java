@@ -9,12 +9,12 @@ public class SQLQueries {
 
   public static final String SQL_CHECK_EMAIL_EXISTS = """
       SELECT COUNT(*) FROM `users`
-        WHERE email = ?
+        WHERE user_email = ?
       """;
 
   public static final String SQL_CHECK_USERNAME_EXISTS = """
       SELECT COUNT(*) FROM `users`
-        WHERE username = ?
+        WHERE user_username = ?
       """;
 
 }
