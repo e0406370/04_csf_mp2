@@ -45,10 +45,10 @@ public class UserUtility {
     JsonObject jo = r.readObject();
 
     String userID = UserUtility.generateUserID();
-    String name = jo.getString("name");
-    String email = jo.getString("email");
+    String name = jo.getString("name").trim();
+    String email = jo.getString("email").trim().toLowerCase();
     LocalDate birthDate = UserUtility.parseDate(jo.getJsonNumber("birthDate").longValue());
-    String username = jo.getString("username");
+    String username = jo.getString("username").trim();
     String password = jo.getString("password");
 
     return new User(userID, name, email, birthDate, username, password);

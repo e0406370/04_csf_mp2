@@ -31,7 +31,6 @@ public class UserController {
     User newUser = UserUtility.parseRegistrationPayload(registrationPayload);
 
     try {
-
       userSvc.registerUser(newUser);
 
       JsonObject registrationSuccessResponse = Json.createObjectBuilder()
@@ -44,12 +43,10 @@ public class UserController {
     }
 
     catch (EmailExistsException e) {
-
       return UserUtility.createErrorResponse(HttpStatus.CONFLICT, "emailExists", e.getMessage());
     }
 
     catch (UsernameExistsException e) {
-
       return UserUtility.createErrorResponse(HttpStatus.CONFLICT, "usernameExists", e.getMessage());
     }
   }
