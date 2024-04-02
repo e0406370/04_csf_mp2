@@ -25,10 +25,13 @@ public class UserController {
   @Autowired
   private UserService userSvc;
 
+  @Autowired
+  private UserUtility userUtils;
+
   @PostMapping(path = "/register")
   public ResponseEntity<String> registerUser(@RequestBody String registrationPayload) {
 
-    User newUser = UserUtility.parseRegistrationPayload(registrationPayload);
+    User newUser = userUtils.parseRegistrationPayload(registrationPayload);
 
     try {
       userSvc.registerUser(newUser);
@@ -43,11 +46,11 @@ public class UserController {
     }
 
     catch (EmailExistsException e) {
-      return UserUtility.createErrorResponse(HttpStatus.CONFLICT, "emailExists", e.getMessage());
+      return userUtils.createErrorResponse(HttpStatus.CONFLICT, "emailExists", e.getMessage());
     }
 
     catch (UsernameExistsException e) {
-      return UserUtility.createErrorResponse(HttpStatus.CONFLICT, "usernameExists", e.getMessage());
+      return userUtils.createErrorResponse(HttpStatus.CONFLICT, "usernameExists", e.getMessage());
     }
   }
 }
