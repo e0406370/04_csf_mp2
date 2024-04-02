@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { PASSWORD_REGEX } from '../utility/constants';
 import { UserRegistrationService } from './user-registration.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-registration',
@@ -13,7 +14,8 @@ import { UserRegistrationService } from './user-registration.service';
 export class UserRegistrationComponent implements OnInit {
 
   private fb = inject(FormBuilder);
-  private userRegistrationSvc = inject(UserRegistrationService) 
+  private router = inject(Router);
+  private userRegistrationSvc = inject(UserRegistrationService);
 
   userRegistrationForm!: FormGroup;
 
@@ -53,11 +55,20 @@ export class UserRegistrationComponent implements OnInit {
         Validators.required,
         Validators.pattern(PASSWORD_REGEX)
       ])
-
     });
   }
 
   submitRegistrationForm(): void {
 
+    const newUser = this.userRegistrationSvc.parseRegistrationForm(this.userRegistrationForm);
+
+    this.userRegistrationSvc.registerUser(newUser)
+      .then(result => {
+        alert(`User ID: ${result.UserID}`);
+        this.router.navigate(['/']);
+      })
+      .catch(error => {
+        alert(`Error: ${JSON.stringify(error)}`)
+      });
   }
 }
