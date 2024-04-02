@@ -30,7 +30,7 @@ export class UserRegistrationService {
     const newUser: User = {
       name: userRegistrationForm.get("name")?.value,
       email: userRegistrationForm.get("email")?.value,
-      birthDate: userRegistrationForm.get("birthDate")?.value.getTime(),
+      birthDate: new Date(userRegistrationForm.get("birthDate")?.value).getTime(),
       username: userRegistrationForm.get("username")?.value,
       password: userRegistrationForm.get("password")?.value
     }

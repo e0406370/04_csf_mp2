@@ -1,12 +1,16 @@
 package vttp.csf.mp2.backend.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
 
 import vttp.csf.mp2.backend.models.User;
 import vttp.csf.mp2.backend.services.UserService;
@@ -26,7 +30,13 @@ public class UserController {
 
     userSvc.registerUser(newUser);
 
-    return ResponseEntity.ok("{}");
+    JsonObject success = Json.createObjectBuilder()
+        .add("userID", newUser.userID())
+        .build();
+
+    return ResponseEntity
+        .status(HttpStatus.CREATED)
+        .body(success.toString());
   }
 
 }

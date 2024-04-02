@@ -64,7 +64,7 @@ export class UserRegistrationComponent implements OnInit {
 
     this.userRegistrationSvc.registerUser(newUser)
       .then(result => {
-        alert(`User ID: ${result.UserID}`);
+        alert(`User ID: ${result.userID}`);
         this.router.navigate(['/']);
       })
       .catch(error => {
