@@ -4,16 +4,15 @@ USE `csf_mp2`;
 
 CREATE TABLE `users` (
 
-    id INT AUTO_INCREMENT,
-    is_confirmed BOOLEAN DEFAULT FALSE,
-    created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
     user_id CHAR(26) NOT NULL,
     user_name VARCHAR(25) NOT NULL,
     user_email VARCHAR(254) NOT NULL,
     user_dob DATE NOT NULL,
     user_username VARCHAR(20) NOT NULL,
     user_password VARCHAR(64) NOT NULL,
+
+    is_confirmed BOOLEAN DEFAULT FALSE,
+    created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT pk_user_id PRIMARY KEY (user_id),
     CONSTRAINT uq_user_email UNIQUE (user_email),
@@ -25,7 +24,7 @@ CREATE TABLE `users` (
 );
 
 -- 1 to 1 relationship between `users` and `user_login`
--- upsert (update) upon login
+-- upsert (update) upon successful login
 CREATE TABLE `user_login` (
 
     user_id CHAR(26) NOT NULL,
@@ -33,4 +32,7 @@ CREATE TABLE `user_login` (
 
     CONSTRAINT pk_user_id PRIMARY KEY (user_id),
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES `users`(user_id) ON DELETE CASCADE
-)
+);
+
+grant all privileges on csf_mp2.* to fred@'%';
+flush privileges;
