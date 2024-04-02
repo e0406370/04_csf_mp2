@@ -34,5 +34,5 @@ CREATE TABLE `user_login` (
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES `users`(user_id) ON DELETE CASCADE
 );
 
-grant all privileges on csf_mp2.* to fred@'%';
-flush privileges;
+-- grant all privileges on csf_mp2.* to fred@'%';
+-- flush privileges;
