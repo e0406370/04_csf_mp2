@@ -13,6 +13,16 @@ public class UserRepository {
   @Autowired
   private JdbcTemplate template;
 
+  public boolean emailExists(String email) {
+
+    return template.queryForObject(SQLQueries.SQL_CHECK_EMAIL_EXISTS, Integer.class, email) > 0;
+  }
+
+  public boolean usernameExists(String username) {
+
+    return template.queryForObject(SQLQueries.SQL_CHECK_USERNAME_EXISTS, Integer.class, username) > 0;
+  }
+
   public boolean registerUser(User newUser) {
 
     int registered = template.update(
@@ -27,5 +37,4 @@ public class UserRepository {
 
     return registered > 0;
   }
-
 }

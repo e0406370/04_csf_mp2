@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import com.github.f4b6a3.ulid.UlidCreator;
@@ -52,4 +54,14 @@ public class UserUtility {
     return new User(userID, name, email, birthDate, username, password);
   }
 
+  public static ResponseEntity<String> createErrorResponse(HttpStatus status, String errorName, String errorMessage) {
+
+    JsonObject errorResponse = Json.createObjectBuilder()
+        .add(errorName, errorMessage)
+        .build();
+
+    return ResponseEntity
+        .status(status)
+        .body(errorResponse.toString());
+  }
 }

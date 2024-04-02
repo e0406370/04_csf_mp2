@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
 
+import vttp.csf.mp2.backend.exceptions.EmailExistsException;
+import vttp.csf.mp2.backend.exceptions.UsernameExistsException;
 import vttp.csf.mp2.backend.models.User;
 import vttp.csf.mp2.backend.services.UserService;
 import vttp.csf.mp2.backend.utility.UserUtility;
@@ -28,15 +30,27 @@ public class UserController {
 
     User newUser = UserUtility.parseRegistrationPayload(registrationPayload);
 
-    userSvc.registerUser(newUser);
+    try {
 
-    JsonObject success = Json.createObjectBuilder()
-        .add("userID", newUser.userID())
-        .build();
+      userSvc.registerUser(newUser);
 
-    return ResponseEntity
-        .status(HttpStatus.CREATED)
-        .body(success.toString());
+      JsonObject registrationSuccessResponse = Json.createObjectBuilder()
+          .add("userID", newUser.userID())
+          .build();
+
+      return ResponseEntity
+          .status(HttpStatus.CREATED)
+          .body(registrationSuccessResponse.toString());
+    }
+
+    catch (EmailExistsException e) {
+
+      return UserUtility.createErrorResponse(HttpStatus.CONFLICT, "emailExists", e.getMessage());
+    }
+
+    catch (UsernameExistsException e) {
+
+      return UserUtility.createErrorResponse(HttpStatus.CONFLICT, "usernameExists", e.getMessage());
+    }
   }
-
 }
