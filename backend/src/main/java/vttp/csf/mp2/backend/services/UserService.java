@@ -9,12 +9,16 @@ import vttp.csf.mp2.backend.exceptions.UsernameExistsException;
 import vttp.csf.mp2.backend.models.LoginDetails;
 import vttp.csf.mp2.backend.models.User;
 import vttp.csf.mp2.backend.repositories.UserRepository;
+import vttp.csf.mp2.backend.utility.UserUtility;
 
 @Service
 public class UserService {
 
   @Autowired
   private UserRepository userRepo;
+
+  @Autowired
+  private UserUtility userUtils;
 
   public boolean registerUser(User newUser) throws EmailExistsException, UsernameExistsException {
 
@@ -35,9 +39,26 @@ public class UserService {
 
   public boolean loginUser(LoginDetails login) throws AuthenticationFailureException {
 
-    if (!userRepo.usernameExists(login.username())) {
+    String username = login.username();
+
+    if (!userRepo.usernameExists(username)) {
 
       String errorMessage = "Username not found in database!";
+      throw new AuthenticationFailureException(errorMessage);
+    }
+
+    String rawPassword = login.password();
+    String hashedPassword = userRepo.retrieveHashedPasswordByUsername(username);
+
+    if (!userUtils.isCorrectMatch(rawPassword, hashedPassword)) {
+
+      String errorMessage = "Incorrect password!";
+      throw new AuthenticationFailureException(errorMessage);
+    }
+
+    if (!userRepo.isAccountConfirmed(username)) {
+
+      String errorMessage = "Account has not been confirmed!";
       throw new AuthenticationFailureException(errorMessage);
     }
 

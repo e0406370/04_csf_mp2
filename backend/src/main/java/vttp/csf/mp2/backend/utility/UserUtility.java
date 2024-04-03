@@ -71,6 +71,11 @@ public class UserUtility {
     return new LoginDetails(username, rawPassword);
   }
 
+  public boolean isCorrectMatch(String rawPassword, String hashedPassword) {
+
+    return passwordEncoder.matches(rawPassword, hashedPassword);
+  }
+
   public ResponseEntity<String> createErrorResponse(HttpStatus status, String errorName, String errorMessage) {
 
     JsonObject errorResponse = Json.createObjectBuilder()

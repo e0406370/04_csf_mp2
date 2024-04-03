@@ -23,6 +23,16 @@ public class UserRepository {
     return template.queryForObject(SQLQueries.SQL_CHECK_USERNAME_EXISTS, Integer.class, username) > 0;
   }
 
+  public String retrieveHashedPasswordByUsername(String username) {
+
+    return template.queryForObject(SQLQueries.SQL_RETRIEVE_PASSWORD_BY_USERNAME, String.class, username);
+  }
+
+  public boolean isAccountConfirmed(String username) {
+
+    return template.queryForObject(SQLQueries.SQL_CHECK_CONFIRMATION_STATUS, Boolean.class, username);
+  }
+
   public boolean registerUser(User newUser) {
 
     int registered = template.update(

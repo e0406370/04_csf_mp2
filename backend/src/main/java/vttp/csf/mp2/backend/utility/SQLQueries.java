@@ -9,12 +9,21 @@ public class SQLQueries {
 
   public static final String SQL_CHECK_EMAIL_EXISTS = """
       SELECT COUNT(*) FROM `users`
-        WHERE user_email = ?
+        WHERE `user_email` = ?
       """;
 
   public static final String SQL_CHECK_USERNAME_EXISTS = """
       SELECT COUNT(*) FROM `users`
-        WHERE user_username = ?
+        WHERE `user_username` = ?
       """;
 
+  public static final String SQL_CHECK_CONFIRMATION_STATUS = """
+      SELECT `is_confirmed` FROM `users`
+        WHERE `user_username` = ?
+      """;
+
+  public static final String SQL_RETRIEVE_PASSWORD_BY_USERNAME = """
+      SELECT `user_password` FROM `users`
+        WHERE `user_username` = ?
+      """;
 }
