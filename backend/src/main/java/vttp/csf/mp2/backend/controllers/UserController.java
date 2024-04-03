@@ -14,6 +14,7 @@ import jakarta.json.JsonObject;
 
 import vttp.csf.mp2.backend.exceptions.EmailExistsException;
 import vttp.csf.mp2.backend.exceptions.UsernameExistsException;
+import vttp.csf.mp2.backend.models.LoginDetails;
 import vttp.csf.mp2.backend.models.User;
 import vttp.csf.mp2.backend.services.UserService;
 import vttp.csf.mp2.backend.utility.UserUtility;
@@ -52,5 +53,14 @@ public class UserController {
     catch (UsernameExistsException e) {
       return userUtils.createErrorResponse(HttpStatus.CONFLICT, "usernameExists", e.getMessage());
     }
+  }
+
+  @PostMapping(path = "/login")
+  public ResponseEntity<String> loginUser(@RequestBody String loginPayload) {
+
+    LoginDetails login = userUtils.parseLoginPayload(loginPayload);
+
+    
+    return ResponseEntity.ok("{}");
   }
 }

@@ -18,6 +18,7 @@ import jakarta.json.Json;
 import jakarta.json.JsonObject;
 import jakarta.json.JsonReader;
 
+import vttp.csf.mp2.backend.models.LoginDetails;
 import vttp.csf.mp2.backend.models.User;
 
 @Component
@@ -54,9 +55,20 @@ public class UserUtility {
     String email = jo.getString("email").trim().toLowerCase();
     LocalDate birthDate = parseDate(jo.getJsonNumber("birthDate").longValue());
     String username = jo.getString("username").trim();
-    String password = passwordEncoder.encode(jo.getString("password"));
+    String encodedPassword = passwordEncoder.encode(jo.getString("password"));
 
-    return new User(userID, name, email, birthDate, username, password);
+    return new User(userID, name, email, birthDate, username, encodedPassword);
+  }
+
+  public LoginDetails parseLoginPayload(String loginPayload) {
+
+    JsonReader r = Json.createReader(new StringReader(loginPayload));
+    JsonObject jo = r.readObject();
+
+    String username = jo.getString("username").trim();
+    String rawPassword = jo.getString("password");
+
+    return new LoginDetails(username, rawPassword);
   }
 
   public ResponseEntity<String> createErrorResponse(HttpStatus status, String errorName, String errorMessage) {
