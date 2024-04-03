@@ -1,11 +1,21 @@
 <nav>
-  <button type="button" class="btn btn-lg btn-success" [routerLink]="['/']">
-    Home
-  </button>
+  <a [routerLink]="['/']">
+    <button type="button" class="btn btn-lg btn-success" >
+      Home
+    </button>
+  </a>
 
-  <button type="button" class="btn btn-lg btn-primary ms-3" [routerLink]="['/register']">
-    Register User
-  </button>
+  <a [routerLink]="['/register']">
+    <button type="button" class="btn btn-lg btn-primary ms-3">
+      Register User
+    </button>
+  </a>
+
+  <a [routerLink]="['/login']">
+    <button type="button" class="btn btn-lg btn-primary ms-3">
+      Login User
+    </button>
+  </a>  
 </nav>
 <br/>
 
