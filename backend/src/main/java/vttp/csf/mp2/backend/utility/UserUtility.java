@@ -78,6 +78,8 @@ public class UserUtility {
 
   public JsonObject retrieveUserInJson(SqlRowSet srs) {
 
+    srs.next();
+
     String userID = srs.getString("user_id");
     String name = srs.getString("user_name");
     String email = srs.getString("user_email");

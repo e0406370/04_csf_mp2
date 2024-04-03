@@ -9,7 +9,7 @@ public class SQLQueries {
 
   public static final String SQL_LOGIN_USER = """
       INSERT INTO `user_login` (`user_id`)
-        VALUES (SELECT `user_id` FROM `users` WHERE `user_username` = ?)
+        VALUES ((SELECT `user_id` FROM `users` WHERE `user_username` = ?))
       ON DUPLICATE KEY UPDATE `last_login_date` = CURRENT_TIMESTAMP
       """;
 
