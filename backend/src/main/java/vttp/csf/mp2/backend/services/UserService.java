@@ -37,7 +37,7 @@ public class UserService {
     return userRepo.registerUser(newUser);
   }
 
-  public boolean loginUser(LoginDetails login) throws AuthenticationFailureException {
+  public User loginUser(LoginDetails login) throws AuthenticationFailureException {
 
     String username = login.username();
 
@@ -62,6 +62,7 @@ public class UserService {
       throw new AuthenticationFailureException(errorMessage);
     }
 
-    return false;
+    userRepo.loginUser(username);
+    return User.retrieveUser(userRepo.retrieveDetailsByUsername(username));
   }
 }

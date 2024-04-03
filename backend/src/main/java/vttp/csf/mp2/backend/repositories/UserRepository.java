@@ -2,6 +2,7 @@ package vttp.csf.mp2.backend.repositories;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
 import vttp.csf.mp2.backend.models.User;
@@ -42,9 +43,18 @@ public class UserRepository {
         newUser.email(),
         newUser.birthDate(),
         newUser.username(),
-        newUser.password()
-    );
+        newUser.password());
 
     return registered > 0;
+  }
+
+  public boolean loginUser(String username) {
+
+    return template.update(SQLQueries.SQL_LOGIN_USER, username) > 0;
+  }
+  
+  public SqlRowSet retrieveDetailsByUsername(String username) {
+
+    return template.queryForRowSet(SQLQueries.SQL_RETRIEVE_DETAILS_BY_USERNAME, username);
   }
 }
