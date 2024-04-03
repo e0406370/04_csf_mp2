@@ -26,7 +26,7 @@ export class UserLoginComponent implements OnInit {
   createLoginForm(): FormGroup {
     
     return this.fb.group({
-      
+
       username: this.fb.control<string>('', [Validators.required]),
 
       password: this.fb.control<string>('', [Validators.required]),
@@ -36,5 +36,20 @@ export class UserLoginComponent implements OnInit {
   submitLoginForm(): void {
 
     const loginDetails = this.userLoginSvc.parseLoginForm(this.userLoginForm);
+
+    this.userLoginSvc.loginUser(loginDetails)
+      .then(result => {
+          
+        alert(`User ID: ${result.userID}`);
+        this.router.navigate(['/register']);
+      })
+      .catch(error => {
+
+        if (error.authenticationFailure) {
+          alert(`Error: ${error.authenticationFailure}`)
+        }
+
+        alert(`Error: ${JSON.stringify(error)}`)
+      });
   }
 }
