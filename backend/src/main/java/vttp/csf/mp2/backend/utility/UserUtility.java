@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +18,6 @@ import com.github.f4b6a3.ulid.UlidCreator;
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
 import jakarta.json.JsonReader;
-
 import vttp.csf.mp2.backend.models.LoginDetails;
 import vttp.csf.mp2.backend.models.User;
 
@@ -74,6 +74,25 @@ public class UserUtility {
   public boolean isCorrectMatch(String rawPassword, String hashedPassword) {
 
     return passwordEncoder.matches(rawPassword, hashedPassword);
+  }
+
+  public JsonObject retrieveUserInJson(SqlRowSet srs) {
+
+    String userID = srs.getString("user_id");
+    String name = srs.getString("user_name");
+    String email = srs.getString("user_email");
+    Long birthDate = srs.getDate("user_dob").getTime();
+    String username = srs.getString("user_username");
+    String password = srs.getString("user_password");
+
+    return Json.createObjectBuilder()
+        .add("userID", userID)
+        .add("name", name)
+        .add("email", email)
+        .add("birthDate", birthDate)
+        .add("username", username)
+        .add("password", password)
+        .build();
   }
 
   public ResponseEntity<String> createErrorResponse(HttpStatus status, String errorName, String errorMessage) {

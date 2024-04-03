@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
 
+import vttp.csf.mp2.backend.exceptions.AuthenticationFailureException;
 import vttp.csf.mp2.backend.exceptions.EmailExistsException;
 import vttp.csf.mp2.backend.exceptions.UsernameExistsException;
 import vttp.csf.mp2.backend.models.LoginDetails;
@@ -60,7 +61,16 @@ public class UserController {
 
     LoginDetails login = userUtils.parseLoginPayload(loginPayload);
 
-    
-    return ResponseEntity.ok("{}");
+    try {
+      JsonObject loginSuccessResponse = userSvc.loginUser(login);
+
+      return ResponseEntity
+          .status(HttpStatus.OK)
+          .body(loginSuccessResponse.toString());
+    }
+
+    catch (AuthenticationFailureException e) {
+      return userUtils.createErrorResponse(HttpStatus.UNAUTHORIZED, "authenticationFailure", e.getMessage());
+    }
   }
 }
