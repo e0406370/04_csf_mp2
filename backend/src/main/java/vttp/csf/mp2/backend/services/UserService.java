@@ -3,6 +3,8 @@ package vttp.csf.mp2.backend.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jakarta.json.JsonObject;
+
 import vttp.csf.mp2.backend.exceptions.AuthenticationFailureException;
 import vttp.csf.mp2.backend.exceptions.EmailExistsException;
 import vttp.csf.mp2.backend.exceptions.UsernameExistsException;
@@ -37,7 +39,7 @@ public class UserService {
     return userRepo.registerUser(newUser);
   }
 
-  public User loginUser(LoginDetails login) throws AuthenticationFailureException {
+  public JsonObject loginUser(LoginDetails login) throws AuthenticationFailureException {
 
     String username = login.username();
 
@@ -63,6 +65,6 @@ public class UserService {
     }
 
     userRepo.loginUser(username);
-    return User.retrieveUser(userRepo.retrieveDetailsByUsername(username));
+    return User.retrieveUserInJson(userRepo.retrieveDetailsByUsername(username));
   }
 }
