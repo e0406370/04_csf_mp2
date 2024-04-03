@@ -43,7 +43,8 @@ public class UserRepository {
         newUser.email(),
         newUser.birthDate(),
         newUser.username(),
-        newUser.password());
+        newUser.password()
+    );
 
     return registered > 0;
   }

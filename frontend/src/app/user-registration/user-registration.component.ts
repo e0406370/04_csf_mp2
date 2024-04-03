@@ -64,10 +64,20 @@ export class UserRegistrationComponent implements OnInit {
 
     this.userRegistrationSvc.registerUser(newUser)
       .then(result => {
+        
         alert(`User ID: ${result.userID}`);
-        this.router.navigate(['/']);
+        this.router.navigate(['/login']);
       })
       .catch(error => {
+
+        if (error.emailExists) {
+          alert(`Error: ${error.emailExists}`)
+        }
+
+        if (error.usernameExists) {
+          alert(`Error: ${error.usernameExists}`)
+        }
+
         alert(`Error: ${JSON.stringify(error)}`)
       });
   }
