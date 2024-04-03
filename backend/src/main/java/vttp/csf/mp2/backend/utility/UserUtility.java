@@ -1,6 +1,7 @@
 package vttp.csf.mp2.backend.utility;
 
 import java.io.StringReader;
+import java.security.SecureRandom;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -18,6 +19,7 @@ import com.github.f4b6a3.ulid.UlidCreator;
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
 import jakarta.json.JsonReader;
+
 import vttp.csf.mp2.backend.models.LoginDetails;
 import vttp.csf.mp2.backend.models.User;
 
@@ -31,6 +33,15 @@ public class UserUtility {
   private String generateUserID() {
 
     return UlidCreator.getUlid().toLowerCase();
+  }
+
+  // 6 digits long from 000000 to 999999
+  public String generateConfirmationToken() {
+
+    SecureRandom rnd = new SecureRandom();
+    int num = rnd.nextInt(1000000);
+
+    return String.format("%06d", num);
   }
 
   private LocalDate parseDate(Long longDateValue) {
