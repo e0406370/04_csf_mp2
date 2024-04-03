@@ -1,8 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { AbstractControl, FormGroup, ValidationErrors } from '@angular/forms';
-import { User } from '../models/user';
-import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
+
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,8 @@ export class UserRegistrationService {
   parseRegistrationForm(userRegistrationForm: FormGroup): User {
 
     const newUser: User = {
+
+      userID: "",
       name: userRegistrationForm.get("name")?.value,
       email: userRegistrationForm.get("email")?.value,
       birthDate: new Date(userRegistrationForm.get("birthDate")?.value).getTime(),

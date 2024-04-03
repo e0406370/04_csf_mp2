@@ -1,9 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { PASSWORD_REGEX } from '../utility/constants';
 import { UserRegistrationService } from './user-registration.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-registration',
