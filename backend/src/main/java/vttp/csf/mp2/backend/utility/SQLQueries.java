@@ -43,8 +43,14 @@ public class SQLQueries {
         WHERE `user_username` = ?
       """;
 
-  public static final String SQL_DELETE_USER_BY_USERID = """
+  public static final String SQL_DELETE_USER = """
       DELETE FROM `users`
+        WHERE `user_id` = ?
+      """;
+
+  public static final String SQL_CONFIRM_USER = """
+      UPDATE `users`
+        SET `is_confirmed` = TRUE
         WHERE `user_id` = ?
       """;
 }

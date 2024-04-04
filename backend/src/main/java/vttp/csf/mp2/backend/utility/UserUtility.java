@@ -72,6 +72,14 @@ public class UserUtility {
     return new LoginDetails(username, rawPassword);
   }
 
+  public String parseConfirmationPayload(String confirmationPayload) {
+
+    JsonReader r = Json.createReader(new StringReader(confirmationPayload));
+    JsonObject jo = r.readObject();
+
+    return jo.getString("confirmationCode");
+  }
+
   public boolean isCorrectMatch(String rawPassword, String hashedPassword) {
 
     return passwordEncoder.matches(rawPassword, hashedPassword);

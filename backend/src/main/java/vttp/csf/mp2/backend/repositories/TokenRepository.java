@@ -56,4 +56,11 @@ public class TokenRepository {
 
     return redisTemplate.hasKey(userID);
   }
+
+  public boolean isCorrectConfirmationCode(String userID, String confirmationCode) {
+
+    ValueOperations<String, String> valueOps = redisTemplate.opsForValue();
+
+    return valueOps.get(userID).toString().equals(confirmationCode);
+  }
 }

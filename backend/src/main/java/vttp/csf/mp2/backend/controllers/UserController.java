@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -77,13 +78,31 @@ public class UserController {
   }
 
   @GetMapping(path = "/confirm/{userID}")
-  public ResponseEntity<String> confirmUser(@PathVariable String userID) {
+  public ResponseEntity<String> confirmUserGet(@PathVariable String userID) {
 
     if (!userSvc.isUnconfirmedUserID(userID)) {
 
-      String notFound = "User ID %s not found among unconfirmed accounts".formatted(userID);
+      String notFound = "User ID %s not found among unconfirmed accounts!".formatted(userID);
       return userUtils.createErrorResponse(HttpStatus.NOT_FOUND, "notFound", notFound);
     }
+
+    return ResponseEntity
+        .status(HttpStatus.OK)
+        .body(userID);
+  }
+
+  @PutMapping(path = "/confirm/{userID}")
+  public ResponseEntity<String> confirmUserPut(@PathVariable String userID, @RequestBody String confirmationPayload) {
+
+    String confirmationCode = userUtils.parseConfirmationPayload(confirmationPayload);
+
+    if (!userSvc.isCorrectConfirmationCode(userID, confirmationCode)) {
+
+      String incorrectCode = "Incorrect confirmation code!";
+      return userUtils.createErrorResponse(HttpStatus.BAD_REQUEST, "incorrectCode", incorrectCode);
+    }
+
+    userSvc.confirmUser(userID);
 
     return ResponseEntity
         .status(HttpStatus.OK)

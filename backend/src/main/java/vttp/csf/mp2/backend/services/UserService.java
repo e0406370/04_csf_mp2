@@ -83,4 +83,20 @@ public class UserService {
 
     return tokenRepo.isUnconfirmedUserID(userID);
   }
+
+  public boolean isCorrectConfirmationCode(String userID, String confirmationCode) {
+
+    return tokenRepo.isCorrectConfirmationCode(userID, confirmationCode);
+  }
+
+  public void confirmUser(String userID) {
+
+    boolean confirmed = userRepo.confirmUser(userID);
+
+    if (confirmed) {
+
+      tokenRepo.removeUserID(userID);
+      tokenRepo.deleteConfirmationToken(userID);
+    }
+  }
 }

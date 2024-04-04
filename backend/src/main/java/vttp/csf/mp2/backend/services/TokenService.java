@@ -52,7 +52,7 @@ public class TokenService {
     tokenRepo.removeUserID(userID);
     logger.info("Deleted Redis record in `unconfirmed_users_zset` sorted set with userID: %s".formatted(userID));
 
-    userRepo.deleteUserByUserID(userID);
+    userRepo.deleteUser(userID);
     logger.info("Deleted MySQL record in `users` table with userID: %s".formatted(userID));
   }
 }

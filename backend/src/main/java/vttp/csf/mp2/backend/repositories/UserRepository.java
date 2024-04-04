@@ -59,10 +59,17 @@ public class UserRepository {
     return jdbcTemplate.queryForRowSet(SQLQueries.SQL_RETRIEVE_DETAILS_BY_USERNAME, username);
   }
 
-  public boolean deleteUserByUserID(String userID) {
+  public boolean deleteUser(String userID) {
 
-    int deleted = jdbcTemplate.update(SQLQueries.SQL_DELETE_USER_BY_USERID, userID);
+    int deleted = jdbcTemplate.update(SQLQueries.SQL_DELETE_USER, userID);
 
     return deleted > 0;
+  }
+
+  public boolean confirmUser(String userID) {
+
+    int confirmed = jdbcTemplate.update(SQLQueries.SQL_CONFIRM_USER, userID);
+
+    return confirmed > 0;
   }
 }
