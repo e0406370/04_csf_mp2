@@ -10,11 +10,15 @@ import vttp.csf.mp2.backend.exceptions.EmailExistsException;
 import vttp.csf.mp2.backend.exceptions.UsernameExistsException;
 import vttp.csf.mp2.backend.models.LoginDetails;
 import vttp.csf.mp2.backend.models.User;
+import vttp.csf.mp2.backend.repositories.TokenRepository;
 import vttp.csf.mp2.backend.repositories.UserRepository;
 import vttp.csf.mp2.backend.utility.UserUtility;
 
 @Service
 public class UserService {
+
+  @Autowired
+  private TokenRepository tokenRepo;
 
   @Autowired
   private UserRepository userRepo;
@@ -34,6 +38,12 @@ public class UserService {
 
       String errorMessage = "Username already exists in database!";
       throw new UsernameExistsException(errorMessage);
+    }
+
+    boolean registered = userRepo.registerUser(newUser);
+
+    if (registered) {
+      tokenRepo.saveConfirmationToken(newUser.userID());
     }
 
     return userRepo.registerUser(newUser);

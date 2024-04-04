@@ -31,37 +31,21 @@ public class TokenService {
   @Scheduled(fixedDelay = 60000)
   public void removeExpiredTokens() {
 
+    logger.info("Checking for expired tokens...");
+
     long currentTime = System.currentTimeMillis();
-    Set<String> expiredTokens = redisTemplate.opsForZSet().rangeByScore(null, currentTime, currentTime);
+    Set<String> unconfirmedUsers = redisTemplate.opsForZSet().rangeByScore("unconfirmedUsers", 0, currentTime + Constants.EXPIRATION_TIME_MINS);
 
-    
+    for (String userID : unconfirmedUsers) {
+
+      if (!redisTemplate.hasKey(userID)) {
+
+        tokenRepo.removeUserID(userID);
+        logger.info("Deleted Redis record in `unconfirmedUsers` sorted set with userID: %s".formatted(userID));
+
+        userRepo.deleteUserByUserID(userID);
+        logger.info("Deleted MySQL record in `users` table with userID: %s".formatted(userID));
+      }
+    } 
   }
-
-  // @Async
-  // public void start() {
-
-  //   Runnable poller = () -> {
-
-  //     logger.info("Start polling sales queue...");
-
-  //     while (true) {
-  //       logger.info("Polling...");
-
-  //       // wait for 10 seconds before processing this line
-  //       // String value = listOpr.rightPop("sales", Duration.ofSeconds(10));
-
-  //       if ((null == value) || ("" == value.trim())) {
-  //         logger.info("No data repolling...");
-  //         continue;
-  //       }
-
-  //       // process the data here
-  //       logger.info(">>>>> Data polled: %s".formatted(value));
-  //     }
-  //   };
-
-  //   ExecutorService threadPool = Executors.newFixedThreadPool(1);
-  //   threadPool.submit(poller);
-  // }
-
 }

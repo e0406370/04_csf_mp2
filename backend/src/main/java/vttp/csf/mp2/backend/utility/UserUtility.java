@@ -1,7 +1,6 @@
 package vttp.csf.mp2.backend.utility;
 
 import java.io.StringReader;
-import java.security.SecureRandom;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -11,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-
 import com.github.f4b6a3.ulid.UlidCreator;
 
 import jakarta.json.Json;

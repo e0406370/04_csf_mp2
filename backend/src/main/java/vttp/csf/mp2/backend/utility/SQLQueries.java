@@ -42,4 +42,9 @@ public class SQLQueries {
         FROM `users`
         WHERE `user_username` = ?
       """;
+
+  public static final String SQL_DELETE_USER_BY_USERID = """
+      DELETE FROM `users`
+        WHERE `user_id` = ?
+      """;
 }

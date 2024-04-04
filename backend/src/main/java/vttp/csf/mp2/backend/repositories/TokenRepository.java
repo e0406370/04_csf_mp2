@@ -31,21 +31,30 @@ public class TokenRepository {
   public void deleteConfirmationToken(String userID) {
 
     ValueOperations<String, String> valueOps = redisTemplate.opsForValue();
-    ZSetOperations<String, String> zSetOps = redisTemplate.opsForZSet();
 
-    String confirmationToken = valueOps.getAndDelete(userID);
-    zSetOps.remove(userID, confirmationToken);
+    valueOps.getAndDelete(userID);
   }
-
 
   public void saveConfirmationToken(String userID) {
 
     ValueOperations<String, String> valueOps = redisTemplate.opsForValue();
-    ZSetOperations<String, String> zSetOps = redisTemplate.opsForZSet();
 
     String confirmationToken = generateConfirmationToken();
 
     valueOps.setIfAbsent(userID, confirmationToken, Constants.EXPIRATION_TIME_MINS, TimeUnit.MINUTES);
+  }
+
+  public void removeUserID(String userID) {
+
+    ZSetOperations<String, String> zSetOps = redisTemplate.opsForZSet();
+
+    zSetOps.remove("unconfirmedUsers", userID);
+  }
+
+  public void addUserID(String userID) {
+
+    ZSetOperations<String, String> zSetOps = redisTemplate.opsForZSet();
+
     zSetOps.add("unconfirmedUsers", userID, Constants.EXPIRATION_TIME_MINS);
   }
 }
