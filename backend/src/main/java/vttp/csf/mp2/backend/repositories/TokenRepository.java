@@ -51,4 +51,9 @@ public class TokenRepository {
 
     zSetOps.add(Constants.UNCONFIRMED_USERS_ZSET, userID, Constants.EXPIRATION_TIME_MINS);
   }
+
+  public boolean isUnconfirmedUserID(String userID) {
+
+    return redisTemplate.hasKey(userID);
+  }
 }

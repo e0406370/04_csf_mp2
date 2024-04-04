@@ -78,4 +78,9 @@ public class UserService {
     userRepo.loginUser(username);
     return userUtils.retrieveUserInJson(userRepo.retrieveDetailsByUsername(username));
   }
+
+  public boolean isUnconfirmedUserID(String userID) {
+
+    return tokenRepo.isUnconfirmedUserID(userID);
+  }
 }
