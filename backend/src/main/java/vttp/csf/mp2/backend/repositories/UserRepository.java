@@ -46,8 +46,6 @@ public class UserRepository {
         newUser.password()
     );
 
-    // saveConfirmationToken(newUser.userID());
-
     return registered > 0;
   }
 

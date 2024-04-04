@@ -69,11 +69,11 @@ public class UserService {
       throw new AuthenticationFailureException(errorMessage);
     }
 
-    // if (!userRepo.isAccountConfirmed(username)) {
+    if (!userRepo.isAccountConfirmed(username)) {
 
-    //   String errorMessage = "Account has not been confirmed!";
-    //   throw new AuthenticationFailureException(errorMessage);
-    // }
+      String errorMessage = "Account has not been confirmed!";
+      throw new AuthenticationFailureException(errorMessage);
+    }
 
     userRepo.loginUser(username);
     return userUtils.retrieveUserInJson(userRepo.retrieveDetailsByUsername(username));
