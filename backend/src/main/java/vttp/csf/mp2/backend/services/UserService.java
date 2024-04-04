@@ -44,9 +44,10 @@ public class UserService {
 
     if (registered) {
       tokenRepo.saveConfirmationToken(newUser.userID());
+      tokenRepo.addUserID(newUser.userID());
     }
 
-    return userRepo.registerUser(newUser);
+    return registered;
   }
 
   public JsonObject loginUser(LoginDetails login) throws AuthenticationFailureException {
