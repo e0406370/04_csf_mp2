@@ -80,5 +80,7 @@ export class UserRegistrationComponent implements OnInit {
 
         alert(`Error: ${JSON.stringify(error)}`)
       });
+    
+    this.userRegistrationForm = this.createRegistrationForm();
   }
 }

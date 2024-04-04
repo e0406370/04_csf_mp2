@@ -35,15 +35,6 @@ public class UserUtility {
     return UlidCreator.getUlid().toLowerCase();
   }
 
-  // 6 digits long from 000000 to 999999
-  public String generateConfirmationToken() {
-
-    SecureRandom rnd = new SecureRandom();
-    int num = rnd.nextInt(1000000);
-
-    return String.format("%06d", num);
-  }
-
   private LocalDate parseDate(Long longDateValue) {
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("YYYY-MM-dd");

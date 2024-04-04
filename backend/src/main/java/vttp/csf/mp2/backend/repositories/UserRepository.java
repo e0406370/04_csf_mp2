@@ -1,30 +1,18 @@
 package vttp.csf.mp2.backend.repositories;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.redis.core.ListOperations;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
 import vttp.csf.mp2.backend.models.User;
-import vttp.csf.mp2.backend.utility.Constants;
 import vttp.csf.mp2.backend.utility.SQLQueries;
-import vttp.csf.mp2.backend.utility.UserUtility;
 
 @Repository
 public class UserRepository {
 
   @Autowired
   private JdbcTemplate jdbcTemplate;
-
-  @Autowired
-  @Qualifier(Constants.BEAN_REDIS)
-  private RedisTemplate<String, String> redisTemplate;
-
-  @Autowired
-  private UserUtility userUtils;
 
   public boolean emailExists(String email) {
 
@@ -45,7 +33,7 @@ public class UserRepository {
 
     return jdbcTemplate.queryForObject(SQLQueries.SQL_CHECK_CONFIRMATION_STATUS, Boolean.class, username);
   }
-
+  
   public boolean registerUser(User newUser) {
 
     int registered = jdbcTemplate.update(
@@ -58,7 +46,7 @@ public class UserRepository {
         newUser.password()
     );
 
-    saveConfirmationToken(newUser.userID());
+    // saveConfirmationToken(newUser.userID());
 
     return registered > 0;
   }
@@ -71,14 +59,5 @@ public class UserRepository {
   public SqlRowSet retrieveDetailsByUsername(String username) {
 
     return jdbcTemplate.queryForRowSet(SQLQueries.SQL_RETRIEVE_DETAILS_BY_USERNAME, username);
-  }
-
-  private void saveConfirmationToken(String userID) {
-
-    ListOperations<String, String> listOps = redisTemplate.opsForList();
-
-    String confirmationToken = userUtils.generateConfirmationToken();
-
-    listOps.rightPush("confirmationTokens", String.format("%s-%s", userID, confirmationToken));
   }
 }
