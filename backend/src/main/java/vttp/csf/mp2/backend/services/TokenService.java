@@ -1,6 +1,7 @@
 package vttp.csf.mp2.backend.services;
 
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,24 +29,30 @@ public class TokenService {
   @Autowired
   private UserRepository userRepo;
 
-  @Scheduled(fixedDelay = 60000)
-  public void removeExpiredTokens() {
+  @Scheduled(fixedDelay = Constants.SCHEDULED_INTERVAL_MINS, timeUnit = TimeUnit.MINUTES)
+  public void monitorExpiredTokens() {
 
     logger.info("Checking for expired tokens...");
 
-    long currentTime = System.currentTimeMillis();
-    Set<String> unconfirmedUsers = redisTemplate.opsForZSet().rangeByScore("unconfirmedUsers", 0, currentTime + Constants.EXPIRATION_TIME_MINS);
+    long minBound = 0;
+    long maxBound = System.currentTimeMillis() / (1000 * 60) + Constants.EXPIRATION_TIME_MINS;
+
+    Set<String> unconfirmedUsers = redisTemplate.opsForZSet().rangeByScore(Constants.UNCONFIRMED_USERS_ZSET, minBound, maxBound);
 
     for (String userID : unconfirmedUsers) {
 
       if (!redisTemplate.hasKey(userID)) {
-
-        tokenRepo.removeUserID(userID);
-        logger.info("Deleted Redis record in `unconfirmedUsers` sorted set with userID: %s".formatted(userID));
-
-        userRepo.deleteUserByUserID(userID);
-        logger.info("Deleted MySQL record in `users` table with userID: %s".formatted(userID));
+        deleteExpiredToken(userID);
       }
-    } 
+    }
+  }
+
+  private void deleteExpiredToken(String userID) {
+
+    tokenRepo.removeUserID(userID);
+    logger.info("Deleted Redis record in `unconfirmed_users_zset` sorted set with userID: %s".formatted(userID));
+
+    userRepo.deleteUserByUserID(userID);
+    logger.info("Deleted MySQL record in `users` table with userID: %s".formatted(userID));
   }
 }

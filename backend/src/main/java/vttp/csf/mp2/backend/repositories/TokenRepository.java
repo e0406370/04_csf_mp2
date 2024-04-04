@@ -22,7 +22,6 @@ public class TokenRepository {
   @Autowired
   private TokenUtility tokenUtils;
 
-
   public void deleteConfirmationToken(String userID) {
 
     ValueOperations<String, String> valueOps = redisTemplate.opsForValue();
@@ -43,13 +42,13 @@ public class TokenRepository {
 
     ZSetOperations<String, String> zSetOps = redisTemplate.opsForZSet();
 
-    zSetOps.remove("unconfirmedUsers", userID);
+    zSetOps.remove(Constants.UNCONFIRMED_USERS_ZSET, userID);
   }
 
   public void addUserID(String userID) {
 
     ZSetOperations<String, String> zSetOps = redisTemplate.opsForZSet();
 
-    zSetOps.add("unconfirmedUsers", userID, Constants.EXPIRATION_TIME_MINS);
+    zSetOps.add(Constants.UNCONFIRMED_USERS_ZSET, userID, Constants.EXPIRATION_TIME_MINS);
   }
 }
