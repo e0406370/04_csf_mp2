@@ -1,6 +1,5 @@
 package vttp.csf.mp2.backend.repositories;
 
-import java.security.SecureRandom;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,7 @@ import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Repository;
 
 import vttp.csf.mp2.backend.utility.Constants;
+import vttp.csf.mp2.backend.utility.TokenUtility;
 
 @Repository
 public class TokenRepository {
@@ -19,14 +19,9 @@ public class TokenRepository {
   @Qualifier(Constants.BEAN_REDIS)
   private RedisTemplate<String, String> redisTemplate;
 
-  // 6 digits long from 000000 to 999999
-  private String generateConfirmationToken() {
+  @Autowired
+  private TokenUtility tokenUtils;
 
-    SecureRandom rnd = new SecureRandom();
-    int num = rnd.nextInt(1000000);
-
-    return String.format("%06d", num);
-  }
 
   public void deleteConfirmationToken(String userID) {
 
@@ -39,7 +34,7 @@ public class TokenRepository {
 
     ValueOperations<String, String> valueOps = redisTemplate.opsForValue();
 
-    String confirmationToken = generateConfirmationToken();
+    String confirmationToken = tokenUtils.generateConfirmationToken();
 
     valueOps.setIfAbsent(userID, confirmationToken, Constants.EXPIRATION_TIME_MINS, TimeUnit.MINUTES);
   }

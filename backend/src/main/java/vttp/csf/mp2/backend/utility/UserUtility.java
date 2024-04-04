@@ -28,7 +28,7 @@ public class UserUtility {
   @Autowired
   private PasswordEncoder passwordEncoder;
 
-  // 26 characters long
+  // generate a 26-character ULID
   private String generateUserID() {
 
     return UlidCreator.getUlid().toLowerCase();
