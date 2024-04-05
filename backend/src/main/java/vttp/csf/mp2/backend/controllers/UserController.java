@@ -24,7 +24,7 @@ import vttp.csf.mp2.backend.services.UserService;
 import vttp.csf.mp2.backend.utility.UserUtility;
 
 @RestController
-@RequestMapping(path = "/api", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserController {
 
   @Autowired
@@ -86,9 +86,13 @@ public class UserController {
       return userUtils.createErrorResponse(HttpStatus.NOT_FOUND, "notFound", notFound); // 404 NOT FOUND
     }
 
+    JsonObject confirmationResponse = Json.createObjectBuilder()
+      .add("userID", userID)
+      .build();
+
     return ResponseEntity
         .status(HttpStatus.OK) // 200 OK
-        .body(userID);
+        .body(confirmationResponse.toString());
   }
 
   @PutMapping(path = "/confirm/{userID}")
@@ -103,9 +107,13 @@ public class UserController {
     }
 
     userSvc.confirmUser(userID);
+    
+    JsonObject confirmationResponse = Json.createObjectBuilder()
+      .add("userID", userID)
+      .build();
 
     return ResponseEntity
         .status(HttpStatus.OK) // 200 OK
-        .body(userID);
+        .body(confirmationResponse.toString());
   }
 }

@@ -1,5 +1,5 @@
 import { inject } from "@angular/core";
-import { ActivatedRoute, ActivatedRouteSnapshot, CanActivateFn, CanDeactivateFn, Router, RouterStateSnapshot } from "@angular/router";
+import { ActivatedRouteSnapshot, CanActivateFn, CanDeactivateFn, Router, RouterStateSnapshot } from "@angular/router";
 import { UserConfirmationService } from "../user-confirmation/user-confirmation.service";
 import { UserRegistrationComponent } from "../user-registration/user-registration.component";
 
@@ -15,11 +15,10 @@ export const notCompletedRegistration: CanDeactivateFn<UserRegistrationComponent
 
 export const correctConfirmationCode: CanActivateFn = (_route: ActivatedRouteSnapshot, _state: RouterStateSnapshot) => {
 
-  const activatedRoute = inject(ActivatedRoute);
   const router = inject(Router);
   const userConfirmationSvc = inject(UserConfirmationService);
 
-  let userID = activatedRoute.snapshot.params['userID'];
+  const userID = _route.params['userID'];
 
   return userConfirmationSvc.confirmUserGet(userID)
     .then(() => {
