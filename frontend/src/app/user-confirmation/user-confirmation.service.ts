@@ -10,6 +10,8 @@ export class UserConfirmationService {
 
   private httpClient = inject(HttpClient);
 
+  userID!: string;
+
   public confirmUserGet(userID: string): Promise<any> {
 
     return firstValueFrom(this.httpClient.get<any>(`/api/confirm/${userID}`));

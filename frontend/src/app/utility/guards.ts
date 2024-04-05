@@ -1,7 +1,7 @@
-import { ActivatedRouteSnapshot, CanActivateFn, CanDeactivateFn, Router, RouterStateSnapshot } from "@angular/router";
-import { UserRegistrationComponent } from "../user-registration/user-registration.component";
-import { UserConfirmationComponent } from "../user-confirmation/user-confirmation.component";
 import { inject } from "@angular/core";
+import { ActivatedRoute, ActivatedRouteSnapshot, CanActivateFn, CanDeactivateFn, Router, RouterStateSnapshot } from "@angular/router";
+import { UserConfirmationService } from "../user-confirmation/user-confirmation.service";
+import { UserRegistrationComponent } from "../user-registration/user-registration.component";
 
 export const notCompletedRegistration: CanDeactivateFn<UserRegistrationComponent> = (comp: UserRegistrationComponent, _route: ActivatedRouteSnapshot, _state: RouterStateSnapshot) => {
   
@@ -15,8 +15,21 @@ export const notCompletedRegistration: CanDeactivateFn<UserRegistrationComponent
 
 export const correctConfirmationCode: CanActivateFn = (_route: ActivatedRouteSnapshot, _state: RouterStateSnapshot) => {
 
+  const activatedRoute = inject(ActivatedRoute);
   const router = inject(Router);
+  const userConfirmationSvc = inject(UserConfirmationService);
 
+  let userID = activatedRoute.snapshot.params['userID'];
 
-  return true; 
+  return userConfirmationSvc.confirmUserGet(userID)
+    .then(() => {
+      
+      userConfirmationSvc.userID = userID;
+      return true
+    })
+    .catch((err) => {
+
+      alert(`Error: ${JSON.stringify(err)}`)
+      return router.parseUrl('/error');
+    });
 }

@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
   templateUrl: './user-confirmation.component.html',
   styleUrl: './user-confirmation.component.css'
 })
+  
 export class UserConfirmationComponent {
 
 }
