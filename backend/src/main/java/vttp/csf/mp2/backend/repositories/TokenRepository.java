@@ -34,6 +34,7 @@ public class TokenRepository {
     ValueOperations<String, String> valueOps = redisTemplate.opsForValue();
 
     String confirmationToken = tokenUtils.generateConfirmationToken();
+    System.out.println(confirmationToken);
 
     valueOps.setIfAbsent(userID, confirmationToken, Constants.EXPIRATION_TIME_MINS, TimeUnit.MINUTES);
   }

@@ -41,7 +41,7 @@ public class TokenUtility {
 
     Collections.shuffle(elements);
 
-    return elements.toArray(String[]::new).toString();
+    return String.join("", elements);
   }
 
 }
