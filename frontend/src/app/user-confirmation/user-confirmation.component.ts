@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserConfirmationService } from './user-confirmation.service';
 
@@ -17,6 +17,7 @@ export class UserConfirmationComponent implements OnInit {
 
   userConfirmationForm!: FormGroup;
   userID!: string;
+  cannotSubmit: boolean = true;
 
   ngOnInit(): void {
 
@@ -24,28 +25,32 @@ export class UserConfirmationComponent implements OnInit {
     this.userID = this.userConfirmationSvc.userID;
   }
 
+  onCodeChange(code: string) {
+
+    this.cannotSubmit = code.length != 6;
+    
+    this.userConfirmationForm.value["confirmationCode"] = code;
+    console.info(this.userConfirmationForm.value["confirmationCode"]);
+  }
+
   createConfirmationForm(): FormGroup {
 
     return this.fb.group({
 
-      confirmationCode: this.fb.control<string>('', [
-        Validators.required,
-        Validators.maxLength(6),
-      ])
-    })
+      confirmationCode: this.fb.control<string>('')
+    });
   }
 
   submitConfirmationForm(): void {
 
-    let confirmationCode = {
+    const confirmationCode = this.userConfirmationForm.value["confirmationCode"];
 
-      "confirmationCode": this.userConfirmationForm.value["confirmationCode"]
-    };
-
-    this.userConfirmationSvc.confirmUserPut(this.userID, confirmationCode)
+    this.userConfirmationSvc.confirmUserPut(this.userID, { confirmationCode })
       .then(result => {
 
         alert(`Successfully confirmed user with ID: ${result.userID}, you may now log into your account!`);
+        this.userConfirmationForm.reset();
+
         this.router.navigate(['/login']);
       })
       .catch(error => {
@@ -56,7 +61,5 @@ export class UserConfirmationComponent implements OnInit {
 
         alert(`Error: ${JSON.stringify(error)}`);
       })
-    
-    this.userConfirmationForm.reset();
   }
 }

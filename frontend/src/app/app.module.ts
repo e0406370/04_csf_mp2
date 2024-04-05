@@ -7,6 +7,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material/material.module';
+import { NgOtpInputModule } from 'ng-otp-input';
 
 import { AppComponent } from './app.component';
 import { ErrorComponent } from './error/error.component';
@@ -34,6 +35,7 @@ import { UserRegistrationService } from './user-registration/user-registration.s
     ReactiveFormsModule,
     AppRoutingModule,
     MaterialModule,
+    NgOtpInputModule
   ],
   providers: [
     UserConfirmationService,

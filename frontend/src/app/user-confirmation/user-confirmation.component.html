@@ -4,18 +4,20 @@
   </h2>
 
   <input
-    type="text"
+    type="hidden"
     id="confirmationCode"
     formControlName="confirmationCode"
-    max="6"
-    autofocus
+    maxlength="6"
   />
 
-  <button
-    type="submit"
-    class="btn btn-sm btn-info"
-    [disabled]="userConfirmationForm.invalid"
+  <ng-otp-input
+    (onInputChange)="onCodeChange($event)"
+    [config]="{ length: 6, letterCase: 'Upper' }"
   >
+  </ng-otp-input>
+
+  <br />
+  <button type="submit" class="btn btn-sm btn-info" [disabled]="cannotSubmit">
     Confirm
   </button>
 </form>
