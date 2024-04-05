@@ -25,7 +25,7 @@ export class UserConfirmationComponent implements OnInit {
     this.userID = this.userConfirmationSvc.userID;
   }
 
-  onCodeChange(code: string) {
+  onCodeChange(code: string): void {
 
     this.cannotSubmit = code.length != 6;
     
@@ -48,7 +48,7 @@ export class UserConfirmationComponent implements OnInit {
     this.userConfirmationSvc.confirmUserPut(this.userID, { confirmationCode })
       .then(result => {
 
-        alert(`Successfully confirmed user with ID: ${result.userID}, you may now log into your account!`);
+        alert(`Successfully confirmed user with ID: ${result.userID}\nYou may now log into your account!`);
         this.userConfirmationForm.reset();
 
         this.router.navigate(['/login']);

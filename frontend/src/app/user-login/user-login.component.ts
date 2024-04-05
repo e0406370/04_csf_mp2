@@ -41,6 +41,8 @@ export class UserLoginComponent implements OnInit {
       .then(result => {
           
         alert(`User ID: ${result.userID}`);
+        this.userLoginForm.reset();
+        
         this.router.navigate(['/register']);
       })
       .catch(error => {
@@ -51,7 +53,5 @@ export class UserLoginComponent implements OnInit {
 
         alert(`Error: ${JSON.stringify(error)}`);
       });
-
-    this.userLoginForm.reset();
   }
 }

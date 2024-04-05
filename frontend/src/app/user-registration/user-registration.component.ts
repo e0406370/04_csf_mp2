@@ -66,6 +66,8 @@ export class UserRegistrationComponent implements OnInit {
       .then(result => {
         
         alert(`User ID: ${result.userID}`);
+        this.userRegistrationForm.reset();
+        
         this.router.navigate(['/login']);
       })
       .catch(error => {
@@ -80,7 +82,6 @@ export class UserRegistrationComponent implements OnInit {
 
         alert(`Error: ${JSON.stringify(error)}`);
       });
-    
-    this.userRegistrationForm.reset();
+  
   }
 }
