@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material/material.module';
 
 import { AppComponent } from './app.component';
+import { ErrorComponent } from './error/error.component';
 import { MainComponent } from './main/main.component';
 import { UserConfirmationComponent } from './user-confirmation/user-confirmation.component';
 import { UserLoginComponent } from './user-login/user-login.component';
@@ -21,6 +22,7 @@ import { UserRegistrationService } from './user-registration/user-registration.s
 @NgModule({
   declarations: [
     AppComponent,
+    ErrorComponent,
     MainComponent,
     UserConfirmationComponent,
     UserLoginComponent,
