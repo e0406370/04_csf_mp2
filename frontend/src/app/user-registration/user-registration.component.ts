@@ -71,14 +71,14 @@ export class UserRegistrationComponent implements OnInit {
       .catch(error => {
 
         if (error.emailExists) {
-          alert(`Error: ${error.emailExists}`)
+          alert(`Error: ${error.emailExists}`);
         }
 
         if (error.usernameExists) {
-          alert(`Error: ${error.usernameExists}`)
+          alert(`Error: ${error.usernameExists}`);
         }
 
-        alert(`Error: ${JSON.stringify(error)}`)
+        alert(`Error: ${JSON.stringify(error)}`);
       });
     
     this.userRegistrationForm.reset();

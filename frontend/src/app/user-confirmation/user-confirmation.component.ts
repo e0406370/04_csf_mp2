@@ -35,4 +35,28 @@ export class UserConfirmationComponent implements OnInit {
     })
   }
 
+  submitConfirmationForm(): void {
+
+    let confirmationCode = {
+
+      "confirmationCode": this.userConfirmationForm.value["confirmationCode"]
+    };
+
+    this.userConfirmationSvc.confirmUserPut(this.userID, confirmationCode)
+      .then(result => {
+
+        alert(`Successfully confirmed user with ID: ${result.userID}, you may now log into your account!`);
+        this.router.navigate(['/login']);
+      })
+      .catch(error => {
+
+        if (error.incorrectCode) {
+          alert(`Error: ${error.incorrectCode}`)
+        }
+
+        alert(`Error: ${JSON.stringify(error)}`);
+      })
+    
+    this.userConfirmationForm.reset();
+  }
 }

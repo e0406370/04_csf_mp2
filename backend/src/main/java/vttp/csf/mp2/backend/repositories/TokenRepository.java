@@ -24,9 +24,7 @@ public class TokenRepository {
 
   public void deleteConfirmationToken(String userID) {
 
-    ValueOperations<String, String> valueOps = redisTemplate.opsForValue();
-
-    valueOps.getAndDelete(userID);
+    redisTemplate.delete(userID);
   }
 
   public void saveConfirmationToken(String userID) {

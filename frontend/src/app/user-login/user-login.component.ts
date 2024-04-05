@@ -46,10 +46,10 @@ export class UserLoginComponent implements OnInit {
       .catch(error => {
 
         if (error.authenticationFailure) {
-          alert(`Error: ${error.authenticationFailure}`)
+          alert(`Error: ${error.authenticationFailure}`);
         }
 
-        alert(`Error: ${JSON.stringify(error)}`)
+        alert(`Error: ${JSON.stringify(error)}`);
       });
 
     this.userLoginForm.reset();

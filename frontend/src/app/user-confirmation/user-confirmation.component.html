@@ -1,4 +1,4 @@
-<form [formGroup]="userConfirmationForm">
+<form [formGroup]="userConfirmationForm" (ngSubmit)="submitConfirmationForm()">
   <h2>
     <label for="confirmationCode"> Confirmation Code </label>
   </h2>
@@ -10,4 +10,12 @@
     max="6"
     autofocus
   />
+
+  <button
+    type="submit"
+    class="btn btn-sm btn-info"
+    [disabled]="userConfirmationForm.invalid"
+  >
+    Confirm
+  </button>
 </form>

@@ -24,11 +24,11 @@ export const correctConfirmationCode: CanActivateFn = (_route: ActivatedRouteSna
     .then(() => {
       
       userConfirmationSvc.userID = userID;
-      return true
+      return true;
     })
     .catch((err) => {
 
-      alert(`Error: ${JSON.stringify(err)}`)
+      alert(`Error: ${JSON.stringify(err)}`);
       return router.parseUrl('/error');
     });
 }
