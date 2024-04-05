@@ -1,1 +1,10 @@
-<p>user-confirmation works!</p>
+<form [formGroup]="userConfirmationForm">
+  <label for="confirmationCode"> Confirmation Code </label>
+  <input
+    type="text"
+    id="confirmationCode"
+    formControlName="confirmationCode"
+    max="6"
+    autofocus
+  />
+</form>
