@@ -51,5 +51,7 @@ export class UserLoginComponent implements OnInit {
 
         alert(`Error: ${JSON.stringify(error)}`)
       });
+
+    this.userLoginForm.reset();
   }
 }

@@ -46,16 +46,16 @@ public class UserController {
           .build();
 
       return ResponseEntity
-          .status(HttpStatus.CREATED)
+          .status(HttpStatus.CREATED) // 201 CREATED
           .body(registrationSuccessResponse.toString());
     }
 
     catch (EmailExistsException e) {
-      return userUtils.createErrorResponse(HttpStatus.CONFLICT, "emailExists", e.getMessage());
+      return userUtils.createErrorResponse(HttpStatus.CONFLICT, "emailExists", e.getMessage()); // 409 CONFLICT
     }
 
     catch (UsernameExistsException e) {
-      return userUtils.createErrorResponse(HttpStatus.CONFLICT, "usernameExists", e.getMessage());
+      return userUtils.createErrorResponse(HttpStatus.CONFLICT, "usernameExists", e.getMessage()); // 409 CONFLICT
     }
   }
 
@@ -68,12 +68,12 @@ public class UserController {
       JsonObject loginSuccessResponse = userSvc.loginUser(login);
 
       return ResponseEntity
-          .status(HttpStatus.OK)
+          .status(HttpStatus.OK) // 200 OK
           .body(loginSuccessResponse.toString());
     }
 
     catch (AuthenticationFailureException e) {
-      return userUtils.createErrorResponse(HttpStatus.UNAUTHORIZED, "authenticationFailure", e.getMessage());
+      return userUtils.createErrorResponse(HttpStatus.UNAUTHORIZED, "authenticationFailure", e.getMessage()); // 401 UNAUTHORIZED
     }
   }
 
@@ -83,11 +83,11 @@ public class UserController {
     if (!userSvc.isUnconfirmedUserID(userID)) {
 
       String notFound = "User ID %s not found among unconfirmed accounts!".formatted(userID);
-      return userUtils.createErrorResponse(HttpStatus.NOT_FOUND, "notFound", notFound);
+      return userUtils.createErrorResponse(HttpStatus.NOT_FOUND, "notFound", notFound); // 404 NOT FOUND
     }
 
     return ResponseEntity
-        .status(HttpStatus.OK)
+        .status(HttpStatus.OK) // 200 OK
         .body(userID);
   }
 
@@ -99,13 +99,13 @@ public class UserController {
     if (!userSvc.isCorrectConfirmationCode(userID, confirmationCode)) {
 
       String incorrectCode = "Incorrect confirmation code!";
-      return userUtils.createErrorResponse(HttpStatus.BAD_REQUEST, "incorrectCode", incorrectCode);
+      return userUtils.createErrorResponse(HttpStatus.BAD_REQUEST, "incorrectCode", incorrectCode); // 400 BAD REQUEST
     }
 
     userSvc.confirmUser(userID);
 
     return ResponseEntity
-        .status(HttpStatus.OK)
+        .status(HttpStatus.OK) // 200 OK
         .body(userID);
   }
 }
