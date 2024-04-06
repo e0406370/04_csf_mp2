@@ -45,10 +45,11 @@ public class UserService {
     boolean registered = userRepo.registerUser(newUser);
 
     if (registered) {
-      
-      mailSvc.sendConfirmationEmail(newUser);
-      tokenRepo.saveConfirmationToken(newUser.userID());
+
+      String confirmationToken = tokenRepo.saveConfirmationToken(newUser.userID());
       tokenRepo.addUserID(newUser.userID());
+      
+      mailSvc.sendConfirmationEmail(newUser, confirmationToken);
     }
 
     return registered;

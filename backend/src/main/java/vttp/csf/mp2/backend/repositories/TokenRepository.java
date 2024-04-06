@@ -27,13 +27,15 @@ public class TokenRepository {
     redisTemplate.delete(userID);
   }
 
-  public void saveConfirmationToken(String userID) {
+  public String saveConfirmationToken(String userID) {
 
     ValueOperations<String, String> valueOps = redisTemplate.opsForValue();
 
     String confirmationToken = tokenUtils.generateConfirmationToken();
 
     valueOps.setIfAbsent(userID, confirmationToken, Constants.EXPIRATION_TIME_MINS, TimeUnit.MINUTES);
+
+    return confirmationToken;
   }
 
   public void removeUserID(String userID) {
