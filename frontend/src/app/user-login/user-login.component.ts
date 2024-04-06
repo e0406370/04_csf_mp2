@@ -29,7 +29,7 @@ export class UserLoginComponent implements OnInit {
 
       username: this.fb.control<string>('', [Validators.required]),
 
-      password: this.fb.control<string>('', [Validators.required]),
+      password: this.fb.control<string>('', [Validators.required])
     });
   }
 
@@ -40,10 +40,10 @@ export class UserLoginComponent implements OnInit {
     this.userLoginSvc.loginUser(loginDetails)
       .then(result => {
           
-        alert(`User ID: ${result.userID}`);
+        alert(`Logged in with User ID: ${result.userID}`);
         this.userLoginForm.reset();
         
-        this.router.navigate(['/register']);
+        this.router.navigate(['/']);
       })
       .catch(error => {
 

@@ -48,7 +48,7 @@ export class UserConfirmationComponent implements OnInit {
     this.userConfirmationSvc.confirmUserPut(this.userID, { confirmationCode })
       .then(result => {
 
-        alert(`Successfully confirmed user with ID: ${result.userID}\nYou may now log into your account!`);
+        alert(`Successfully confirmed user with User ID: ${result.userID}\nYou may now log into your account!`);
         this.userConfirmationForm.reset();
 
         this.router.navigate(['/login']);
@@ -56,7 +56,7 @@ export class UserConfirmationComponent implements OnInit {
       .catch(error => {
 
         if (error.incorrectCode) {
-          alert(`Error: ${error.incorrectCode}`)
+          alert(`Error: ${error.incorrectCode}`);
         }
 
         alert(`Error: ${JSON.stringify(error)}`);

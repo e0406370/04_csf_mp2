@@ -65,9 +65,9 @@ export class UserRegistrationComponent implements OnInit {
     this.userRegistrationSvc.registerUser(newUser)
       .then(result => {
         
-        alert(`User ID: ${result.userID}`);
+        alert(`Registered account with User ID: ${result.userID}\nPlease check your inbox for a verification email to confirm your account.`);
         this.userRegistrationForm.reset();
-        
+
         this.router.navigate(['/login']);
       })
       .catch(error => {
@@ -82,6 +82,5 @@ export class UserRegistrationComponent implements OnInit {
 
         alert(`Error: ${JSON.stringify(error)}`);
       });
-  
   }
 }
