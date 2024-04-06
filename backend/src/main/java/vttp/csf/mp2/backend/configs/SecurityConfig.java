@@ -43,7 +43,7 @@ public class SecurityConfig {
   @Bean
   public PasswordEncoder passwordEncoder() {
 
-    // can generate encoded string hashed with BCrypt => 60 characters long
+    // can generate an encoded 60-character string hashed with BCrypt
     return new BCryptPasswordEncoder();
   }
 }

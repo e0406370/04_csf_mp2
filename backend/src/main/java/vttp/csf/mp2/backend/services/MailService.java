@@ -72,9 +72,9 @@ public class MailService {
 
       logger.info("Confirmation email sent to %s".formatted(newUser.email()));
       logger.info("Message ID: %s".formatted(userUtils.parseMessagePayload(response.getBody())));
-    } catch (Exception e) {
-      logger.severe(
-          "An error occurred while sending a confirmation email to %s: %s".formatted(newUser.email(), e.getMessage()));
+    } 
+    catch (Exception e) {
+      logger.severe("An error occurred while sending a confirmation email to %s: %s".formatted(newUser.email(), e.getMessage()));
     }
   }
 }
