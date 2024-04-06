@@ -80,6 +80,14 @@ public class UserUtility {
     return jo.getString("confirmationCode");
   }
 
+  public String parseMessagePayload(String messagePayload) {
+
+    JsonReader r = Json.createReader(new StringReader(messagePayload));
+    JsonObject jo = r.readObject();
+
+    return jo.getString("id");
+  }
+
   public boolean isCorrectMatch(String rawPassword, String hashedPassword) {
 
     return passwordEncoder.matches(rawPassword, hashedPassword);

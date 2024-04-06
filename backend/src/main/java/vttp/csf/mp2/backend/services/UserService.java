@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jakarta.json.JsonObject;
-
 import vttp.csf.mp2.backend.exceptions.AuthenticationFailureException;
 import vttp.csf.mp2.backend.exceptions.EmailExistsException;
 import vttp.csf.mp2.backend.exceptions.UsernameExistsException;
@@ -16,6 +15,9 @@ import vttp.csf.mp2.backend.utility.UserUtility;
 
 @Service
 public class UserService {
+
+  @Autowired
+  private MailService mailSvc;
 
   @Autowired
   private TokenRepository tokenRepo;
@@ -43,6 +45,8 @@ public class UserService {
     boolean registered = userRepo.registerUser(newUser);
 
     if (registered) {
+      
+      mailSvc.sendConfirmationEmail(newUser);
       tokenRepo.saveConfirmationToken(newUser.userID());
       tokenRepo.addUserID(newUser.userID());
     }

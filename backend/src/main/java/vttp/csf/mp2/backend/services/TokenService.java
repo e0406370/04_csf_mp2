@@ -17,8 +17,6 @@ import vttp.csf.mp2.backend.utility.Constants;
 @Component
 public class TokenService {
 
-  private Logger logger = Logger.getLogger(TokenService.class.getName());
-
   @Autowired
   @Qualifier(Constants.BEAN_REDIS)
   private RedisTemplate<String, String> redisTemplate;
@@ -28,6 +26,8 @@ public class TokenService {
 
   @Autowired
   private UserRepository userRepo;
+
+  private Logger logger = Logger.getLogger(TokenService.class.getName());
 
   @Scheduled(fixedDelay = Constants.SCHEDULED_INTERVAL_MINS, timeUnit = TimeUnit.MINUTES)
   public void monitorExpiredTokens() {
