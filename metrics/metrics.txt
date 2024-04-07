@@ -1,0 +1,41 @@
+workflow:
+---------
+
+1. must include dependencies for these 3 artifacts in pom.xml:
+  => spring-boot-starter-actuator
+  => spring-boot-starter-web
+  => micrometer-registry-prometheus
+
+2. edit application.properties with these configurations for Prometheus
+  => management.endpoints.web.exposure.include = metrics, prometheus
+  => management.endpoint.metrics.enabled = true
+  => management.metrics.export.prometheus.enabled = true
+
+3. make sure the endpoints appear under /actuator
+
+4. edit docker-compose.yml accordingly
+
+5. edit prometheus/prometheus.yml accordingly
+
+6. cd to directory containing docker-compose.yml
+
+7. docker compose up -d
+  => start containers for prometheus and grafana (optional)
+  => prometheus: localhost:9090
+  => grafana: localhost:3000
+
+8. access /actuator/prometheus to view metrics data in a format compatible with Prometheus
+
+9. access localhost:9090 to access Prometheus
+
+10. ** check localhost:9090/targets to ensure endpoints are working (State must be UP, no Error!)
+
+11. ** check metrics explorer to ensure all expected metrics are available
+
+12. (optional) access localhost:3000 to access Grafana 
+
+13. (optional) configure Grafana to visualise these metrics in dashboard format
+
+14. customise personalised metrics as shown in ApplicationMetricsService.java
+
+15. ** note that metrics will reset upon redeployment!

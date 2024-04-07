@@ -20,6 +20,7 @@ import vttp.csf.mp2.backend.exceptions.EmailExistsException;
 import vttp.csf.mp2.backend.exceptions.UsernameExistsException;
 import vttp.csf.mp2.backend.models.LoginDetails;
 import vttp.csf.mp2.backend.models.User;
+import vttp.csf.mp2.backend.services.ApplicationMetricsService;
 import vttp.csf.mp2.backend.services.UserService;
 import vttp.csf.mp2.backend.utility.UserUtility;
 
@@ -33,6 +34,9 @@ public class UserController {
   @Autowired
   private UserUtility userUtils;
 
+  @Autowired
+  private ApplicationMetricsService appMetrics;
+
   @PostMapping(path = "/register")
   public ResponseEntity<String> registerUser(@RequestBody String registrationPayload) {
 
@@ -40,6 +44,7 @@ public class UserController {
 
     try {
       userSvc.registerUser(newUser);
+      appMetrics.incrementRegister();
 
       JsonObject registrationSuccessResponse = Json.createObjectBuilder()
           .add("userID", newUser.userID())
@@ -66,6 +71,7 @@ public class UserController {
 
     try {
       JsonObject loginSuccessResponse = userSvc.loginUser(login);
+      appMetrics.incrementLogin();
 
       return ResponseEntity
           .status(HttpStatus.OK) // 200 OK
@@ -107,6 +113,7 @@ public class UserController {
     }
 
     userSvc.confirmUser(userID);
+    appMetrics.incrementConfirm();
     
     JsonObject confirmationResponse = Json.createObjectBuilder()
       .add("userID", userID)
