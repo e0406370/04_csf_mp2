@@ -20,6 +20,7 @@ import { UserRegistrationComponent } from './user-registration/user-registration
 import { UserConfirmationService } from './user-confirmation/user-confirmation.service';
 import { UserLoginService } from './user-login/user-login.service';
 import { UserRegistrationService } from './user-registration/user-registration.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { UserRegistrationService } from './user-registration/user-registration.s
     AppRoutingModule,
     MaterialModule,
     AutoFocusModule,
-    NgOtpInputModule
+    NgOtpInputModule,
+    NgbModule
   ],
   providers: [
     UserConfirmationService,
