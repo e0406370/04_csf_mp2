@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "https://tangy-pancake-production.up.railway.app/",
+    "target": "http://localhost:3050",
     "secure": false
   }
 }

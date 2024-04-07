@@ -7,6 +7,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material/material.module';
+import { AutoFocusModule } from 'primeng/autofocus';
 import { NgOtpInputModule } from 'ng-otp-input';
 
 import { AppComponent } from './app.component';
@@ -35,6 +36,7 @@ import { UserRegistrationService } from './user-registration/user-registration.s
     ReactiveFormsModule,
     AppRoutingModule,
     MaterialModule,
+    AutoFocusModule,
     NgOtpInputModule
   ],
   providers: [
