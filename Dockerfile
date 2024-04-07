@@ -44,6 +44,6 @@ ENV PORT=3050
 
 EXPOSE ${PORT}
 
-ENTRYPOINT SERVER_PORT=${PORT} java -jar app.jar
+ENTRYPOINT SERVER_PORT=${PORT} java -jar app.jar -Dserver.port=${PORT}
 
 #################################################################
