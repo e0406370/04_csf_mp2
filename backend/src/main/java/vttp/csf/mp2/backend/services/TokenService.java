@@ -32,7 +32,7 @@ public class TokenService {
   @Scheduled(fixedDelay = Constants.SCHEDULED_INTERVAL_MINS, timeUnit = TimeUnit.MINUTES)
   public void monitorExpiredTokens() {
 
-    logger.info("Checking for expired tokens...");
+    logger.info("Checking for expired confirmation tokens...");
 
     long minBound = 0;
     long maxBound = System.currentTimeMillis() / (1000 * 60) + Constants.EXPIRATION_TIME_MINS;

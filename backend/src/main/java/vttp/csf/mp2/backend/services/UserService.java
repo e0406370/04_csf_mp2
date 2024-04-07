@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jakarta.json.JsonObject;
+
 import vttp.csf.mp2.backend.exceptions.AuthenticationFailureException;
 import vttp.csf.mp2.backend.exceptions.EmailExistsException;
 import vttp.csf.mp2.backend.exceptions.UsernameExistsException;
