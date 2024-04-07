@@ -1,8 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import url(../node_modules/bootstrap/dist/css/bootstrap.css);
-
-body {
-  background-color: black;
-  color: lightpink;
-}
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";

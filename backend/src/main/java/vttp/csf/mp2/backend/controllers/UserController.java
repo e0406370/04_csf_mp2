@@ -35,7 +35,7 @@ public class UserController {
   private UserUtility userUtils;
 
   @Autowired
-  private ApplicationMetricsService appMetrics;
+  private ApplicationMetricsService appMetricsSvc;
 
   @PostMapping(path = "/register")
   public ResponseEntity<String> registerUser(@RequestBody String registrationPayload) {
@@ -44,7 +44,7 @@ public class UserController {
 
     try {
       userSvc.registerUser(newUser);
-      appMetrics.incrementRegister();
+      appMetricsSvc.incrementRegister();
 
       JsonObject registrationSuccessResponse = Json.createObjectBuilder()
           .add("userID", newUser.userID())
@@ -71,7 +71,7 @@ public class UserController {
 
     try {
       JsonObject loginSuccessResponse = userSvc.loginUser(login);
-      appMetrics.incrementLogin();
+      appMetricsSvc.incrementLogin();
 
       return ResponseEntity
           .status(HttpStatus.OK) // 200 OK
@@ -113,7 +113,7 @@ public class UserController {
     }
 
     userSvc.confirmUser(userID);
-    appMetrics.incrementConfirm();
+    appMetricsSvc.incrementConfirm();
     
     JsonObject confirmationResponse = Json.createObjectBuilder()
       .add("userID", userID)

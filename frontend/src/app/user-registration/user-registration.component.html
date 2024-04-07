@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <form [formGroup]="userRegistrationForm" (ngSubmit)="submitRegistrationForm()">
   <table class="table table-striped table-bordered table-dark">
     <tr>
@@ -159,9 +160,10 @@
     <tr>
       <td>
         <button
-          type="submit"
+          type="button"
           class="btn btn-primary"
           [disabled]="userRegistrationForm.invalid"
+          (click)="submitRegistrationForm()"
         >
           Sign Up
         </button>

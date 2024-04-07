@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { PASSWORD_REGEX } from '../utility/constants';
+import { MessageService } from 'primeng/api';
 import { UserRegistrationService } from './user-registration.service';
 
 @Component({
@@ -15,6 +16,7 @@ export class UserRegistrationComponent implements OnInit {
 
   private fb = inject(FormBuilder);
   private router = inject(Router);
+  private messageSvc = inject(MessageService);
   private userRegistrationSvc = inject(UserRegistrationService);
 
   userRegistrationForm!: FormGroup;
@@ -63,24 +65,29 @@ export class UserRegistrationComponent implements OnInit {
     const newUser = this.userRegistrationSvc.parseRegistrationForm(this.userRegistrationForm);
 
     this.userRegistrationSvc.registerUser(newUser)
-      .then(result => {
+      .then(res => {
         
-        alert(`Registered account with User ID: ${result.userID}\nPlease check your inbox for a verification email to confirm your account.`);
+        this.messageSvc.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: `Registered account with User ID: ${res.userID}
+                  \nPlease check your inbox for a verification email to confirm your account.`,
+          life: 5000,
+        });
         this.userRegistrationForm.reset();
 
         this.router.navigate(['/login']);
       })
-      .catch(error => {
+      .catch(err => {
 
-        if (error.emailExists) {
-          alert(`Error: ${error.emailExists}`);
-        }
+        const errorMessage = err?.error?.emailExists || err?.error?.usernameExists || "Unknown error occurred.";
 
-        if (error.usernameExists) {
-          alert(`Error: ${error.usernameExists}`);
-        }
-
-        alert(`Error: ${JSON.stringify(error)}`);
+        this.messageSvc.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: errorMessage,
+          life: 5000,
+        });
       });
   }
 }

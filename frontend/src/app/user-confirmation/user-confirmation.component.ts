@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserConfirmationService } from './user-confirmation.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-user-confirmation',
@@ -13,6 +14,7 @@ export class UserConfirmationComponent implements OnInit {
 
   private fb = inject(FormBuilder);
   private router = inject(Router);
+  private messageSvc = inject(MessageService);
   private userConfirmationSvc = inject(UserConfirmationService);
 
   userConfirmationForm!: FormGroup;
@@ -46,20 +48,30 @@ export class UserConfirmationComponent implements OnInit {
     const confirmationCode = this.userConfirmationForm.value["confirmationCode"];
 
     this.userConfirmationSvc.confirmUserPut(this.userID, { confirmationCode })
-      .then(result => {
+      .then(res => {
 
-        alert(`Successfully confirmed user with User ID: ${result.userID}\nYou may now log into your account!`);
+        this.messageSvc.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: `Successfully confirmed user with User ID: ${res.userID}
+                  \nYou may now log into your account!`,
+          life: 5000,
+        });
+        
         this.userConfirmationForm.reset();
 
         this.router.navigate(['/login']);
       })
-      .catch(error => {
+      .catch(err => {
 
-        if (error.incorrectCode) {
-          alert(`Error: ${error.incorrectCode}`);
-        }
+        const errorMessage = err?.error?.incorrectCode || "Unknown error occurred."
 
-        alert(`Error: ${JSON.stringify(error)}`);
+        this.messageSvc.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: errorMessage,
+          life: 5000,
+        });
       })
   }
 }

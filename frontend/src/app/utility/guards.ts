@@ -2,6 +2,7 @@ import { inject } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivateFn, CanDeactivateFn, Router, RouterStateSnapshot } from "@angular/router";
 import { UserConfirmationService } from "../user-confirmation/user-confirmation.service";
 import { UserRegistrationComponent } from "../user-registration/user-registration.component";
+import { MessageService } from "primeng/api";
 
 export const notCompletedRegistration: CanDeactivateFn<UserRegistrationComponent> = (comp: UserRegistrationComponent, _route: ActivatedRouteSnapshot, _state: RouterStateSnapshot) => {
   
@@ -17,6 +18,7 @@ export const correctConfirmationCode: CanActivateFn = (_route: ActivatedRouteSna
 
   const router = inject(Router);
   const userConfirmationSvc = inject(UserConfirmationService);
+  const messageSvc = inject(MessageService);
 
   const userID = _route.params['userID'];
 
@@ -28,7 +30,15 @@ export const correctConfirmationCode: CanActivateFn = (_route: ActivatedRouteSna
     })
     .catch((err) => {
 
-      alert(`Error: ${JSON.stringify(err)}`);
+      const errorMessage = err?.error?.notFound || "Unknown error occurred."
+
+      messageSvc.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: errorMessage,
+        life: 5000,
+      });
+
       return router.parseUrl('/error');
     });
 }

@@ -8,6 +8,10 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material/material.module';
 import { AutoFocusModule } from 'primeng/autofocus';
+import { CardModule } from 'primeng/card';
+import { ToastModule } from 'primeng/toast';
+import { MessagesModule } from 'primeng/messages';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgOtpInputModule } from 'ng-otp-input';
 
 import { AppComponent } from './app.component';
@@ -20,7 +24,8 @@ import { UserRegistrationComponent } from './user-registration/user-registration
 import { UserConfirmationService } from './user-confirmation/user-confirmation.service';
 import { UserLoginService } from './user-login/user-login.service';
 import { UserRegistrationService } from './user-registration/user-registration.service';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MessageService } from 'primeng/api';
+
 
 @NgModule({
   declarations: [
@@ -38,10 +43,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AppRoutingModule,
     MaterialModule,
     AutoFocusModule,
+    CardModule,
+    ToastModule,
+    MessagesModule,
+    NgbModule,
     NgOtpInputModule,
-    NgbModule
   ],
   providers: [
+    MessageService,
     UserConfirmationService,
     UserLoginService,
     UserRegistrationService,

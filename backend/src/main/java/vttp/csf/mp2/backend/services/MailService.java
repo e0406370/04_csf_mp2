@@ -49,7 +49,7 @@ public class MailService {
     String variables = """
         {
           "confirmationCode": "%s",
-          "confirmationLink": "http://localhost:3050/#/confirm/%s"
+          "confirmationLink": "http://localhost:4200/#/confirm/%s"
         }
         """.formatted(confirmationToken, newUser.userID());
 

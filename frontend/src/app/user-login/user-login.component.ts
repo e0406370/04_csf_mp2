@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import { MessageService } from 'primeng/api';
 import { UserLoginService } from './user-login.service';
 
 @Component({
@@ -14,8 +15,9 @@ export class UserLoginComponent implements OnInit {
 
   private fb = inject(FormBuilder);
   private router = inject(Router);
+  private messageSvc = inject(MessageService);
   private userLoginSvc = inject(UserLoginService);
-
+  
   userLoginForm!: FormGroup;
 
   ngOnInit(): void {
@@ -38,20 +40,28 @@ export class UserLoginComponent implements OnInit {
     const loginDetails = this.userLoginSvc.parseLoginForm(this.userLoginForm);
 
     this.userLoginSvc.loginUser(loginDetails)
-      .then(result => {
-          
-        alert(`Logged in with User ID: ${result.userID}`);
+      .then(res => {
+        
+        this.messageSvc.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: `Logged in with User ID: ${res.userID}`,
+          life: 5000,
+        });
         this.userLoginForm.reset();
         
         this.router.navigate(['/']);
       })
-      .catch(error => {
+      .catch(err => {
 
-        if (error.authenticationFailure) {
-          alert(`Error: ${error.authenticationFailure}`);
-        }
+        const errorMessage = err?.error?.authenticationFailure || "Unknown error occurred.";
 
-        alert(`Error: ${JSON.stringify(error)}`);
+        this.messageSvc.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: errorMessage,
+          life: 5000,
+        });
       });
   }
 }
