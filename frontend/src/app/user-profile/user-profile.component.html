@@ -1,97 +1,108 @@
 @if (userProfile) {
-  <div class="container">
+<div class="container">
 
-    <div class="row justify-content-center align-items-center">
-      <div class="col-md-8">
-        <div class="card text-bg-dark mb-3">
-          <div class="card-body">
-            
-            <h1 class="profile-heading text-center text-white">
-              User Profile
-            </h1>
-            <br />
-  
-            <div class="row">
-              <div class="col-sm-3">
-                <h5 class="mb-0 text-light">
-                  <span class="icon m-1"><ion-icon name="happy"></ion-icon></span>
-                  Name
-                </h5>
-              </div>
-              <div class="col-sm-9 text-warning">
-                <span> {{ userProfile.name }}</span>
-              </div>
-            </div>
-            <hr>
-  
-            <div class="row">
-              <div class="col-sm-3">
-                <h5 class="mb-0 text-light">
-                  <span class="icon m-1"><ion-icon name="mail"></ion-icon></span>
-                  Email
-                </h5>
-              </div>
-              <div class="col-sm-9 text-warning">
-                <span> {{ userProfile.email }}</span>
-              </div>
-            </div>
-            <hr>
-  
-            <div class="row">
-              <div class="col-sm-3">
-                <h5 class="mb-0 text-light">
-                  <span class="icon m-1"><ion-icon name="calendar"></ion-icon></span>
-                  Date of Birth
-                </h5>
-              </div>
-              <div class="col-sm-9 text-warning">
-                <span> {{ userProfile.birthDate | date:'YYYY/MM/dd' }} </span>
-              </div>
-            </div>
-            <hr>
-  
-            <div class="row">
-              <div class="col-sm-3">
-                <h5 class="mb-0 text-light">
-                  <span class="icon m-1"><ion-icon name="sunny"></ion-icon></span>
-                  Age
-                </h5>
-              </div>
-              <div class="col-sm-9 text-warning">
-                <span> {{ userProfile.birthDate | age }} </span>
-              </div>
-            </div>
-            <hr>
+  <div class="row justify-content-center align-items-center">
+    <div class="col-md-8">
+      <div class="card text-bg-dark mb-3">
+        <div class="card-body">
 
-            <div class="row">
-              <div class="col-sm-3">
-                <h5 class="mb-0 text-light">
-                  <span class="icon m-1"><ion-icon name="document"></ion-icon></span>
-                  Created Date
-                </h5>
-              </div>
-              <div class="col-sm-9 text-warning">
-                <span> {{ userProfile.createdDate | date:'YYYY/MM/dd' }} </span>
-              </div>
+          <h1 class="profile-heading text-center text-white">User Profile</h1>
+          <br />
+
+          <div class="row">
+            <div class="col-sm-3">
+              <h5 class="mb-0 text-light">
+                <span class="icon m-1"><ion-icon name="happy"></ion-icon></span>
+                Name
+              </h5>
             </div>
-            <hr>
-  
-            <div class="row">
-              <div class="col-sm-3">
-                <h5 class="mb-0 text-light">
-                  <span class="icon m-1"><ion-icon name="id-card"></ion-icon></span>
-                  User ID
-                </h5>
-              </div>
-              <div class="col-sm-9 text-warning">
-                <span> {{ userProfile.userID}} </span>
-              </div>
+            <div class="col-sm-9 text-warning">
+              <span> {{ userProfile.name }}</span>
             </div>
-            <hr>
-  
           </div>
+          <hr />
+
+          <div class="row">
+            <div class="col-sm-3">
+              <h5 class="mb-0 text-light">
+                <span class="icon m-1"><ion-icon name="mail"></ion-icon></span>
+                Email
+              </h5>
+            </div>
+            <div class="col-sm-9 text-warning">
+              <span> {{ userProfile.email }}</span>
+            </div>
+          </div>
+          <hr />
+
+          <div class="row">
+            <div class="col-sm-3">
+              <h5 class="mb-0 text-light">
+                <span class="icon m-1"
+                  ><ion-icon name="calendar"></ion-icon
+                ></span>
+                Date of Birth
+              </h5>
+            </div>
+            <div class="col-sm-9 text-warning">
+              <span> {{ userProfile.birthDate | date : "YYYY/MM/dd" }} </span>
+            </div>
+          </div>
+          <hr />
+
+          <div class="row">
+            <div class="col-sm-3">
+              <h5 class="mb-0 text-light">
+                <span class="icon m-1"><ion-icon name="sunny"></ion-icon></span>
+                Age
+              </h5>
+            </div>
+            <div class="col-sm-9 text-warning">
+              <span> {{ userProfile.birthDate | age }} </span>
+            </div>
+          </div>
+          <hr />
+
+          <div class="row">
+            <div class="col-sm-3">
+              <h5 class="mb-0 text-light">
+                <span class="icon m-1"
+                  ><ion-icon name="document"></ion-icon
+                ></span>
+                Created Date
+              </h5>
+            </div>
+            <div class="col-sm-9 text-warning">
+              <span> {{ userProfile.createdDate | date : "YYYY/MM/dd" }} </span>
+            </div>
+          </div>
+          <hr />
+
+          <div class="row">
+            <div class="col-sm-3">
+              <h5 class="mb-0 text-light">
+                <span class="icon m-1"
+                  ><ion-icon name="id-card"></ion-icon
+                ></span>
+                User ID
+              </h5>
+            </div>
+            <div class="col-sm-9 text-warning">
+              <span> {{ userProfile.userID }} </span>
+            </div>
+          </div>
+          <hr />
+
+          <a href="`mailto:${{ userProfile.email }}` ">
+            <button type="button" class="btn btn-sm btn-outline-info">
+              Send Email
+            </button>
+          </a>
+          
         </div>
       </div>
     </div>
   </div>
+
+</div>
 }

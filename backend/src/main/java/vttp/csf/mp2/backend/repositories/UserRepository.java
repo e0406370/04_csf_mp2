@@ -49,9 +49,14 @@ public class UserRepository {
     return jdbcTemplate.queryForObject(Queries.SQL_RETRIEVE_PASSWORD_BY_USERNAME, String.class, username);
   }
 
-  public boolean isAccountConfirmed(String username) {
+  public boolean isAccountConfirmedByUsername(String username) {
 
-    return jdbcTemplate.queryForObject(Queries.SQL_CHECK_CONFIRMATION_STATUS, Boolean.class, username);
+    return jdbcTemplate.queryForObject(Queries.SQL_CHECK_CONFIRMATION_STATUS_BY_USERNAME, Boolean.class, username);
+  }
+  
+  public boolean isAccountConfirmedByUserID(String userID) {
+
+    return jdbcTemplate.queryForObject(Queries.SQL_CHECK_CONFIRMATION_STATUS_BY_USER_ID, Boolean.class, userID);
   }
   
   public boolean loginUser(String username) {

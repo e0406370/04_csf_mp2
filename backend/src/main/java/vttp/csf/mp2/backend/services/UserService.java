@@ -69,7 +69,7 @@ public class UserService {
       throw new UserException(Messages.FAILURE_INCORRECT_PASSWORD);
     }
 
-    if (!userRepo.isAccountConfirmed(username)) {
+    if (!userRepo.isAccountConfirmedByUsername(username)) {
 
       throw new UserException(Messages.FAILURE_ACCOUNT_NOT_CONFIRMED);
     }
@@ -106,7 +106,7 @@ public class UserService {
 
   public JsonObject retrieveUserProfile(String userID) throws UserException {
 
-    if (!userRepo.userExists(userID)) {
+    if (!userRepo.userExists(userID) || !userRepo.isAccountConfirmedByUserID(userID)) {
 
       throw new UserException(Messages.FAILURE_USER_NOT_FOUND);
     }

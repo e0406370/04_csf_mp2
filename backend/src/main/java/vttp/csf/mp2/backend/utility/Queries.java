@@ -31,10 +31,16 @@ public class Queries {
         WHERE `user_username` = ?
       """;
 
-  public static final String SQL_CHECK_CONFIRMATION_STATUS = """
+  public static final String SQL_CHECK_CONFIRMATION_STATUS_BY_USERNAME = """
       SELECT `is_confirmed`
         FROM `users`
         WHERE `user_username` = ?
+      """;
+
+  public static final String SQL_CHECK_CONFIRMATION_STATUS_BY_USER_ID = """
+      SELECT `is_confirmed`
+        FROM `users`
+        WHERE `user_id` = ?
       """;
 
   public static final String SQL_RETRIEVE_PASSWORD_BY_USERNAME = """
