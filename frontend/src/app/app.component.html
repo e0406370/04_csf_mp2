@@ -6,17 +6,26 @@
     </button>
   </a>
 
-  <a [routerLink]="['/register']">
-    <button type="button" class="btn btn-lg btn-primary ms-3">
-      Register User
-    </button>
-  </a>
+  @if (loggedID) {
+    <span class="fw-bold">Welcome {{ loggedName }}!</span>
 
-  <a [routerLink]="['/login']">
-    <button type="button" class="btn btn-lg btn-primary ms-3">
-      Login User
+    <button type="button" class="btn btn-lg btn-danger ms-3" (click)="logoutUser()">
+      Logout User
     </button>
-  </a>  
+  }
+  @else {
+    <a [routerLink]="['/register']">
+      <button type="button" class="btn btn-lg btn-primary ms-3">
+        Register User
+      </button>
+    </a>
+
+    <a [routerLink]="['/login']">
+      <button type="button" class="btn btn-lg btn-primary ms-3">
+        Login User
+      </button>
+    </a>
+  }
 </nav>
 <br/>
 
