@@ -22,7 +22,7 @@ export const validateUserID: CanActivateFn = (_route: ActivatedRouteSnapshot, _s
   const utilitySvc = inject(UtilityService);
   const authenticationSvc = inject(AuthenticationService);
 
-  const endpoint = _route.params['endpoint'];
+  const endpoint = _route.data['endpoint'];
   const userID = _route.params['userID'];
 
   return authenticationSvc.validateUserID(endpoint, userID)

@@ -15,7 +15,7 @@ export class UtilityService {
       severity: 'success',
       summary: 'Success',
       detail: message,
-      life: 5000,
+      life: 3500,
     });
   }
 
@@ -25,7 +25,7 @@ export class UtilityService {
       severity: 'error',
       summary: 'Error',
       detail: message,
-      life: 5000,
+      life: 3500,
     });
   }
 }

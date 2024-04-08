@@ -21,11 +21,12 @@ import { UserConfirmationComponent } from './user-confirmation/user-confirmation
 import { UserLoginComponent } from './user-login/user-login.component';
 import { UserRegistrationComponent } from './user-registration/user-registration.component';
 
-import { UserConfirmationService } from './utility/user-confirmation.service';
 import { UserLoginService } from './user-login/user-login.service';
 import { UserRegistrationService } from './user-registration/user-registration.service';
 import { MessageService } from 'primeng/api';
 import { UtilityService } from './utility/utility.service';
+import { AuthenticationService } from './utility/authentication.service';
+
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { UtilityService } from './utility/utility.service';
     MainComponent,
     UserConfirmationComponent,
     UserLoginComponent,
-    UserRegistrationComponent,
+    UserRegistrationComponent,  
   ],
   imports: [
     BrowserModule,
@@ -50,9 +51,9 @@ import { UtilityService } from './utility/utility.service';
     NgOtpInputModule,
   ],
   providers: [
-    UtilityService,
     MessageService,
-    UserConfirmationService,
+    UtilityService,
+    AuthenticationService,
     UserLoginService,
     UserRegistrationService,
     provideAnimationsAsync(),
