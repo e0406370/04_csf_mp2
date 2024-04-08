@@ -120,6 +120,7 @@ public class UserController {
   public ResponseEntity<String> deleteUser(@PathVariable String userID) {
 
     userSvc.deleteUser(userID);
+    appMetricsSvc.incrementDeleteMetric();
 
     return ResponseEntity
         .status(HttpStatus.OK) // 200 OK

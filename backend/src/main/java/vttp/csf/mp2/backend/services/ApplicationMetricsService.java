@@ -10,22 +10,27 @@ import io.micrometer.core.instrument.MeterRegistry;
 public class ApplicationMetricsService {
 
   private final Counter registerCounter;
-  private final Counter confirmCounter;
   private final Counter loginCounter;
+  private final Counter confirmCounter;
+  private final Counter deleteCounter;
 
   @Autowired
   public ApplicationMetricsService(MeterRegistry registry) {
 
     registerCounter = Counter.builder("registration_counter")
-        .description("Number of attempted registrations on the site")
-        .register(registry);
-
-    confirmCounter = Counter.builder("confirm_counter")
-        .description("Number of confirmed registrations on the site")
+        .description("Tracks the number of attempted user registrations on the site")
         .register(registry);
 
     loginCounter = Counter.builder("login_counter")
-        .description("Number of successful logins on the site")
+        .description("Tracks the number of successful user logins on the site")
+        .register(registry);
+
+    confirmCounter = Counter.builder("confirm_counter")
+        .description("Tracks the number of confirmed user registrations on the site")
+        .register(registry);
+
+    deleteCounter = Counter.builder("delete_counter")
+        .description("Tracks the number of accounts successfully deleted from the site")
         .register(registry);
   }
 
@@ -33,11 +38,15 @@ public class ApplicationMetricsService {
     registerCounter.increment();
   }
 
+  public void incrementLoginMetric() {
+    loginCounter.increment();
+  }
+
   public void incrementConfirmMetric() {
     confirmCounter.increment();
   }
 
-  public void incrementLoginMetric() {
-    loginCounter.increment();
+  public void incrementDeleteMetric() {
+    deleteCounter.increment();
   }
 }
