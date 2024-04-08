@@ -4,10 +4,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { ErrorComponent } from './error/error.component';
 import { MainComponent } from './main/main.component';
 import { UserConfirmationComponent } from './user-confirmation/user-confirmation.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserLoginComponent } from './user-login/user-login.component';
 import { UserRegistrationComponent } from './user-registration/user-registration.component';
 
-import { validateUserID, notCompletedRegistration } from './utility/guards';
+import { notCompletedRegistration, validateUserID } from './utility/guards';
+
 
 const appRoutes: Routes = [
   {
@@ -23,6 +25,12 @@ const appRoutes: Routes = [
     component: UserConfirmationComponent,
     canActivate: [validateUserID],
     data: { endpoint: 'confirm' },
+  },
+  {
+    path: 'profile/:userID',
+    component: UserProfileComponent,
+    canActivate: [validateUserID],
+    data: { endpoint: 'profile' },
   },
   {
     path: 'login',

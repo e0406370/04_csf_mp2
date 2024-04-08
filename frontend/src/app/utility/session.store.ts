@@ -5,7 +5,6 @@ import { INIT_SESSION_STORE } from './constants';
 
 @Injectable()
 export class SessionStore extends ComponentStore<SessionState> {
-
   constructor() {
     super(INIT_SESSION_STORE);
   }

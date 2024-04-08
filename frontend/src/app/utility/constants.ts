@@ -17,5 +17,5 @@ export const ERROR_MESSAGE: string =
 
 export const INIT_SESSION_STORE: SessionState = {
   userID: null,
-  name: null
+  name: null,
 };

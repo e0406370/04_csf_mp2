@@ -21,4 +21,9 @@ export class AuthenticationService {
 
     return firstValueFrom(this.httpClient.put<any>(`/api/user/confirm/${userID}`, confirmationCode));
   }
+
+  public retrieveUserProfile(userID: string): Promise<any> {
+
+    return firstValueFrom(this.httpClient.get<any>(`/api/user/profile/${userID}`));
+  }
 }

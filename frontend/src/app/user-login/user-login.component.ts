@@ -13,9 +13,7 @@ import { SessionState } from '../models/sessionstate';
   templateUrl: './user-login.component.html',
   styleUrl: './user-login.component.css',
 })
-  
 export class UserLoginComponent implements OnInit {
-
   private fb = inject(FormBuilder);
   private router = inject(Router);
 
@@ -26,37 +24,34 @@ export class UserLoginComponent implements OnInit {
   userLoginForm!: FormGroup;
 
   ngOnInit(): void {
-
     this.userLoginForm = this.createLoginForm();
   }
 
   createLoginForm(): FormGroup {
-    
     return this.fb.group({
-
       username: this.fb.control<string>('', [Validators.required]),
 
-      password: this.fb.control<string>('', [Validators.required])
+      password: this.fb.control<string>('', [Validators.required]),
     });
   }
 
   submitLoginForm(): void {
-
     const loginDetails = this.userLoginSvc.parseLoginForm(this.userLoginForm);
 
-    this.userLoginSvc.loginUser(loginDetails)
-      .then(res => {
-        
+    this.userLoginSvc
+      .loginUser(loginDetails)
+      .then((res) => {
         this.utilitySvc.generateSuccessMessage(res.message);
         this.userLoginForm.reset();
-        
+
         this.sessionStore.updateSessionState(res.response as SessionState);
 
         this.router.navigate(['/']);
       })
-      .catch(err => {
-
-        this.utilitySvc.generateErrorMessage(err?.error?.message || ERROR_MESSAGE);
+      .catch((err) => {
+        this.utilitySvc.generateErrorMessage(
+          err?.error?.message || ERROR_MESSAGE
+        );
       });
   }
 }

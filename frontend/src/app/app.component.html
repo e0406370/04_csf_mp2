@@ -9,6 +9,12 @@
   @if (loggedID) {
     <span class="fw-bold">Welcome {{ loggedName }}!</span>
 
+    <a [routerLink]="['/profile', loggedID]">
+      <button type="button" class="btn btn-lg btn-info ms-3">
+        Profile
+      </button>
+    </a>
+
     <button type="button" class="btn btn-lg btn-danger ms-3" (click)="logoutUser()">
       Logout User
     </button>

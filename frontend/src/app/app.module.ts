@@ -27,40 +27,44 @@ import { AuthenticationService } from './utility/authentication.service';
 import { SessionStore } from './utility/session.store';
 import { UserLoginService } from './user-login/user-login.service';
 import { UserRegistrationService } from './user-registration/user-registration.service';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { AgeFromMillisecondsPipe } from "./utility/age.pipe";
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ErrorComponent,
-    MainComponent,
-    UserConfirmationComponent,
-    UserLoginComponent,
-    UserRegistrationComponent,  
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    AppRoutingModule,
-    MaterialModule,
-    AutoFocusModule,
-    CardModule,
-    ToastModule,
-    MessagesModule,
-    NgbModule,
-    NgOtpInputModule,
-  ],
-  providers: [
-    MessageService,
-    UtilityService,
-    AuthenticationService,
-    SessionStore,
-    UserLoginService,
-    UserRegistrationService,
-    provideAnimationsAsync(),
-  ],
-  bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    declarations: [
+        AppComponent,
+        ErrorComponent,
+        MainComponent,
+        UserConfirmationComponent,
+        UserLoginComponent,
+        UserRegistrationComponent,
+        UserProfileComponent,
+    ],
+    providers: [
+        MessageService,
+        UtilityService,
+        AuthenticationService,
+        SessionStore,
+        UserLoginService,
+        UserRegistrationService,
+        provideAnimationsAsync(),
+    ],
+    bootstrap: [AppComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        AppRoutingModule,
+        MaterialModule,
+        AutoFocusModule,
+        CardModule,
+        ToastModule,
+        MessagesModule,
+        NgbModule,
+        NgOtpInputModule,
+        AgeFromMillisecondsPipe
+    ]
 })
 export class AppModule {}
