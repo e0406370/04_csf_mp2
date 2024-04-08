@@ -21,11 +21,12 @@ import { UserConfirmationComponent } from './user-confirmation/user-confirmation
 import { UserLoginComponent } from './user-login/user-login.component';
 import { UserRegistrationComponent } from './user-registration/user-registration.component';
 
-import { UserLoginService } from './user-login/user-login.service';
-import { UserRegistrationService } from './user-registration/user-registration.service';
 import { MessageService } from 'primeng/api';
 import { UtilityService } from './utility/utility.service';
 import { AuthenticationService } from './utility/authentication.service';
+import { SessionStore } from './utility/session.store';
+import { UserLoginService } from './user-login/user-login.service';
+import { UserRegistrationService } from './user-registration/user-registration.service';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import { AuthenticationService } from './utility/authentication.service';
     MessageService,
     UtilityService,
     AuthenticationService,
+    SessionStore,
     UserLoginService,
     UserRegistrationService,
     provideAnimationsAsync(),

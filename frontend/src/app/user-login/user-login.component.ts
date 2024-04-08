@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { ERROR_MESSAGE } from '../utility/constants';
 import { UtilityService } from '../utility/utility.service';
 import { UserLoginService } from './user-login.service';
+import { SessionStore } from '../utility/session.store';
+import { SessionState } from '../models/sessionstate';
 
 @Component({
   selector: 'app-user-login',
@@ -19,7 +21,8 @@ export class UserLoginComponent implements OnInit {
 
   private utilitySvc = inject(UtilityService);
   private userLoginSvc = inject(UserLoginService);
-  
+  private sessionStore = inject(SessionStore);
+
   userLoginForm!: FormGroup;
 
   ngOnInit(): void {
@@ -47,6 +50,8 @@ export class UserLoginComponent implements OnInit {
         this.utilitySvc.generateSuccessMessage(res.message);
         this.userLoginForm.reset();
         
+        this.sessionStore.updateSessionState(res.response as SessionState);
+
         this.router.navigate(['/']);
       })
       .catch(err => {
