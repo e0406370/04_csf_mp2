@@ -15,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import vttp.csf.mp2.backend.models.User;
+import vttp.csf.mp2.backend.utility.Constants;
 import vttp.csf.mp2.backend.utility.UserUtility;
 
 @Service
@@ -49,9 +50,9 @@ public class MailService {
     String variables = """
         {
           "confirmationCode": "%s",
-          "confirmationLink": "http://localhost:4200/#/user/confirm/%s"
+          "confirmationLink": "%s/#/confirm/%s"
         }
-        """.formatted(confirmationToken, newUser.userID());
+        """.formatted(confirmationToken, Constants.DOMAIN_NAME, newUser.userID());
 
     MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
     body.add("from", SENDER_EMAIL);
