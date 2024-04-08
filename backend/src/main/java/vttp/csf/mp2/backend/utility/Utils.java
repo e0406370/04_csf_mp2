@@ -1,5 +1,6 @@
 package vttp.csf.mp2.backend.utility;
 
+import java.io.StringReader;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -45,5 +46,10 @@ public class Utils {
         .add("timestamp", Utils.returnCurrentTimeStamp())
         .add("response", response)
         .build();
+  }
+
+  public static JsonObject returnPayloadInJson(String payload) {
+
+    return Json.createReader(new StringReader(payload)).readObject();
   }
 }

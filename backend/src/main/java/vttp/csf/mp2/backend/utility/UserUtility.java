@@ -1,6 +1,5 @@
 package vttp.csf.mp2.backend.utility;
 
-import java.io.StringReader;
 import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import com.github.f4b6a3.ulid.UlidCreator;
 
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
-import jakarta.json.JsonReader;
 
 import vttp.csf.mp2.backend.models.LoginDetails;
 import vttp.csf.mp2.backend.models.User;
@@ -31,8 +29,7 @@ public class UserUtility {
 
   public User parseRegistrationPayload(String registrationPayload) {
 
-    JsonReader r = Json.createReader(new StringReader(registrationPayload));
-    JsonObject jo = r.readObject();
+    JsonObject jo = Utils.returnPayloadInJson(registrationPayload);
 
     String userID = generateUserID();
     String name = jo.getString("name").trim();
@@ -46,8 +43,7 @@ public class UserUtility {
 
   public LoginDetails parseLoginPayload(String loginPayload) {
 
-    JsonReader r = Json.createReader(new StringReader(loginPayload));
-    JsonObject jo = r.readObject();
+    JsonObject jo = Utils.returnPayloadInJson(loginPayload);
 
     String username = jo.getString("username").trim();
     String rawPassword = jo.getString("password");
@@ -57,16 +53,14 @@ public class UserUtility {
 
   public String parseEmailPayload(String emailPayload) {
 
-    JsonReader r = Json.createReader(new StringReader(emailPayload));
-    JsonObject jo = r.readObject();
+    JsonObject jo = Utils.returnPayloadInJson(emailPayload);
 
     return jo.getString("id");
   }
 
   public String parseConfirmationPayload(String confirmationPayload) {
 
-    JsonReader r = Json.createReader(new StringReader(confirmationPayload));
-    JsonObject jo = r.readObject();
+    JsonObject jo = Utils.returnPayloadInJson(confirmationPayload);
 
     return jo.getString("confirmationCode");
   }
