@@ -39,6 +39,13 @@ public class Utils {
         .build();
   }
 
+  public static JsonObject returnResponseInJson(JsonObject response) {
+
+    return Json.createObjectBuilder()
+        .add("response", response)
+        .build();
+  }
+
   public static JsonObject returnMessageWithResponseInJson(String message, JsonObject response) {
 
     return Json.createObjectBuilder()

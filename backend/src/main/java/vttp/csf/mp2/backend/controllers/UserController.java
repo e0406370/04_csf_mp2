@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -113,5 +114,34 @@ public class UserController {
     return ResponseEntity
         .status(HttpStatus.OK) // 200 OK
         .body(Utils.returnMessageInJson(Messages.SUCCESS_USER_CONFIRMATION).toString());
+  }
+
+  @DeleteMapping(path = "/delete/{userID}")
+  public ResponseEntity<String> deleteUser(@PathVariable String userID) {
+
+    userSvc.deleteUser(userID);
+
+    return ResponseEntity
+        .status(HttpStatus.OK) // 200 OK
+        .body(Utils.returnMessageInJson(Messages.SUCCESS_USER_DELETION).toString());
+  }
+
+  @GetMapping(path = "/profile/{userID}")
+  public ResponseEntity<String> retrieveUserProfile(@PathVariable String userID) {
+
+    try {
+
+      JsonObject response = userSvc.retrieveUserProfile(userID);
+
+      return ResponseEntity
+      .status(HttpStatus.OK) // 200 OK
+      .body(Utils.returnResponseInJson(response).toString());
+    }
+    catch (UserException e) {
+
+      return ResponseEntity
+      .status(HttpStatus.NOT_FOUND) // 404 NOT FOUND
+      .body(Utils.returnMessageInJson(e.getMessage()).toString());
+    }
   }
 }

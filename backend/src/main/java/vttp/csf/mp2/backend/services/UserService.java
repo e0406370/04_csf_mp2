@@ -98,4 +98,19 @@ public class UserService {
       tokenRepo.deleteConfirmationToken(userID);
     }
   }
+
+  public void deleteUser(String userID) {
+
+    userRepo.deleteUser(userID);
+  }
+
+  public JsonObject retrieveUserProfile(String userID) throws UserException {
+
+    if (!userRepo.userExists(userID)) {
+
+      throw new UserException(Messages.FAILURE_USER_NOT_FOUND);
+    }
+
+    return userUtils.returnUserProfileInJson(userID, userRepo.retrieveUserProfile(userID));
+  } 
 }

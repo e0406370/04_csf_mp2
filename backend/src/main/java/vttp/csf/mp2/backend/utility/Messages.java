@@ -21,6 +21,11 @@ public class Messages {
       You can now login into your account.
       """;
       
+  public static final String SUCCESS_USER_DELETION = """
+      Your account has been successfully deleted.
+      Thank you for using the service.
+      """;
+      
   public static final String FAILURE_EMAIL_EXISTS = """
       This email is already registered.
       Please choose a different email.
@@ -29,6 +34,10 @@ public class Messages {
   public static final String FAILURE_USERNAME_EXISTS = """
       This username is already taken.
       Please choose a different username.
+      """;
+      
+  public static final String FAILURE_USER_NOT_FOUND = """
+      User profile is not available.
       """;
       
   public static final String FAILURE_USERNAME_NOT_FOUND = """

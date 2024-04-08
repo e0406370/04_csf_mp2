@@ -14,6 +14,11 @@ public class UserRepository {
   @Autowired
   private JdbcTemplate jdbcTemplate;
 
+  public boolean userExists(String userID) {
+
+    return jdbcTemplate.queryForObject(SQLQueries.SQL_CHECK_USER_EXISTS, Integer.class, userID) > 0;
+  }
+
   public boolean emailExists(String email) {
 
     return jdbcTemplate.queryForObject(SQLQueries.SQL_CHECK_EMAIL_EXISTS, Integer.class, email) > 0;
@@ -54,8 +59,6 @@ public class UserRepository {
     return jdbcTemplate.update(SQLQueries.SQL_LOGIN_USER, username) > 0;
   }
   
-  // TODO: add retrieveProfile(String userID) for checking profile
-
   public SqlRowSet retrieveUserByUsername(String username) {
 
     return jdbcTemplate.queryForRowSet(SQLQueries.SQL_RETRIEVE_USER_BY_USERNAME, username);
@@ -73,5 +76,10 @@ public class UserRepository {
     int confirmed = jdbcTemplate.update(SQLQueries.SQL_CONFIRM_USER, userID);
 
     return confirmed > 0;
+  }
+
+  public SqlRowSet retrieveUserProfile(String userID) {
+
+    return jdbcTemplate.queryForRowSet(SQLQueries.SQL_RETRIEVE_PROFILE_BY_USER_ID, userID);
   }
 }

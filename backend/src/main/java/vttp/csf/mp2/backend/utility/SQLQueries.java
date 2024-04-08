@@ -13,6 +13,12 @@ public class SQLQueries {
       ON DUPLICATE KEY UPDATE `last_login_date` = CURRENT_TIMESTAMP
       """;
 
+  public static final String SQL_CHECK_USER_EXISTS = """
+      SELECT COUNT(*)
+        FROM `users`
+        WHERE `user_id` = ?
+      """;
+
   public static final String SQL_CHECK_EMAIL_EXISTS = """
       SELECT COUNT(*)
         FROM `users`
@@ -41,6 +47,12 @@ public class SQLQueries {
       SELECT `user_id`, `user_name`
         FROM `users`
         WHERE `user_username` = ?
+      """;
+
+  public static final String SQL_RETRIEVE_PROFILE_BY_USER_ID = """
+      SELECT `user_name`, `user_email`, `user_dob`, `created_date`
+        FROM `users`
+        WHERE `user_id` = ?
       """;
 
   public static final String SQL_CONFIRM_USER = """

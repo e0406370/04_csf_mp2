@@ -82,4 +82,22 @@ public class UserUtility {
         .add("name", name)
         .build();
   }
+
+  public JsonObject returnUserProfileInJson(String userID, SqlRowSet srs) {
+
+    srs.next();
+
+    String name = srs.getString("user_name");
+    String email = srs.getString("user_email");
+    Long birthDate = srs.getDate("user_dob").getTime();
+    Long createdDate = srs.getDate("created_date").getTime();
+
+    return Json.createObjectBuilder()
+        .add("userID", userID)
+        .add("name", name)
+        .add("email", email)
+        .add("birthDate", birthDate)
+        .add("createdDate", createdDate)
+        .build();
+  }
 }
