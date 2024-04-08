@@ -43,6 +43,6 @@ export class UserRegistrationService {
 
   public registerUser(newUser: User): Promise<any> {
 
-    return firstValueFrom(this.httpClient.post<any>("/api/register", newUser));
+    return firstValueFrom(this.httpClient.post<any>("/api/user/register", newUser));
   }
 }

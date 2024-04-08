@@ -7,15 +7,37 @@ import { UserConfirmationComponent } from './user-confirmation/user-confirmation
 import { UserLoginComponent } from './user-login/user-login.component';
 import { UserRegistrationComponent } from './user-registration/user-registration.component';
 
-import { correctConfirmationCode, notCompletedRegistration } from './utility/guards';
+import { validateUserID, notCompletedRegistration } from './utility/guards';
 
 const appRoutes: Routes = [
-  { path: 'error', component: ErrorComponent },
-  { path: '', component: MainComponent },
-  { path: 'confirm/:userID', component: UserConfirmationComponent, canActivate: [correctConfirmationCode] },
-  { path: 'login', component: UserLoginComponent },
-  { path: 'register', component: UserRegistrationComponent, canDeactivate: [notCompletedRegistration] },
-  { path: '**', redirectTo: '/error', pathMatch: 'full' },
+  {
+    path: 'error',
+    component: ErrorComponent
+  },
+  {
+    path: '',
+    component: MainComponent
+  },
+  {
+    path: 'confirm/:userID',
+    component: UserConfirmationComponent,
+    canActivate: [validateUserID],
+    data: { endpoint: 'confirm' },
+  },
+  {
+    path: 'login',
+    component: UserLoginComponent
+  },
+  {
+    path: 'register',
+    component: UserRegistrationComponent,
+    canDeactivate: [notCompletedRegistration],
+  },
+  {
+    path: '**',
+    redirectTo: '/error',
+    pathMatch: 'full'
+  },
 ];
 
 @NgModule({

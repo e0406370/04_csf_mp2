@@ -1,8 +1,10 @@
 import { inject } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivateFn, CanDeactivateFn, Router, RouterStateSnapshot } from "@angular/router";
-import { UserConfirmationService } from "../user-confirmation/user-confirmation.service";
+
 import { UserRegistrationComponent } from "../user-registration/user-registration.component";
-import { MessageService } from "primeng/api";
+import { AuthenticationService } from "./authentication.service";
+import { UtilityService } from "./utility.service";
+import { ERROR_MESSAGE } from "./constants";
 
 export const notCompletedRegistration: CanDeactivateFn<UserRegistrationComponent> = (comp: UserRegistrationComponent, _route: ActivatedRouteSnapshot, _state: RouterStateSnapshot) => {
   
@@ -14,31 +16,24 @@ export const notCompletedRegistration: CanDeactivateFn<UserRegistrationComponent
   return true;
 }
 
-export const correctConfirmationCode: CanActivateFn = (_route: ActivatedRouteSnapshot, _state: RouterStateSnapshot) => {
+export const validateUserID: CanActivateFn = (_route: ActivatedRouteSnapshot, _state: RouterStateSnapshot) => {
 
   const router = inject(Router);
-  const userConfirmationSvc = inject(UserConfirmationService);
-  const messageSvc = inject(MessageService);
+  const utilitySvc = inject(UtilityService);
+  const authenticationSvc = inject(AuthenticationService);
 
+  const endpoint = _route.params['endpoint'];
   const userID = _route.params['userID'];
 
-  return userConfirmationSvc.confirmUserGet(userID)
+  return authenticationSvc.validateUserID(endpoint, userID)
     .then(() => {
       
-      userConfirmationSvc.userID = userID;
+      authenticationSvc.userID = userID;
       return true;
     })
     .catch((err) => {
 
-      const errorMessage = err?.error?.notFound || "Unknown error occurred."
-
-      messageSvc.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: errorMessage,
-        life: 5000,
-      });
-
+      utilitySvc.generateErrorMessage(err?.error?.message || ERROR_MESSAGE);
       return router.parseUrl('/error');
     });
 }

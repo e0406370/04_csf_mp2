@@ -9,3 +9,6 @@
 */
 export const PASSWORD_REGEX: string =
   '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\\W_])(?!.*\\s).{10,}$';
+
+export const ERROR_MESSAGE: string =
+  'Unknown error occurred. Please try again later.'

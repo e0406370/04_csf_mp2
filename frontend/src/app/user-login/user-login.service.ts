@@ -27,6 +27,6 @@ export class UserLoginService {
 
   public loginUser(login: LoginDetails): Promise<any> {
 
-    return firstValueFrom(this.httpClient.post<any>("/api/login", login));
+    return firstValueFrom(this.httpClient.post<any>("/api/user/login", login));
   }
 }

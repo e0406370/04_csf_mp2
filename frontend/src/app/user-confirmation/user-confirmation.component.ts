@@ -1,8 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserConfirmationService } from './user-confirmation.service';
-import { MessageService } from 'primeng/api';
+
+import { ERROR_MESSAGE } from '../utility/constants';
+import { UtilityService } from '../utility/utility.service';
+import { AuthenticationService } from '../utility/authentication.service'
 
 @Component({
   selector: 'app-user-confirmation',
@@ -14,8 +16,9 @@ export class UserConfirmationComponent implements OnInit {
 
   private fb = inject(FormBuilder);
   private router = inject(Router);
-  private messageSvc = inject(MessageService);
-  private userConfirmationSvc = inject(UserConfirmationService);
+
+  private utilitySvc = inject(UtilityService);
+  private authenticationSvc = inject(AuthenticationService);
 
   userConfirmationForm!: FormGroup;
   userID!: string;
@@ -24,7 +27,7 @@ export class UserConfirmationComponent implements OnInit {
   ngOnInit(): void {
 
     this.userConfirmationForm = this.createConfirmationForm();
-    this.userID = this.userConfirmationSvc.userID;
+    this.userID = this.authenticationSvc.userID;
   }
 
   onCodeChange(code: string): void {
@@ -47,31 +50,17 @@ export class UserConfirmationComponent implements OnInit {
 
     const confirmationCode = this.userConfirmationForm.value["confirmationCode"];
 
-    this.userConfirmationSvc.confirmUserPut(this.userID, { confirmationCode })
+    this.authenticationSvc.confirmUserPut(this.userID, { confirmationCode })
       .then(res => {
 
-        this.messageSvc.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: `Successfully confirmed user with User ID: ${res.userID}
-                  \nYou may now log into your account!`,
-          life: 5000,
-        });
-        
+        this.utilitySvc.generateSuccessMessage(res.message);
         this.userConfirmationForm.reset();
 
         this.router.navigate(['/login']);
       })
       .catch(err => {
 
-        const errorMessage = err?.error?.incorrectCode || "Unknown error occurred."
-
-        this.messageSvc.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: errorMessage,
-          life: 5000,
-        });
+        this.utilitySvc.generateErrorMessage(err?.error?.message || ERROR_MESSAGE);
       })
   }
 }

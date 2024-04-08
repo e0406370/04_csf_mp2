@@ -12,6 +12,13 @@ import jakarta.json.JsonObject;
 
 public class Utils {
 
+  public static String returnCurrentTimeStamp() {
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constants.DATE_TIME_PATTERN);
+
+    return LocalDateTime.now().format(formatter);
+  }
+
   public static LocalDate returnDateFromMilliseconds(Long longDateValue) {
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constants.DATE_PATTERN);
@@ -22,13 +29,6 @@ public class Utils {
         .format(formatter);
 
     return LocalDate.parse(date);
-  }
-
-  public static String returnCurrentTimeStamp() {
-
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constants.DATE_TIME_PATTERN);
-
-    return LocalDateTime.now().format(formatter);
   }
 
   public static JsonObject returnMessageInJson(String message) {
