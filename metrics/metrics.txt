@@ -22,7 +22,7 @@ workflow:
 7. docker compose up -d
   => start containers for prometheus and grafana (optional)
   => prometheus: localhost:9090
-  => grafana: localhost:3000
+  => grafana: localhost:3000 (optional)
 
 8. access /actuator/prometheus to view metrics data in a format compatible with Prometheus
 
@@ -38,4 +38,4 @@ workflow:
 
 14. customise personalised metrics as shown in ApplicationMetricsService.java
 
-15. ** note that metrics will reset upon redeployment!
+15. ** note that these metrics will reset upon redeployment!
