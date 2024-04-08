@@ -5,13 +5,12 @@ import org.springframework.stereotype.Service;
 
 import jakarta.json.JsonObject;
 
-import vttp.csf.mp2.backend.exceptions.AuthenticationFailureException;
-import vttp.csf.mp2.backend.exceptions.EmailExistsException;
-import vttp.csf.mp2.backend.exceptions.UsernameExistsException;
+import vttp.csf.mp2.backend.exceptions.UserException;
 import vttp.csf.mp2.backend.models.LoginDetails;
 import vttp.csf.mp2.backend.models.User;
 import vttp.csf.mp2.backend.repositories.TokenRepository;
 import vttp.csf.mp2.backend.repositories.UserRepository;
+import vttp.csf.mp2.backend.utility.Messages;
 import vttp.csf.mp2.backend.utility.UserUtility;
 
 @Service
@@ -29,22 +28,19 @@ public class UserService {
   @Autowired
   private UserUtility userUtils;
 
-  public boolean registerUser(User newUser) throws EmailExistsException, UsernameExistsException {
+  public boolean registerUser(User newUser) throws UserException {
 
     if (userRepo.emailExists(newUser.email())) {
 
-      String errorMessage = "Email already exists in database!";
-      throw new EmailExistsException(errorMessage);
+      throw new UserException(Messages.FAILURE_EMAIL_EXISTS);
     }
 
     if (userRepo.usernameExists(newUser.username())) {
-
-      String errorMessage = "Username already exists in database!";
-      throw new UsernameExistsException(errorMessage);
+      
+      throw new UserException(Messages.FAILURE_USERNAME_EXISTS);
     }
 
     boolean registered = userRepo.registerUser(newUser);
-
     if (registered) {
 
       String confirmationToken = tokenRepo.saveConfirmationToken(newUser.userID());
@@ -56,14 +52,13 @@ public class UserService {
     return registered;
   }
 
-  public JsonObject loginUser(LoginDetails login) throws AuthenticationFailureException {
+  public JsonObject loginUser(LoginDetails login) throws UserException {
 
     String username = login.username();
 
     if (!userRepo.usernameExists(username)) {
 
-      String errorMessage = "Username not found in database!";
-      throw new AuthenticationFailureException(errorMessage);
+      throw new UserException(Messages.FAILURE_USERNAME_NOT_FOUND);
     }
 
     String rawPassword = login.password();
@@ -71,18 +66,16 @@ public class UserService {
 
     if (!userUtils.isCorrectMatch(rawPassword, hashedPassword)) {
 
-      String errorMessage = "Incorrect password!";
-      throw new AuthenticationFailureException(errorMessage);
+      throw new UserException(Messages.FAILURE_INCORRECT_PASSWORD);
     }
 
     if (!userRepo.isAccountConfirmed(username)) {
 
-      String errorMessage = "Account has not been confirmed!";
-      throw new AuthenticationFailureException(errorMessage);
+      throw new UserException(Messages.FAILURE_ACCOUNT_NOT_CONFIRMED);
     }
 
     userRepo.loginUser(username);
-    return userUtils.retrieveUserInJson(userRepo.retrieveDetailsByUsername(username));
+    return userUtils.returnUserInJson(userRepo.retrieveUserByUsername(username));
   }
 
   public boolean isUnconfirmedUserID(String userID) {

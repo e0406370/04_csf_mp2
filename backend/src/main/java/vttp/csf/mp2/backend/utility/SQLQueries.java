@@ -37,20 +37,20 @@ public class SQLQueries {
         WHERE `user_username` = ?
       """;
 
-  public static final String SQL_RETRIEVE_DETAILS_BY_USERNAME = """
-      SELECT `user_id`, `user_name`, `user_email`, `user_dob`, `user_username`, `user_password`
+  public static final String SQL_RETRIEVE_USER_BY_USERNAME = """
+      SELECT `user_id`, `user_name`
         FROM `users`
         WHERE `user_username` = ?
-      """;
-
-  public static final String SQL_DELETE_USER = """
-      DELETE FROM `users`
-        WHERE `user_id` = ?
       """;
 
   public static final String SQL_CONFIRM_USER = """
       UPDATE `users`
         SET `is_confirmed` = TRUE
+        WHERE `user_id` = ?
+      """;
+
+  public static final String SQL_DELETE_USER = """
+      DELETE FROM `users`
         WHERE `user_id` = ?
       """;
 }

@@ -15,17 +15,17 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
 
-import vttp.csf.mp2.backend.exceptions.AuthenticationFailureException;
-import vttp.csf.mp2.backend.exceptions.EmailExistsException;
-import vttp.csf.mp2.backend.exceptions.UsernameExistsException;
+import vttp.csf.mp2.backend.exceptions.UserException;
 import vttp.csf.mp2.backend.models.LoginDetails;
 import vttp.csf.mp2.backend.models.User;
 import vttp.csf.mp2.backend.services.ApplicationMetricsService;
 import vttp.csf.mp2.backend.services.UserService;
+import vttp.csf.mp2.backend.utility.Messages;
 import vttp.csf.mp2.backend.utility.UserUtility;
+import vttp.csf.mp2.backend.utility.Utils;
 
 @RestController
-@RequestMapping(path = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/api/user", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserController {
 
   @Autowired
@@ -44,23 +44,16 @@ public class UserController {
 
     try {
       userSvc.registerUser(newUser);
-      appMetricsSvc.incrementRegister();
-
-      JsonObject registrationSuccessResponse = Json.createObjectBuilder()
-          .add("userID", newUser.userID())
-          .build();
+      appMetricsSvc.incrementRegisterMetric();
 
       return ResponseEntity
           .status(HttpStatus.CREATED) // 201 CREATED
-          .body(registrationSuccessResponse.toString());
+          .body(Utils.returnMessageInJson(Messages.SUCCESS_USER_REGISTRATION).toString());
     }
-
-    catch (EmailExistsException e) {
-      return userUtils.createErrorResponse(HttpStatus.CONFLICT, "emailExists", e.getMessage()); // 409 CONFLICT
-    }
-
-    catch (UsernameExistsException e) {
-      return userUtils.createErrorResponse(HttpStatus.CONFLICT, "usernameExists", e.getMessage()); // 409 CONFLICT
+    catch (UserException e) {
+      return ResponseEntity
+          .status(HttpStatus.CONFLICT) // 409 CREATED
+          .body(Utils.returnMessageInJson(e.getMessage()).toString());
     }
   }
 
@@ -70,16 +63,17 @@ public class UserController {
     LoginDetails login = userUtils.parseLoginPayload(loginPayload);
 
     try {
-      JsonObject loginSuccessResponse = userSvc.loginUser(login);
-      appMetricsSvc.incrementLogin();
+      JsonObject response = userSvc.loginUser(login);
+      appMetricsSvc.incrementLoginMetric();
 
       return ResponseEntity
           .status(HttpStatus.OK) // 200 OK
-          .body(loginSuccessResponse.toString());
+          .body(Utils.returnMessageWithResponseInJson(Messages.SUCCESS_USER_LOGIN, response).toString());
     }
-
-    catch (AuthenticationFailureException e) {
-      return userUtils.createErrorResponse(HttpStatus.UNAUTHORIZED, "authenticationFailure", e.getMessage()); // 401 UNAUTHORIZED
+    catch (UserException e) {
+      return ResponseEntity
+          .status(HttpStatus.UNAUTHORIZED) // 401 UNAUTHORIZED
+          .body(Utils.returnMessageInJson(e.getMessage()).toString());
     }
   }
 
@@ -93,8 +87,8 @@ public class UserController {
     }
 
     JsonObject confirmationResponse = Json.createObjectBuilder()
-      .add("userID", userID)
-      .build();
+        .add("userID", userID)
+        .build();
 
     return ResponseEntity
         .status(HttpStatus.OK) // 200 OK
@@ -113,11 +107,11 @@ public class UserController {
     }
 
     userSvc.confirmUser(userID);
-    appMetricsSvc.incrementConfirm();
-    
+    appMetricsSvc.incrementConfirmMetric();
+
     JsonObject confirmationResponse = Json.createObjectBuilder()
-      .add("userID", userID)
-      .build();
+        .add("userID", userID)
+        .build();
 
     return ResponseEntity
         .status(HttpStatus.OK) // 200 OK

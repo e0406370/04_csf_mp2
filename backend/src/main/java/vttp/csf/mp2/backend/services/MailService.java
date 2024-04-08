@@ -49,7 +49,7 @@ public class MailService {
     String variables = """
         {
           "confirmationCode": "%s",
-          "confirmationLink": "http://localhost:4200/#/confirm/%s"
+          "confirmationLink": "http://localhost:4200/#/user/confirm/%s"
         }
         """.formatted(confirmationToken, newUser.userID());
 
@@ -71,7 +71,7 @@ public class MailService {
       ResponseEntity<String> response = restTemplate.exchange(request, String.class);
 
       logger.info("Confirmation email sent to %s".formatted(newUser.email()));
-      logger.info("Message ID: %s".formatted(userUtils.parseMessagePayload(response.getBody())));
+      logger.info("Email ID: %s".formatted(userUtils.parseEmailPayload(response.getBody())));
     } 
     catch (Exception e) {
       logger.severe("An error occurred while sending a confirmation email to %s: %s".formatted(newUser.email(), e.getMessage()));

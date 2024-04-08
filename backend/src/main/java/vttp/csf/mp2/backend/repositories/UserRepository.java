@@ -24,16 +24,6 @@ public class UserRepository {
     return jdbcTemplate.queryForObject(SQLQueries.SQL_CHECK_USERNAME_EXISTS, Integer.class, username) > 0;
   }
 
-  public String retrieveHashedPasswordByUsername(String username) {
-
-    return jdbcTemplate.queryForObject(SQLQueries.SQL_RETRIEVE_PASSWORD_BY_USERNAME, String.class, username);
-  }
-
-  public boolean isAccountConfirmed(String username) {
-
-    return jdbcTemplate.queryForObject(SQLQueries.SQL_CHECK_CONFIRMATION_STATUS, Boolean.class, username);
-  }
-  
   public boolean registerUser(User newUser) {
 
     int registered = jdbcTemplate.update(
@@ -49,14 +39,26 @@ public class UserRepository {
     return registered > 0;
   }
 
+  public String retrieveHashedPasswordByUsername(String username) {
+
+    return jdbcTemplate.queryForObject(SQLQueries.SQL_RETRIEVE_PASSWORD_BY_USERNAME, String.class, username);
+  }
+
+  public boolean isAccountConfirmed(String username) {
+
+    return jdbcTemplate.queryForObject(SQLQueries.SQL_CHECK_CONFIRMATION_STATUS, Boolean.class, username);
+  }
+  
   public boolean loginUser(String username) {
 
     return jdbcTemplate.update(SQLQueries.SQL_LOGIN_USER, username) > 0;
   }
   
-  public SqlRowSet retrieveDetailsByUsername(String username) {
+  // TODO: add retrieveProfile(String userID) for checking profile
 
-    return jdbcTemplate.queryForRowSet(SQLQueries.SQL_RETRIEVE_DETAILS_BY_USERNAME, username);
+  public SqlRowSet retrieveUserByUsername(String username) {
+
+    return jdbcTemplate.queryForRowSet(SQLQueries.SQL_RETRIEVE_USER_BY_USERNAME, username);
   }
 
   public boolean deleteUser(String userID) {

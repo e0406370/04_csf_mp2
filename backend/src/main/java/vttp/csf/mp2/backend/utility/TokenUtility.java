@@ -43,5 +43,4 @@ public class TokenUtility {
 
     return String.join("", elements);
   }
-
 }

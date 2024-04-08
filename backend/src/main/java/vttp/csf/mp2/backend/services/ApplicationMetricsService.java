@@ -29,15 +29,15 @@ public class ApplicationMetricsService {
         .register(registry);
   }
 
-  public void incrementRegister() {
+  public void incrementRegisterMetric() {
     registerCounter.increment();
   }
 
-  public void incrementConfirm() {
+  public void incrementConfirmMetric() {
     confirmCounter.increment();
   }
 
-  public void incrementLogin() {
+  public void incrementLoginMetric() {
     loginCounter.increment();
   }
 }
