@@ -4,8 +4,6 @@ import java.io.StringReader;
 import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -57,20 +55,20 @@ public class UserUtility {
     return new LoginDetails(username, rawPassword);
   }
 
-  public String parseConfirmationPayload(String confirmationPayload) {
-
-    JsonReader r = Json.createReader(new StringReader(confirmationPayload));
-    JsonObject jo = r.readObject();
-
-    return jo.getString("confirmationCode");
-  }
-
   public String parseEmailPayload(String emailPayload) {
 
     JsonReader r = Json.createReader(new StringReader(emailPayload));
     JsonObject jo = r.readObject();
 
     return jo.getString("id");
+  }
+
+  public String parseConfirmationPayload(String confirmationPayload) {
+
+    JsonReader r = Json.createReader(new StringReader(confirmationPayload));
+    JsonObject jo = r.readObject();
+
+    return jo.getString("confirmationCode");
   }
 
   public boolean isCorrectMatch(String rawPassword, String hashedPassword) {
@@ -89,16 +87,5 @@ public class UserUtility {
         .add("userID", userID)
         .add("name", name)
         .build();
-  }
-
-  public ResponseEntity<String> createErrorResponse(HttpStatus status, String errorName, String errorMessage) {
-
-    JsonObject errorResponse = Json.createObjectBuilder()
-        .add(errorName, errorMessage)
-        .build();
-
-    return ResponseEntity
-        .status(status)
-        .body(errorResponse.toString());
   }
 }

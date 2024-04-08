@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import jakarta.json.Json;
 import jakarta.json.JsonObject;
 
 import vttp.csf.mp2.backend.exceptions.UserException;
@@ -43,6 +42,7 @@ public class UserController {
     User newUser = userUtils.parseRegistrationPayload(registrationPayload);
 
     try {
+
       userSvc.registerUser(newUser);
       appMetricsSvc.incrementRegisterMetric();
 
@@ -51,6 +51,7 @@ public class UserController {
           .body(Utils.returnMessageInJson(Messages.SUCCESS_USER_REGISTRATION).toString());
     }
     catch (UserException e) {
+
       return ResponseEntity
           .status(HttpStatus.CONFLICT) // 409 CREATED
           .body(Utils.returnMessageInJson(e.getMessage()).toString());
@@ -63,14 +64,16 @@ public class UserController {
     LoginDetails login = userUtils.parseLoginPayload(loginPayload);
 
     try {
+
       JsonObject response = userSvc.loginUser(login);
       appMetricsSvc.incrementLoginMetric();
 
       return ResponseEntity
           .status(HttpStatus.OK) // 200 OK
           .body(Utils.returnMessageWithResponseInJson(Messages.SUCCESS_USER_LOGIN, response).toString());
-    }
+    } 
     catch (UserException e) {
+
       return ResponseEntity
           .status(HttpStatus.UNAUTHORIZED) // 401 UNAUTHORIZED
           .body(Utils.returnMessageInJson(e.getMessage()).toString());
@@ -82,17 +85,14 @@ public class UserController {
 
     if (!userSvc.isUnconfirmedUserID(userID)) {
 
-      String notFound = "User ID %s not found among unconfirmed accounts!".formatted(userID);
-      return userUtils.createErrorResponse(HttpStatus.NOT_FOUND, "notFound", notFound); // 404 NOT FOUND
+      return ResponseEntity
+          .status(HttpStatus.NOT_FOUND) // 404 NOT FOUND
+          .body(Utils.returnMessageInJson(Messages.FAILURE_CONFIRMATION_LINK_INVALID).toString());
     }
-
-    JsonObject confirmationResponse = Json.createObjectBuilder()
-        .add("userID", userID)
-        .build();
 
     return ResponseEntity
         .status(HttpStatus.OK) // 200 OK
-        .body(confirmationResponse.toString());
+        .body(Utils.returnMessageInJson(Messages.SUCCESS_CONFIRMATION_LINK_VALID).toString());
   }
 
   @PutMapping(path = "/confirm/{userID}")
@@ -102,19 +102,16 @@ public class UserController {
 
     if (!userSvc.isCorrectConfirmationCode(userID, confirmationCode)) {
 
-      String incorrectCode = "Incorrect confirmation code!";
-      return userUtils.createErrorResponse(HttpStatus.BAD_REQUEST, "incorrectCode", incorrectCode); // 400 BAD REQUEST
+      return ResponseEntity
+          .status(HttpStatus.BAD_REQUEST) // 400 BAD REQUEST
+          .body(Utils.returnMessageInJson(Messages.FAILURE_INCORRECT_CONFIRMATION_CODE).toString());
     }
 
     userSvc.confirmUser(userID);
     appMetricsSvc.incrementConfirmMetric();
 
-    JsonObject confirmationResponse = Json.createObjectBuilder()
-        .add("userID", userID)
-        .build();
-
     return ResponseEntity
         .status(HttpStatus.OK) // 200 OK
-        .body(confirmationResponse.toString());
+        .body(Utils.returnMessageInJson(Messages.SUCCESS_USER_CONFIRMATION).toString());
   }
 }

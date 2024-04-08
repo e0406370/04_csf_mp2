@@ -12,6 +12,15 @@ public class Messages {
       Welcome back!
       """;
       
+  public static final String SUCCESS_CONFIRMATION_LINK_VALID = """
+      The confirmation link for your account is valid.
+      """;
+      
+  public static final String SUCCESS_USER_CONFIRMATION = """
+      Your account has been successfully confirmed.
+      You can now login into your account.
+      """;
+      
   public static final String FAILURE_EMAIL_EXISTS = """
       This email is already registered.
       Please choose a different email.
@@ -35,5 +44,12 @@ public class Messages {
       Please check your inbox for a verification email to confirm your account.
       """;
       
+  public static final String FAILURE_CONFIRMATION_LINK_INVALID = """
+      The confirmation link for your account is invalid or has expired.
+      """;
+      
+  public static final String FAILURE_INCORRECT_CONFIRMATION_CODE = """
+      Incorrect confirmation code.
+      """;
 }
 
