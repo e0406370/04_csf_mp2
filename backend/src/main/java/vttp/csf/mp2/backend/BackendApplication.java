@@ -1,12 +1,16 @@
 package vttp.csf.mp2.backend;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+import vttp.csf.mp2.backend.services.EventbriteService;
+
 @SpringBootApplication
 @EnableScheduling
-public class BackendApplication {
+public class BackendApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
 		
@@ -19,11 +23,16 @@ public class BackendApplication {
 	// @Autowired
 	// private WebScraper scraper;
 
-	// @Override
-	// public void run(String... args) throws Exception {
+	@Autowired
+	private EventbriteService eventbriteSvc;
 
-	// 	// parser.parseJsonFiles();
+	@Override
+	public void run(String... args) throws Exception {
 
-	// 	// scraper.scrapeJsonScript();
-	// }
+		// parser.parseJsonFiles();
+
+		// scraper.scrapeJsonScript();
+
+		eventbriteSvc.retrieveEventbriteDataInBulk();		
+	}
 }

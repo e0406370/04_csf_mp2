@@ -3,7 +3,6 @@ package vttp.csf.mp2.backend._scrape;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.StringReader;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,12 +10,12 @@ import java.util.stream.Collectors;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+
 import org.springframework.stereotype.Component;
 
-import jakarta.json.Json;
 import jakarta.json.JsonArray;
-import jakarta.json.JsonObject;
-import jakarta.json.JsonReader;
+
+import vttp.csf.mp2.backend.utility.Utils;
 
 @Component
 public class WebScraper {
@@ -67,10 +66,7 @@ public class WebScraper {
           String jsonData = jsonScript.html();
           // System.out.println(jsonData);
 
-          JsonReader jsonReader = Json.createReader(new StringReader(jsonData));
-          JsonObject jsonObject = jsonReader.readObject();
-
-          JsonArray events = jsonObject.getJsonArray("itemListElement");
+          JsonArray events = Utils.returnPayloadInJson(jsonData).getJsonArray("itemListElement");
           eventLinks = events.stream()
               .map(jv -> jv.asJsonObject())
               .map(jo -> {
