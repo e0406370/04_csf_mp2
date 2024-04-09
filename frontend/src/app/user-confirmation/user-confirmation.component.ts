@@ -35,7 +35,7 @@ export class UserConfirmationComponent implements OnInit {
     this.cannotSubmit = code.length != 6;
     
     this.userConfirmationForm.value["confirmationCode"] = code;
-    console.info(this.userConfirmationForm.value["confirmationCode"]);
+    // console.info(this.userConfirmationForm.value["confirmationCode"]);
   }
 
   createConfirmationForm(): FormGroup {
@@ -48,9 +48,9 @@ export class UserConfirmationComponent implements OnInit {
 
   submitConfirmationForm(): void {
 
-    const confirmationCode: string = this.userConfirmationForm.value["confirmationCode"];
+    const confirmationCode = this.userConfirmationForm.value["confirmationCode"];
 
-    this.userConfirmationSvc.confirmUserPut(this.userID, confirmationCode)
+    this.userConfirmationSvc.confirmUserPut(this.userID, { confirmationCode })
       .then(res => {
 
         this.utilitySvc.generateSuccessMessage(res.message);

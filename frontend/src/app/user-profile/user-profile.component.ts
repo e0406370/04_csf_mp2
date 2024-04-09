@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Profile } from '../models/profile';
 
@@ -16,28 +16,40 @@ import { UserProfileService } from './user-profile.service';
   
 export class UserProfileComponent {
 
+  private activatedRoute = inject(ActivatedRoute);
   private router = inject(Router);
   private sessionStore = inject(SessionStore);
 
   private utilitySvc = inject(UtilityService);
   private userProfileSvc = inject(UserProfileService);
 
+  userID!: string;
   userProfile!: Profile;
+  isSameUser!: boolean;
 
   ngOnInit(): void {
 
-    this.userProfileSvc.retrieveUserProfile()
+    this.activatedRoute.params.subscribe(params => {
+      this.userID = params['userID'];
+
+      this.userProfileSvc.retrieveUserProfile(this.userID)
       .then(res => {
 
         this.userProfile = res?.response;
-        console.info(this.userProfile);
+        // console.info(this.userProfile);
       })
       .catch(err => {
         
         this.utilitySvc.generateErrorMessage(err?.error?.message || ERROR_MESSAGE);
         this.router.navigate(['/error']);
       })
-    
-    //TODO: sessionStore to verify whether same userID as loggedin or not to render different profiles
+
+      if (this.sessionStore.loggedID() == this.userID) {
+        this.isSameUser = true;
+      }
+      else {
+        this.isSameUser = false;
+      }
+    })
   }
 }

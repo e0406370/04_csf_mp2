@@ -23,4 +23,30 @@ export class SessionStore extends ComponentStore<SessionState> {
   resetSessionState(): void {
     this.setState(INIT_SESSION_STORE);
   }
+
+  isLoggedIn(): boolean {
+
+    let isLoggedIn = false;
+
+    this.getSessionState.subscribe(sessionState => {
+      if (sessionState.userID) {
+        isLoggedIn = true;
+      }
+    });
+
+    return isLoggedIn;
+  }
+
+  loggedID(): string {
+
+    let loggedID = "";
+
+    this.getSessionState.subscribe(sessionState => {
+      if (sessionState.userID) {
+        loggedID = sessionState.userID;
+      }
+    });
+
+    return loggedID;
+  }
 }

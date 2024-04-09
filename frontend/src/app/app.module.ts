@@ -32,6 +32,7 @@ import { UserProfileService } from './user-profile/user-profile.service';
 import { UserRegistrationService } from './user-registration/user-registration.service';
 
 import { AgeFromMillisecondsPipe } from "./utility/age.pipe";
+import { UserLogoutComponent } from './user-logout/user-logout.component';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { AgeFromMillisecondsPipe } from "./utility/age.pipe";
         UserLoginComponent,
         UserProfileComponent,
         UserRegistrationComponent,
+        UserLogoutComponent,
     ],
     providers: [
         MessageService,

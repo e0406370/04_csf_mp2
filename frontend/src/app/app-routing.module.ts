@@ -8,7 +8,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserLoginComponent } from './user-login/user-login.component';
 import { UserRegistrationComponent } from './user-registration/user-registration.component';
 
-import { notCompletedRegistration, validateUserConfirmation } from './utility/guards';
+import { notCompletedRegistration, validateLogin, validateUserConfirmation } from './utility/guards';
+import { UserLogoutComponent } from './user-logout/user-logout.component';
 
 
 const appRoutes: Routes = [
@@ -28,10 +29,15 @@ const appRoutes: Routes = [
   {
     path: 'profile/:userID',
     component: UserProfileComponent,
+    canActivate: [validateLogin],
   },
   {
     path: 'login',
     component: UserLoginComponent
+  },
+  {
+    path: 'logout',
+    component: UserLogoutComponent
   },
   {
     path: 'register',

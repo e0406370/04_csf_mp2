@@ -78,9 +78,6 @@
           </div>
           <hr />
 
-          @if (userProfile.userID) {
-
-          }
           <div class="row">
             <div class="col-sm-3">
               <h5 class="mb-0 text-light">
@@ -96,11 +93,13 @@
           </div>
           <hr />
 
-          <a href="`mailto:${{ userProfile.email }}` ">
-            <button type="button" class="btn btn-sm btn-outline-info">
-              Send Email
-            </button>
-          </a>
+          @if (!isSameUser) {
+            <a href="mailto:${{ userProfile.email }}">
+              <button type="button" class="btn btn-sm btn-outline-info">
+                Send Email
+              </button>
+            </a>
+          }
           
         </div>
       </div>

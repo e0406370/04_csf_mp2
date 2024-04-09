@@ -17,7 +17,7 @@ export class UserConfirmationService {
     return firstValueFrom(this.httpClient.get<any>(`/api/user/confirm/${userID}`));
   }
 
-  public confirmUserPut(userID: string, confirmationCode: string): Promise<any> {
+  public confirmUserPut(userID: string, confirmationCode: any): Promise<any> {
 
     return firstValueFrom(this.httpClient.put<any>(`/api/user/confirm/${userID}`, confirmationCode));
   }

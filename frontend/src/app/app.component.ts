@@ -3,6 +3,7 @@ import { SessionStore } from './utility/session.store';
 import { Observable } from 'rxjs';
 import { SessionState } from './models/sessionstate';
 import { Router } from '@angular/router';
+import { UtilityService } from './utility/utility.service';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,6 @@ export class AppComponent implements OnInit {
   private sessionStore = inject(SessionStore);
 
   currentSession$!: Observable<SessionState>;
-  isLoggedIn!: boolean;
   loggedID!: string;
   loggedName!: string;
 
@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
     this.currentSession$ = this.sessionStore.getSessionState;
 
     this.currentSession$.subscribe((sessionState) => {
-      if (!sessionState.isLoggedIn) {
+      if (!sessionState.userID) {
         console.info('Not logged in');
       }
       else {
@@ -33,7 +33,6 @@ export class AppComponent implements OnInit {
           `UserID: ${sessionState.userID}, Name: ${sessionState.name}`
         );
 
-        this.isLoggedIn = sessionState.isLoggedIn;
         this.loggedID = sessionState.userID;
         this.loggedName = sessionState.name;
       }
@@ -43,8 +42,9 @@ export class AppComponent implements OnInit {
   logoutUser(): void {
     
     this.sessionStore.resetSessionState();
-    this.router.navigate(['/']);
+    this.loggedID = "";
+    this.loggedName = "";
 
-    window.location.reload();
+    this.router.navigate(['/logout']);
   }
 }
