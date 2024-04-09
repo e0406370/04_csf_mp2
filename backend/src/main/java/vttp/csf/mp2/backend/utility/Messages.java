@@ -9,7 +9,6 @@ public class Messages {
 
   public static final String SUCCESS_USER_LOGIN = """
       Successfully logged in.
-      Welcome !
       """;
       
   public static final String SUCCESS_CONFIRMATION_LINK_VALID = """

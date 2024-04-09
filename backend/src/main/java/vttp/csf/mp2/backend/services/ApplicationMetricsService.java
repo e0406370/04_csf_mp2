@@ -13,6 +13,7 @@ public class ApplicationMetricsService {
   private final Counter loginCounter;
   private final Counter confirmCounter;
   private final Counter deleteCounter;
+  private final Counter profileAccessCounter;
 
   @Autowired
   public ApplicationMetricsService(MeterRegistry registry) {
@@ -32,6 +33,10 @@ public class ApplicationMetricsService {
     deleteCounter = Counter.builder("delete_counter")
         .description("Tracks the number of accounts successfully deleted from the site")
         .register(registry);
+
+    profileAccessCounter = Counter.builder("profile_access_counter")
+        .description("Tracks the number of times a profile is accessed on the site")
+        .register(registry);
   }
 
   public void incrementRegisterMetric() {
@@ -48,5 +53,9 @@ public class ApplicationMetricsService {
 
   public void incrementDeleteMetric() {
     deleteCounter.increment();
+  }
+
+  public void incrementProfileAccessMetric() {
+    profileAccessCounter.increment();
   }
 }

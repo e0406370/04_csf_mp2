@@ -18,6 +18,6 @@ export class UserLogoutComponent implements OnInit {
     setTimeout(() => {
       this.router.navigate(['/login']);
       this.utilitySvc.generateSuccessMessage('Logged out successfully.');
-    }, 5000);
+    }, 3500);
   }
 }

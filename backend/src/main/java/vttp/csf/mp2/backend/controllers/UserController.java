@@ -133,6 +133,7 @@ public class UserController {
     try {
 
       JsonObject response = userSvc.retrieveUserProfile(userID);
+      appMetricsSvc.incrementProfileAccessMetric();
 
       return ResponseEntity
       .status(HttpStatus.OK) // 200 OK

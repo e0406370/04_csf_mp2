@@ -11,8 +11,6 @@ import { AutoFocusModule } from 'primeng/autofocus';
 import { CardModule } from 'primeng/card';
 import { ToastModule } from 'primeng/toast';
 import { MessagesModule } from 'primeng/messages';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgOtpInputModule } from 'ng-otp-input';
 
 import { AppComponent } from './app.component';
@@ -28,11 +26,11 @@ import { UtilityService } from './utility/utility.service';
 import { SessionStore } from './utility/session.store';
 import { UserConfirmationService } from './user-confirmation/user-confirmation.service';
 import { UserLoginService } from './user-login/user-login.service';
+import { UserLogoutComponent } from './user-logout/user-logout.component';
 import { UserProfileService } from './user-profile/user-profile.service';
 import { UserRegistrationService } from './user-registration/user-registration.service';
 
 import { AgeFromMillisecondsPipe } from "./utility/age.pipe";
-import { UserLogoutComponent } from './user-logout/user-logout.component';
 
 
 @NgModule({
@@ -42,9 +40,9 @@ import { UserLogoutComponent } from './user-logout/user-logout.component';
         MainComponent,
         UserConfirmationComponent,
         UserLoginComponent,
+        UserLogoutComponent,
         UserProfileComponent,
         UserRegistrationComponent,
-        UserLogoutComponent,
     ],
     providers: [
         MessageService,
@@ -68,10 +66,9 @@ import { UserLogoutComponent } from './user-logout/user-logout.component';
         CardModule,
         ToastModule,
         MessagesModule,
-        ConfirmDialogModule,
-        NgbModule,
         NgOtpInputModule,
         AgeFromMillisecondsPipe
     ]
 })
+    
 export class AppModule {}
