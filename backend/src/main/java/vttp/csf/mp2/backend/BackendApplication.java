@@ -9,6 +9,21 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class BackendApplication {
 
 	public static void main(String[] args) {
+		
 		SpringApplication.run(BackendApplication.class, args);
 	}
+
+	// @Autowired
+	// private JsonFileParser parser;
+
+	// @Autowired
+	// private WebScraper scraper;
+
+	// @Override
+	// public void run(String... args) throws Exception {
+
+	// 	// parser.parseJsonFiles();
+
+	// 	// scraper.scrapeJsonScript();
+	// }
 }
