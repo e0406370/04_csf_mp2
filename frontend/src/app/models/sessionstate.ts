@@ -1,5 +1,11 @@
 export interface SessionState {
+  userID: string;
+  name: string;
+  isLoggedIn: boolean;
+};
 
-  userID: string | null;
-  name: string | null;
-}
+export const INIT_SESSION_STORE: SessionState = {
+  userID: '',
+  name: '',
+  isLoggedIn: false,
+};

@@ -1,5 +1,3 @@
-import { SessionState } from '../models/sessionstate';
-
 /*
   Enforces the following password requirements:
     - At least one digit (?=.*[0-9])
@@ -14,8 +12,3 @@ export const PASSWORD_REGEX: string =
 
 export const ERROR_MESSAGE: string =
   'Unknown error occurred. Please try again later.';
-
-export const INIT_SESSION_STORE: SessionState = {
-  userID: null,
-  name: null,
-};

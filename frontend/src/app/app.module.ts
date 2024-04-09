@@ -11,6 +11,7 @@ import { AutoFocusModule } from 'primeng/autofocus';
 import { CardModule } from 'primeng/card';
 import { ToastModule } from 'primeng/toast';
 import { MessagesModule } from 'primeng/messages';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgOtpInputModule } from 'ng-otp-input';
 
@@ -19,15 +20,17 @@ import { ErrorComponent } from './error/error.component';
 import { MainComponent } from './main/main.component';
 import { UserConfirmationComponent } from './user-confirmation/user-confirmation.component';
 import { UserLoginComponent } from './user-login/user-login.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserRegistrationComponent } from './user-registration/user-registration.component';
 
 import { MessageService } from 'primeng/api';
 import { UtilityService } from './utility/utility.service';
-import { AuthenticationService } from './utility/authentication.service';
 import { SessionStore } from './utility/session.store';
+import { UserConfirmationService } from './user-confirmation/user-confirmation.service';
 import { UserLoginService } from './user-login/user-login.service';
+import { UserProfileService } from './user-profile/user-profile.service';
 import { UserRegistrationService } from './user-registration/user-registration.service';
-import { UserProfileComponent } from './user-profile/user-profile.component';
+
 import { AgeFromMillisecondsPipe } from "./utility/age.pipe";
 
 
@@ -38,15 +41,16 @@ import { AgeFromMillisecondsPipe } from "./utility/age.pipe";
         MainComponent,
         UserConfirmationComponent,
         UserLoginComponent,
-        UserRegistrationComponent,
         UserProfileComponent,
+        UserRegistrationComponent,
     ],
     providers: [
         MessageService,
         UtilityService,
-        AuthenticationService,
         SessionStore,
+        UserConfirmationService,
         UserLoginService,
+        UserProfileService,
         UserRegistrationService,
         provideAnimationsAsync(),
     ],
@@ -62,6 +66,7 @@ import { AgeFromMillisecondsPipe } from "./utility/age.pipe";
         CardModule,
         ToastModule,
         MessagesModule,
+        ConfirmDialogModule,
         NgbModule,
         NgOtpInputModule,
         AgeFromMillisecondsPipe

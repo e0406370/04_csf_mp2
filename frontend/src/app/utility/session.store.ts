@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { SessionState } from '../models/sessionstate';
-import { INIT_SESSION_STORE } from './constants';
+import { INIT_SESSION_STORE } from '../models/sessionstate';
 
 @Injectable()
 export class SessionStore extends ComponentStore<SessionState> {
+  
   constructor() {
     super(INIT_SESSION_STORE);
   }

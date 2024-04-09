@@ -10,7 +10,7 @@ public class Constants {
 
   public static final String UNCONFIRMED_USERS_ZSET = "unconfirmed_users_zset";
   public static final long EXPIRATION_TIME_MINS = 30;
-  public static final long SCHEDULED_INTERVAL_MINS = 15;
+  public static final long SCHEDULED_INTERVAL_MINS = 5;
 
   public static final String DOMAIN_NAME = "http://localhost:4200";
 }

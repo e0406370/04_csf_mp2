@@ -1,9 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../utility/authentication.service';
+
 import { Profile } from '../models/profile';
-import { UtilityService } from '../utility/utility.service';
+
 import { ERROR_MESSAGE } from '../utility/constants';
+import { SessionStore } from '../utility/session.store';
+import { UtilityService } from '../utility/utility.service';
+import { UserProfileService } from './user-profile.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -14,23 +17,27 @@ import { ERROR_MESSAGE } from '../utility/constants';
 export class UserProfileComponent {
 
   private router = inject(Router);
+  private sessionStore = inject(SessionStore);
 
   private utilitySvc = inject(UtilityService);
-  private authenticationSvc = inject(AuthenticationService);
+  private userProfileSvc = inject(UserProfileService);
 
-  userID!: string;
   userProfile!: Profile;
 
   ngOnInit(): void {
 
-    this.userID = this.authenticationSvc.userID;
+    this.userProfileSvc.retrieveUserProfile()
+      .then(res => {
 
-    this.authenticationSvc.retrieveUserProfile(this.userID)
-      .then(res => this.userProfile = res?.response)
-      .then(() => console.info(this.userProfile))
+        this.userProfile = res?.response;
+        console.info(this.userProfile);
+      })
       .catch(err => {
+        
         this.utilitySvc.generateErrorMessage(err?.error?.message || ERROR_MESSAGE);
         this.router.navigate(['/error']);
       })
+    
+    //TODO: sessionStore to verify whether same userID as loggedin or not to render different profiles
   }
 }

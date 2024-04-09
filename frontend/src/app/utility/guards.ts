@@ -2,9 +2,9 @@ import { inject } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivateFn, CanDeactivateFn, Router, RouterStateSnapshot } from "@angular/router";
 
 import { UserRegistrationComponent } from "../user-registration/user-registration.component";
-import { AuthenticationService } from "./authentication.service";
-import { UtilityService } from "./utility.service";
 import { ERROR_MESSAGE } from "./constants";
+import { UtilityService } from "./utility.service";
+import { UserConfirmationService } from "../user-confirmation/user-confirmation.service";
 
 export const notCompletedRegistration: CanDeactivateFn<UserRegistrationComponent> = (comp: UserRegistrationComponent, _route: ActivatedRouteSnapshot, _state: RouterStateSnapshot) => {
   
@@ -16,19 +16,19 @@ export const notCompletedRegistration: CanDeactivateFn<UserRegistrationComponent
   return true;
 }
 
-export const validateUserID: CanActivateFn = (_route: ActivatedRouteSnapshot, _state: RouterStateSnapshot) => {
+export const validateUserConfirmation: CanActivateFn = (_route: ActivatedRouteSnapshot, _state: RouterStateSnapshot) => {
 
   const router = inject(Router);
-  const utilitySvc = inject(UtilityService);
-  const authenticationSvc = inject(AuthenticationService);
 
-  const endpoint = _route.data['endpoint'];
+  const utilitySvc = inject(UtilityService);
+  const userConfirmationSvc = inject(UserConfirmationService);
+
   const userID = _route.params['userID'];
 
-  return authenticationSvc.validateUserID(endpoint, userID)
+  return userConfirmationSvc.confirmUserGet(userID)
     .then(() => {
       
-      authenticationSvc.userID = userID;
+      userConfirmationSvc.userID = userID;
       return true;
     })
     .catch((err) => {

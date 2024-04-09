@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { ERROR_MESSAGE } from '../utility/constants';
 import { UtilityService } from '../utility/utility.service';
-import { AuthenticationService } from '../utility/authentication.service'
+import { UserConfirmationService } from './user-confirmation.service';
 
 @Component({
   selector: 'app-user-confirmation',
@@ -18,7 +18,7 @@ export class UserConfirmationComponent implements OnInit {
   private router = inject(Router);
 
   private utilitySvc = inject(UtilityService);
-  private authenticationSvc = inject(AuthenticationService);
+  private userConfirmationSvc = inject(UserConfirmationService);
 
   userConfirmationForm!: FormGroup;
   userID!: string;
@@ -27,7 +27,7 @@ export class UserConfirmationComponent implements OnInit {
   ngOnInit(): void {
 
     this.userConfirmationForm = this.createConfirmationForm();
-    this.userID = this.authenticationSvc.userID;
+    this.userID = this.userConfirmationSvc.userID;
   }
 
   onCodeChange(code: string): void {
@@ -48,9 +48,9 @@ export class UserConfirmationComponent implements OnInit {
 
   submitConfirmationForm(): void {
 
-    const confirmationCode = this.userConfirmationForm.value["confirmationCode"];
+    const confirmationCode: string = this.userConfirmationForm.value["confirmationCode"];
 
-    this.authenticationSvc.confirmUserPut(this.userID, { confirmationCode })
+    this.userConfirmationSvc.confirmUserPut(this.userID, confirmationCode)
       .then(res => {
 
         this.utilitySvc.generateSuccessMessage(res.message);
