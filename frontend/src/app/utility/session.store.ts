@@ -37,7 +37,7 @@ export class SessionStore extends ComponentStore<SessionState> {
     return isLoggedIn;
   }
 
-  loggedID(): string {
+  getLoggedID(): string {
 
     let loggedID = "";
 

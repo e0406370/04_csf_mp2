@@ -23,6 +23,7 @@ import { UserRegistrationComponent } from './user-registration/user-registration
 
 import { MessageService } from 'primeng/api';
 import { UtilityService } from './utility/utility.service';
+import { ThemeService } from './utility/theme.service';
 import { SessionStore } from './utility/session.store';
 import { UserConfirmationService } from './user-confirmation/user-confirmation.service';
 import { UserLoginService } from './user-login/user-login.service';
@@ -31,6 +32,7 @@ import { UserProfileService } from './user-profile/user-profile.service';
 import { UserRegistrationService } from './user-registration/user-registration.service';
 
 import { AgeFromMillisecondsPipe } from "./utility/age.pipe";
+
 
 
 @NgModule({
@@ -47,6 +49,7 @@ import { AgeFromMillisecondsPipe } from "./utility/age.pipe";
     providers: [
         MessageService,
         UtilityService,
+        ThemeService,
         SessionStore,
         UserConfirmationService,
         UserLoginService,

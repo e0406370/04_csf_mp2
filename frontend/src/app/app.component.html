@@ -1,5 +1,15 @@
 <p-toast></p-toast>
 <nav>
+
+  <button class="icon-button" (click)="themeSvc.toggleDarkMode()" >
+    @if (themeSvc.isDarkModeEnabled()) {
+      <i class="pi pi-spin pi-moon" style="font-size: 2rem" title="Switch to Light Mode"></i>
+    }
+    @else {
+      <i class="pi pi-spin pi-sun" style="font-size: 2rem" title="Switch to Dark Mode"></i>
+    }
+  </button>
+
   <a [routerLink]="['/']">
     <button type="button" class="btn btn-lg btn-success" >
       Home

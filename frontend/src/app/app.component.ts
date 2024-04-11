@@ -1,9 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { SessionStore } from './utility/session.store';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SessionState } from './models/sessionstate';
-import { Router } from '@angular/router';
-import { UtilityService } from './utility/utility.service';
+import { SessionStore } from './utility/session.store';
+import { ThemeService } from './utility/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -15,12 +15,19 @@ export class AppComponent implements OnInit {
 
   private router = inject(Router);
   private sessionStore = inject(SessionStore);
+  themeSvc = inject(ThemeService);
 
   currentSession$!: Observable<SessionState>;
   loggedID!: string;
   loggedName!: string;
 
   ngOnInit(): void {
+
+    this.themeSvc.modifyHtmlElement();
+    this.retrieveSession();
+  }
+
+  retrieveSession(): void {
 
     this.currentSession$ = this.sessionStore.getSessionState;
 
@@ -29,9 +36,7 @@ export class AppComponent implements OnInit {
         console.info('Not logged in');
       }
       else {
-        console.info(
-          `UserID: ${sessionState.userID}, Name: ${sessionState.name}`
-        );
+        console.info(`UserID: ${sessionState.userID}, Name: ${sessionState.name}`);
 
         this.loggedID = sessionState.userID;
         this.loggedName = sessionState.name;

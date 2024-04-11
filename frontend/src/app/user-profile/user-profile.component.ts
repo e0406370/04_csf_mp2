@@ -44,7 +44,7 @@ export class UserProfileComponent {
         this.router.navigate(['/error']);
       })
 
-      if (this.sessionStore.loggedID() == this.userID) {
+      if (this.sessionStore.getLoggedID() == this.userID) {
         this.isSameUser = true;
       }
       else {
