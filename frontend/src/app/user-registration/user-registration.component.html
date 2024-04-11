@@ -6,10 +6,7 @@
     <div class="form-box">
       <h2>Create an Account</h2>
 
-      <form
-        [formGroup]="userRegistrationForm"
-        (ngSubmit)="submitRegistrationForm()"
-      >
+      <form [formGroup]="userRegistrationForm" (ngSubmit)="submitRegistrationForm()">
         <div class="input-box">
           <span class="icon"><ion-icon name="happy"></ion-icon></span>
           <input
@@ -154,7 +151,6 @@
           />
           <label class="register">Password</label>
         </div>
-
         <div class="validation-box">
           <span
             class="text-danger"
@@ -180,18 +176,18 @@
         >
           Sign Up
         </button>
-
-        <div class="login-register">
-          <span>
-            <p>Already have an account?</p>
-          </span>
-          <p>
-            <a [routerLink]="['/login']" class="text-decoration-none">
-              Login Here!
-            </a>
-          </p>
-        </div>
       </form>
+
+      <div class="login-register">
+        <span>
+          <p>Already have an account?</p>
+        </span>
+        <p>
+          <a [routerLink]="['/login']" class="text-decoration-none">
+            Login Here!
+          </a>
+        </p>
+      </div>
     </div>
 
     <div class="password-requirements">

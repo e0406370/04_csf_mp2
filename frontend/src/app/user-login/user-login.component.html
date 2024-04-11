@@ -1,5 +1,102 @@
 <p-toast></p-toast>
-<form [formGroup]="userLoginForm" (ngSubmit)="submitLoginForm()">
+
+<div class="wrapper">
+  <div class="wrapper-login">
+
+    <div class="form-box">
+      <h2>Welcome Back!</h2>
+
+      <form [formGroup]="userLoginForm" (ngSubmit)="submitLoginForm()">
+        <div class="input-box">
+          <span class="icon"><ion-icon name="person-circle"></ion-icon></span>
+          <input
+            type="string"
+            pInputText
+            pAutoFocus
+            [autofocus]="true"
+            id="username"
+            formControlName="username"
+            class="form-control-sm"
+          />
+          <label class="login">Username</label>
+        </div>
+        <div class="validation-box">
+          <span
+            class="text-danger"
+            *ngIf="userLoginForm.get('username')?.hasError('required')"
+          >
+            <i class="pi pi-exclamation-circle"></i>
+            Username is a mandatory field!
+          </span>
+          <span
+            class="text-danger"
+            *ngIf="userLoginForm.get('username')?.hasError('minlength')"
+          >
+            <i class="pi pi-exclamation-circle"></i>
+            Username must have a minimum of 7 characters!
+          </span>
+          <span
+            class="text-danger"
+            *ngIf="userLoginForm.get('username')?.hasError('maxlength')"
+          >
+            <i class="pi pi-exclamation-circle"></i>
+            Username must have a maximum of 20 characters!
+          </span>
+        </div>
+
+        <div class="input-box">
+          <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+          <input
+            type="password"
+            id="password"
+            formControlName="password"
+            class="form-control-sm"
+          />
+          <label class="login">Password</label>
+        </div>
+        <div class="validation-box">
+          <span
+            class="text-danger"
+            *ngIf="userLoginForm.get('password')?.hasError('required')"
+          >
+            <i class="pi pi-exclamation-circle"></i>
+            Password is a mandatory field!
+          </span>
+          <span
+            class="text-danger"
+            *ngIf="userLoginForm.get('password')?.hasError('pattern')"
+          >
+            <i class="pi pi-exclamation-circle"></i>
+            Password does not meet the necessary requirements!
+          </span>
+        </div>
+
+        <button
+          type="button"
+          class="btn btn-primary btn-block"
+          [disabled]="userLoginForm.invalid"
+          (click)="submitLoginForm()"
+        >
+          Login
+        </button>
+      </form>
+
+      <div class="login-register">
+        <span>
+          <p>Don't have an account?</p>
+        </span>
+        <p>
+          <a [routerLink]="['/register']" class="text-decoration-none">
+            Register Here!
+          </a>
+        </p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- <form [formGroup]="userLoginForm" (ngSubmit)="submitLoginForm()">
   <table class="table table-striped table-bordered">
     <tr>
       <td>
@@ -67,4 +164,4 @@
         Register Here!
       </a>
     </p>
-</div>
+</div> -->
