@@ -18,9 +18,6 @@ public class BackendApplication implements CommandLineRunner {
 	}
 
 	// @Autowired
-	// private JsonFileParser parser;
-
-	// @Autowired
 	// private WebScraper scraper;
 
 	@Autowired
@@ -29,9 +26,7 @@ public class BackendApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		// parser.parseJsonFiles();
-
-		// scraper.scrapeJsonScript();
+		// scraper.scrapeJsonScript(); // note: run directly via psvm
 
 		eventbriteSvc.retrieveEventbriteDataInBulk();		
 	}

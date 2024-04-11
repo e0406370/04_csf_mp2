@@ -3,6 +3,7 @@ package vttp.csf.mp2.backend.services;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +23,14 @@ import vttp.csf.mp2.backend.utility.Utils;
 @Service
 public class EventbriteService {
 
+  // modify this for each country
+  private final String selectedCountry = "singapore";
+
   @Autowired
   private EventRepository eventRepo;
 
   @Value("${eventbrite.api.url}")
   private String EVENTBRITE_API_URL;
-
-  @Value("${eventbrite.api.key}")
-  private String EVENTBRITE_API_KEY;
 
   @Value("${eventbrite.api.oauth.token}")
   private String EVENTBRITE_API_OAUTH_TOKEN;
@@ -80,30 +81,42 @@ public class EventbriteService {
     String latitude = jsonPayload.getJsonObject("venue").getString("latitude");
     String longitude = jsonPayload.getJsonObject("venue").getString("longitude");
 
-    eventRepo.storeEvent(new Event(eventID, name, description, link, start, end, created, logo, venueAddress, venueName, latitude, longitude));
+    eventRepo.storeEvent(new Event(eventID, name, description, link, start, end, created, logo, venueAddress, venueName, latitude, longitude, returnProperCase(selectedCountry)));
   }
   
-  // https://www.eventbrite.sg/e/market-insights-conference-tickets-859261382927
-  private String retrieveIDFromLink(String eventLink) {
-
-    String[] parts = eventLink.split("-");
-
-    return parts[parts.length - 1];
-  }
-
   public void retrieveEventbriteDataInBulk() {
 
-    String scrapeFile = new File("src/main/java/vttp/csf/mp2/backend/_scrape/links/scrape_id_singapore.txt").getAbsolutePath();
+    String pathName = "src/main/java/vttp/csf/mp2/backend/_scrape/links/scrape_id_%s.txt".formatted(selectedCountry);
+
+    String scrapeFile = new File(pathName).getAbsolutePath();
 
     try (BufferedReader br = new BufferedReader(new FileReader(scrapeFile))) {
 
       br.lines()
-        .map(eventLink -> retrieveIDFromLink(eventLink))
-        .forEach(eventID -> retrieveEventbriteData(eventID));
+          .map(eventLink -> retrieveIDFromLink(eventLink))
+          .distinct()
+          .forEach(eventID -> retrieveEventbriteData(eventID));
     } 
     catch (Exception e) {
-      
+
       e.printStackTrace();
     }
+  }
+  
+  // https://www.eventbrite.sg/e/market-insights-conference-tickets-859261382927
+  // https://www.eventbrite.ch/e/858309315267
+  private String retrieveIDFromLink(String eventLink) {
+
+    String[] initialParts = eventLink.split("/");
+    String[] finalParts = initialParts[initialParts.length - 1].split("-");
+
+    return finalParts[finalParts.length - 1];
+  }
+  
+  private String returnProperCase(String country) {
+
+    return String.join(" ", Arrays.stream(country.split("-"))
+        .map(part -> part.substring(0, 1).toUpperCase() + part.substring(1).toLowerCase())
+        .toArray(String[]::new)).trim();
   }
 }

@@ -28,14 +28,14 @@ public class WebScraper {
   //   "japan",
   //   "malaysia",
   //   "myanmar",
-  //   "newzealand",
+  //   "new-zealand",
   //   "singapore",
   //   "switzerland"
-  //   "southkorea",
+  //   "south-korea",
   //   "taiwan",
   //   "thailand",
-  //   "unitedkingdom",
-  //   "unitedarabemirates",
+  //   "united-kingdom",
+  //   "united-arab-emirates",
   // };
   // 15 countries
 
@@ -75,7 +75,7 @@ public class WebScraper {
               })
               .collect(Collectors.toList());
 
-          eventLinks.forEach(x -> System.out.println(retrieveIDFromLink(x)));
+          eventLinks.forEach(x -> System.out.println(x));
           System.out.println("Scraped page (%d / 50)".formatted(scrapeCounter));
 
           for (String eventID : eventLinks) {
@@ -94,13 +94,5 @@ public class WebScraper {
     catch (Exception e) {
       System.err.println("Unknown error occurred. Please try again later.");
     }
-  }
-
-  // https://www.eventbrite.sg/e/market-insights-conference-tickets-859261382927
-  public static String retrieveIDFromLink(String eventLink) {
-
-    String[] parts = eventLink.split("-");
-
-    return parts[parts.length - 1];
   }
 }

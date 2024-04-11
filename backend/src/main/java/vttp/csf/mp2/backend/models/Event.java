@@ -12,5 +12,6 @@ public record Event(
     String venueAddress,
     String venueName,
     String latitude,
-    String longitude) {
+    String longitude,
+    String country) {
 }

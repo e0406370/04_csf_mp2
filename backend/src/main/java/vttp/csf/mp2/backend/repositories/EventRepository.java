@@ -1,6 +1,7 @@
 package vttp.csf.mp2.backend.repositories;
 
 import org.bson.Document;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,11 +37,11 @@ public class EventRepository {
         .append("venueAddress", event.venueAddress())
         .append("venueName", event.venueName())
         .append("latitude", event.latitude())
-        .append("longitude", event.longitude());
+        .append("longitude", event.longitude())
+        .append("country", event.country());
 
     mongoTemplate.insert(eventDoc, eventsCollection);
 
     return eventDoc;
   }
-
 }
