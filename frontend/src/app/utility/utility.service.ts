@@ -44,6 +44,6 @@ export class UtilityService {
       hour12: false,
     };
     
-    return currentDate.toLocaleDateString('en-US', options);
+    return currentDate.toLocaleDateString('en-UK', options);
   }
 }
