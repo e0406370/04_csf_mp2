@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material/material.module';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { CardModule } from 'primeng/card';
+import { MenubarModule } from 'primeng/menubar';
 import { ToastModule } from 'primeng/toast';
 import { MessagesModule } from 'primeng/messages';
 import { NgOtpInputModule } from 'ng-otp-input';
@@ -67,6 +68,7 @@ import { AgeFromMillisecondsPipe } from "./utility/age.pipe";
         MaterialModule,
         AutoFocusModule,
         CardModule,
+        MenubarModule,
         ToastModule,
         MessagesModule,
         NgOtpInputModule,

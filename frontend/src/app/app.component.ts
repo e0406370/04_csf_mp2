@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SessionState } from './models/sessionstate';
 import { SessionStore } from './utility/session.store';
-import { ThemeService } from './utility/theme.service';
+import { UtilityService } from './utility/utility.service';
 
 @Component({
   selector: 'app-root',
@@ -15,15 +15,19 @@ export class AppComponent implements OnInit {
 
   private router = inject(Router);
   private sessionStore = inject(SessionStore);
-  themeSvc = inject(ThemeService);
+  private utilitySvc = inject(UtilityService);
 
+  currentDateDayTime!: string
   currentSession$!: Observable<SessionState>;
   loggedID!: string;
   loggedName!: string;
 
   ngOnInit(): void {
 
-    this.themeSvc.modifyHtmlElement();
+    setInterval(() => {
+      this.currentDateDayTime = this.utilitySvc.updateDateDayTime();
+    }, 1000);
+
     this.retrieveSession();
   }
 

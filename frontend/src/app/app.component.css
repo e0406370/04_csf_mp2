@@ -1,3 +1,59 @@
+.navi {
+  align-items: center;
+  background: linear-gradient(to right, rgba(15, 7, 39, 0.7), rgba(0, 0, 0, 0.5));
+  display: flex;
+  justify-content: space-between;
+  left: 0;
+  padding: 0px 50px;
+  position: relative;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.logo {
+  position: relative;
+  font-size: 2em;
+  font-weight: 500;
+  user-select: none;
+}
+
+.navi-button {
+  background: transparent;
+  border: 1px solid #ffffff;
+  border-radius: 6px;
+  color: antiquewhite;
+  cursor: pointer;
+  font-size: 1.1em;
+  font-weight: 500;
+  height: 50px;
+  margin-left: 30px;
+  outline: none;
+  transition: 0.5s;
+  width: 120px;
+}
+
+.navi-button-lg {
+  width: 150px;
+}
+
+.navi-button-search {
+  background: rgb(1, 103, 103);
+}
+
+.navi-button-register {
+  background: rgb(56, 48, 111);
+}
+
+.navi-button-login {
+  background: rgb(29, 93, 57);
+}
+
+.navi-button:hover {
+  background: transparent;
+  color: antiquewhite;
+}
+
 .icon-button {
   border: none;
   background: none;

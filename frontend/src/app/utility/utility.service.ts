@@ -28,4 +28,22 @@ export class UtilityService {
       life: 3500,
     });
   }
+
+  updateDateDayTime(): string {
+
+    const currentDate = new Date();
+
+    const options: Intl.DateTimeFormatOptions = {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric",
+      hour12: false,
+    };
+    
+    return currentDate.toLocaleDateString('en-US', options);
+  }
 }
