@@ -7,7 +7,14 @@
     </h2>
   </a>
 
-  <div class="fs-6"> {{ currentDateDayTime }}</div>
+  <div class="current-time"> {{ currentDateDayTime }}</div>
+
+  <a [routerLink]="['/']">
+    <button type="button" class="navi-button navi-button-lg navi-button-homepage">
+      <i class="pi pi-home"></i>
+      Homepage
+    </button>
+  </a>
 
   <a [routerLink]="['/']">
     <button type="button" class="navi-button navi-button-lg navi-button-search">

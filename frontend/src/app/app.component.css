@@ -18,6 +18,10 @@
   user-select: none;
 }
 
+.current-time {
+  width: 300px;
+}
+
 .navi-button {
   background: transparent;
   border: 1px solid #ffffff;
@@ -35,6 +39,10 @@
 
 .navi-button-lg {
   width: 150px;
+}
+
+.navi-button-homepage {
+  background: rgb(25, 3, 79);
 }
 
 .navi-button-search {
