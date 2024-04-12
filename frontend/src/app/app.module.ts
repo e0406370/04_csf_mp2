@@ -21,6 +21,7 @@ import { UserConfirmationComponent } from './user-confirmation/user-confirmation
 import { UserLoginComponent } from './user-login/user-login.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserRegistrationComponent } from './user-registration/user-registration.component';
+import { EventListComponent } from './event-list/event-list.component';
 
 import { MessageService } from 'primeng/api';
 import { UtilityService } from './utility/utility.service';
@@ -31,10 +32,9 @@ import { UserLoginService } from './user-login/user-login.service';
 import { UserLogoutComponent } from './user-logout/user-logout.component';
 import { UserProfileService } from './user-profile/user-profile.service';
 import { UserRegistrationService } from './user-registration/user-registration.service';
+import { EventListService } from './event-list/event-list.service';
 
 import { AgeFromMillisecondsPipe } from "./utility/age.pipe";
-
-
 
 @NgModule({
     declarations: [
@@ -46,6 +46,7 @@ import { AgeFromMillisecondsPipe } from "./utility/age.pipe";
         UserLogoutComponent,
         UserProfileComponent,
         UserRegistrationComponent,
+        EventListComponent,
     ],
     providers: [
         MessageService,
@@ -56,6 +57,7 @@ import { AgeFromMillisecondsPipe } from "./utility/age.pipe";
         UserLoginService,
         UserProfileService,
         UserRegistrationService,
+        EventListService,
         provideAnimationsAsync(),
     ],
     bootstrap: [AppComponent],

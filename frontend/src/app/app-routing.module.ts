@@ -10,6 +10,7 @@ import { UserRegistrationComponent } from './user-registration/user-registration
 
 import { notCompletedRegistration, validateLogin, validateUserConfirmation } from './utility/guards';
 import { UserLogoutComponent } from './user-logout/user-logout.component';
+import { EventListComponent } from './event-list/event-list.component';
 
 
 const appRoutes: Routes = [
@@ -43,6 +44,10 @@ const appRoutes: Routes = [
     path: 'register',
     component: UserRegistrationComponent,
     canDeactivate: [notCompletedRegistration],
+  },
+  {
+    path: 'events',
+    component: EventListComponent
   },
   {
     path: '**',

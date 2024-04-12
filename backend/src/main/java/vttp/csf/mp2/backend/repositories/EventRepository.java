@@ -1,11 +1,19 @@
 package vttp.csf.mp2.backend.repositories;
 
-import org.bson.Document;
+import java.util.List;
 
+import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.aggregation.MatchOperation;
+import org.springframework.data.mongodb.core.aggregation.SortOperation;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Repository;
 
 import vttp.csf.mp2.backend.models.Event;
@@ -25,7 +33,7 @@ public class EventRepository {
 
     Document eventDoc = new Document();
 
-    eventDoc 
+    eventDoc
         .append("eventID", event.eventID())
         .append("name", event.name())
         .append("description", event.description())
@@ -43,5 +51,18 @@ public class EventRepository {
     mongoTemplate.insert(eventDoc, eventsCollection);
 
     return eventDoc;
+  }
+  
+  public List<Event> retrieveEvents() {
+
+    MatchOperation matchOps = Aggregation.match(Criteria.where("country").is("Singapore"));
+
+    SortOperation sortOps = Aggregation.sort(Sort.by(Direction.ASC, "start"));
+
+    Aggregation pipeline = Aggregation.newAggregation(matchOps, sortOps);
+
+    AggregationResults<Event> results = mongoTemplate.aggregate(pipeline, eventsCollection, Event.class);
+
+    return results.getMappedResults();
   }
 }
