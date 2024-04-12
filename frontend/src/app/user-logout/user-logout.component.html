@@ -1,9 +1,31 @@
-<div class="text-center">
-  <h1 class="text-danger fs-2">
-    <mat-icon>error</mat-icon>
-    LOGGING YOU OUT...
-    <mat-icon>error</mat-icon>
-  </h1>
+<div class="main-box">
+  <div class="container">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-md-5 text-center text-white">
+  
+        <div class="error-box alert alert-primary text-decoration-none p-3 rounded">
+          <h1>
+            <h2 class="alert-heading fs-2">
+              <i class="pi pi-spin pi-sync" style="font-size: 1.5rem"></i>
+              LOGGING YOU OUT...
+              <i class="pi pi-spin pi-sync" style="font-size: 1.5rem"></i>
+            </h2>
 
-  <img src="../../assets/logout.jpg" height="500px" width="750px" />
+            <p class="fs-4">
+              <span>PLEASE WAIT...</span>
+            </p>
+
+            <div class="progress mt-3" [@progressBarAnimation]>
+              <div
+                class="progress-bar progress-bar-striped progress-bar-animated"
+                role="progressbar"
+                style="width: 100%"
+              ></div>
+            </div>
+          </h1>
+        </div>
+    
+      </div>
+    </div>
+  </div>
 </div>
