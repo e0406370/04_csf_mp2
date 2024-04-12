@@ -69,9 +69,10 @@ public class UserController {
       JsonObject response = userSvc.loginUser(login);
       appMetricsSvc.incrementLoginMetric();
 
+      String name = response.getString("name");
       return ResponseEntity
           .status(HttpStatus.OK) // 200 OK
-          .body(Utils.returnMessageWithResponseInJson(Messages.SUCCESS_USER_LOGIN, response).toString());
+          .body(Utils.returnMessageWithResponseInJson(Messages.SUCCESS_USER_LOGIN.formatted(name), response).toString());
     } 
     catch (UserException e) {
 
