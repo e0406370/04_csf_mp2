@@ -23,19 +23,34 @@
     </button>
   </a>
 
-  <a [routerLink]="['/register']">
-    <button type="button" class="navi-button navi-button-register">
-      <i class="pi pi-user-plus"></i>
-      Sign Up
-    </button>
-  </a>
+  @if (loggedID) {
+    <a [routerLink]="['/profile', loggedID]">
+      <button type="button" class="navi-button navi-button-profile">
+        <i class="pi pi-user"></i>
+        Profile
+      </button>
+    </a>
 
-  <a [routerLink]="['/login']">
-    <button type="button" class="navi-button navi-button-login">
-      <i class="pi pi-sign-in"></i>
-      Log In
+    <button type="button" class="navi-button navi-button-logout" (click)="logoutUser()">
+      <i class="pi pi-sign-out"></i>
+      Log Out
     </button>
-  </a>
+  }
+  @else {
+    <a [routerLink]="['/register']">
+      <button type="button" class="navi-button navi-button-register">
+        <i class="pi pi-user-plus"></i>
+        Sign Up
+      </button>
+    </a>
+  
+    <a [routerLink]="['/login']">
+      <button type="button" class="navi-button navi-button-login">
+        <i class="pi pi-sign-in"></i>
+        Log In
+      </button>
+    </a>
+  }
 
 </nav>
 

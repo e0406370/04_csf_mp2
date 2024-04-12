@@ -36,7 +36,6 @@ export class UserProfileComponent {
       .then(res => {
 
         this.userProfile = res?.response;
-        // console.info(this.userProfile);
       })
       .catch(err => {
         

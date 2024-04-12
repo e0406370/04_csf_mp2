@@ -49,12 +49,20 @@
   background: rgb(1, 103, 103);
 }
 
+.navi-button-profile {
+  background: rgb(59, 83, 32);
+}
+
 .navi-button-register {
   background: rgb(56, 48, 111);
 }
 
 .navi-button-login {
   background: rgb(29, 93, 57);
+}
+
+.navi-button-logout {
+  background: rgb(159, 27, 22);
 }
 
 .navi-button:hover {

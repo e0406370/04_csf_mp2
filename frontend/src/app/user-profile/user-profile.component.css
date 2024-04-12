@@ -1,0 +1,12 @@
+.main-box {
+  min-height: 90vh;
+}
+
+.profile-heading i.pi-user {
+  font-size: inherit;
+  margin-right: 8px;
+}
+
+.profile-field {
+  font-size: 1.1em;
+}
