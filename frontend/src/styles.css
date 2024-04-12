@@ -35,3 +35,13 @@
   height: 100%;
   cursor: pointer;
 }
+
+.custom-toast {
+  position: absolute;
+  font-size: 1.19em;
+  top: 90px;
+  left: 13%;
+  width: 90%;
+  height: 105px;
+  transform: translateX(-50%);
+}

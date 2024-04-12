@@ -16,6 +16,7 @@ export class UtilityService {
       summary: 'Success',
       detail: message,
       life: 3500,
+      styleClass: 'custom-toast',
     });
   }
 
@@ -26,6 +27,7 @@ export class UtilityService {
       summary: 'Error',
       detail: message,
       life: 3500,
+      styleClass: 'custom-toast',
     });
   }
 
