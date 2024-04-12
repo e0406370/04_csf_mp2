@@ -1,0 +1,15 @@
+.wrapper {
+  min-height: 90vh;
+}
+
+.error-box {
+  position: relative;
+  max-width: 550px;
+  margin: 10 auto;
+}
+
+.return-box {
+  position: relative;
+  max-width: 350px;
+  margin: 0 auto;
+}

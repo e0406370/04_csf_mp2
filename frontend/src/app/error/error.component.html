@@ -1,9 +1,34 @@
-<div class="text-center">
-  <h1 class="text-danger fs-2">
-    <mat-icon>error</mat-icon>
-    404 ERROR: PAGE NOT FOUND
-    <mat-icon>error</mat-icon>
-  </h1>
-
-  <img src="../../assets/404.jpg" height="500px" width="750px" />
+<div class="wrapper">
+  <div class="container">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-md-5 text-center text-white">
+  
+        <div class="error-box alert alert-danger text-decoration-none p-3 rounded">
+          <h1>
+            <h2 class="alert-heading fs-1">
+              <mat-icon>error</mat-icon>
+              ERROR 404
+              <mat-icon>error</mat-icon>
+            </h2>
+            <p class="fs-4">
+              <span>PAGE NOT FOUND!</span>
+            </p>
+          </h1>
+        </div>
+  
+        <a class="text-decoration-none" [routerLink]="['/']">
+          <div class="return-box alert alert-primary text-decoration-none p-3 mt-2 rounded">
+            <h1>
+              <p class="alert-heading fs-4">
+                <mat-icon>keyboard_return</mat-icon>
+                <span>Return to Homepage</span>
+              </p>
+            </h1>
+          </div>
+        </a>
+  
+      </div>
+    </div>
+  </div>
 </div>
+
