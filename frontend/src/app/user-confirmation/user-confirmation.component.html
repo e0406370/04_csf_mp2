@@ -1,26 +1,41 @@
 <p-toast></p-toast>
-<form [formGroup]="userConfirmationForm" (ngSubmit)="submitConfirmationForm()">
-  <h2>
-    <label for="confirmationCode"> Confirmation Code: </label>
-  </h2>
 
-  <input
-    type="hidden"
-    id="confirmationCode"
-    formControlName="confirmationCode"
-    maxlength="6"
-  />
+<div class="main-box">
+  <div class="wrapper-confirm">
 
-  <ng-otp-input
-    (onInputChange)="onCodeChange($event)"
-    [config]="{ length: 6, letterCase: 'Upper' }"
-  >
-  </ng-otp-input>
+    <div class="form-box">
+      <h2 class="text-warning mb-5">Enter your Confirmation Code</h2>
 
-  
+      <form [formGroup]="userConfirmationForm" (ngSubmit)="submitConfirmationForm()">
+        
+        <div class="input-box">
+          <input
+            type="hidden"
+            id="confirmationCode"
+            formControlName="confirmationCode"
+            maxlength="6"
+          />
 
-  <br />
-  <button type="submit" class="btn btn-sm btn-info" [disabled]="cannotSubmit">
-    Confirm
-  </button>
-</form>
+          <div class="ng-otp-input">
+            <ng-otp-input
+              (onInputChange)="onCodeChange($event)"
+              [config]="{ length: 6, letterCase: 'Upper' }"
+            >
+            </ng-otp-input>
+          </div>
+          <br />
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-info btn-block mt-5"
+          [disabled]="cannotSubmit"
+        >
+          Confirm Account
+        </button>
+
+      </form>
+    </div>
+
+  </div>
+</div>
