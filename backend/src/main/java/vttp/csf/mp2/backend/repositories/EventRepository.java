@@ -55,7 +55,7 @@ public class EventRepository {
   
   public List<Event> retrieveEvents() {
 
-    MatchOperation matchOps = Aggregation.match(Criteria.where("country").is("Singapore"));
+    MatchOperation matchOps = Aggregation.match(Criteria.where("country").is("Taiwan"));
 
     SortOperation sortOps = Aggregation.sort(Sort.by(Direction.ASC, "start"));
 

@@ -16,7 +16,7 @@ import vttp.csf.mp2.backend.services.EventService;
 @RestController
 @RequestMapping(path = "/api/events", produces = MediaType.APPLICATION_JSON_VALUE)
 public class EventController {
-  
+
   @Autowired
   private EventService eventSvc;
 
@@ -24,8 +24,8 @@ public class EventController {
   public ResponseEntity<List<Event>> retrieveEvents() {
 
     return ResponseEntity
-    .status(HttpStatus.OK)
-    .body(eventSvc.retrieveEvents());
+        .status(HttpStatus.OK)
+        .body(eventSvc.retrieveEvents());
   }
 
 }

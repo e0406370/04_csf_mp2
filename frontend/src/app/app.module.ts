@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material/material.module';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { CardModule } from 'primeng/card';
+import { DividerModule } from 'primeng/divider';
 import { MenubarModule } from 'primeng/menubar';
 import { ToastModule } from 'primeng/toast';
 import { MessagesModule } from 'primeng/messages';
@@ -70,6 +71,7 @@ import { AgeFromMillisecondsPipe } from "./utility/age.pipe";
         MaterialModule,
         AutoFocusModule,
         CardModule,
+        DividerModule,
         MenubarModule,
         ToastModule,
         MessagesModule,
