@@ -29,7 +29,25 @@
                     class="text-bg-dark"
                     id="eventName"
                     formControlName="eventName"
-                    style="border-color: #fff; color: #000; background-color: #333; width: 50%;"/>
+                  />
+                </div>
+              </div>
+              <hr>
+
+              <div class="row">
+                <div class="col-sm-3">
+                  <h5 class="mb-0 text-warning">
+                    <span><ion-icon name="search-circle"></ion-icon></span>
+                    Venue Name
+                  </h5>
+                </div>
+                <div class="col-sm-9">
+                  <input
+                    type="text"
+                    class="text-bg-dark"
+                    id="venueName"
+                    formControlName="venueName"
+                  />
                 </div>
               </div>
               <hr>
@@ -47,6 +65,42 @@
                       {{ country }}
                     </option>
                   </select>
+                </div>
+              </div>
+              <hr>
+
+              <div class="row">
+                <div class="col-sm-3">
+                  <h5 class="mb-0 text-warning">
+                    <span><ion-icon name="search-circle"></ion-icon></span>
+                    Start After
+                  </h5>
+                </div>
+                <div class="col-sm-9">
+                  <input
+                    type="date"
+                    class="text-bg-dark"
+                    id="startAfter"
+                    formControlName="startAfter"
+                  />
+                </div>
+              </div>
+              <hr>
+
+              <div class="row">
+                <div class="col-sm-3">
+                  <h5 class="mb-0 text-warning">
+                    <span><ion-icon name="search-circle"></ion-icon></span>
+                    Start Before
+                  </h5>
+                </div>
+                <div class="col-sm-9">
+                  <input
+                    type="date"
+                    class="text-bg-dark"
+                    id="startAfter"
+                    formControlName="startBefore"
+                  />
                 </div>
               </div>
               <hr>
@@ -89,7 +143,7 @@
               {{ event.name }}
             </h6>
             <p class="card-text text-secondary-emphasis">
-              {{ simplifyVenueName(event.venueName) }} <span><br/></span> [{{ event.country }}]
+              {{ eventListSvc.simplifyVenueName(event.venueName) }} <span><br/></span> [{{ event.country }}]
             </p>
           </div>
           <p-divider type="dashed" class="mb-3"></p-divider>

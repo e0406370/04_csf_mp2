@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { EventCard } from '../models/eventcard';
+import { EventCard, EventSearch, INIT_SEARCH_PARAMS } from '../models/event';
 import { SELECTED_COUNTRIES } from '../utility/constants';
 import { EventListService } from './event-list.service';
 
@@ -13,10 +13,10 @@ import { EventListService } from './event-list.service';
 export class EventListComponent implements OnInit {
 
   private fb = inject(FormBuilder);
-  private eventListSvc = inject(EventListService);
+  eventListSvc = inject(EventListService);
 
   eventSearchForm!: FormGroup;
-  selectedCountry: string = 'Singapore';
+  searchParams: EventSearch = INIT_SEARCH_PARAMS;
   selectedCountries: string[] = SELECTED_COUNTRIES;
 
   eventList!: EventCard[];
@@ -27,57 +27,39 @@ export class EventListComponent implements OnInit {
   ngOnInit(): void {
 
     this.eventSearchForm = this.createEventSearchForm();
-    this.loadEvents(this.page, this.size, this.selectedCountry);
+    this.loadEvents();
   }
 
   createEventSearchForm(): FormGroup {
 
     return this.fb.group({
-      eventName: this.fb.control<string>(''),
-      venueName: this.fb.control<string>(''),
-      country: this.fb.control<string>('Singapore'),
-      startAfter: this.fb.control<Date>(new Date()),
-      startBefore: this.fb.control<Date>(new Date()),
-      sortDateOrder: this.fb.control<string>('ASC'),
+      eventName: this.fb.control<string>(INIT_SEARCH_PARAMS.eventName),
+      venueName: this.fb.control<string>(INIT_SEARCH_PARAMS.venueName),
+      country: this.fb.control<string>(INIT_SEARCH_PARAMS.country),
+      startAfter: this.fb.control<Date>(INIT_SEARCH_PARAMS.startAfter),
+      startBefore: this.fb.control<Date>(INIT_SEARCH_PARAMS.startBefore),
     })
   }
 
-  submitEventSearchForm(): void {
-  
-    const searchParams = this.eventListSvc.parseEventSearchForm(this.eventSearchForm);
-    this.selectedCountry = searchParams.country;
+  loadEvents() {
 
-    this.loadEvents(this.page, this.size, this.selectedCountry);
-  }
-
-
-  loadEvents(page: number, size: number, country: string) {
-
-    this.eventListSvc.retrieveEvents(page, size, country).subscribe((data) => {
+    this.eventListSvc.retrieveEvents(this.searchParams, this.page, this.size).subscribe((data) => {
 
       this.eventList = data.events;
       this.totalRecords = data.totalRecords;
     });
   }
 
+  submitEventSearchForm(): void {
+  
+    this.searchParams = this.eventListSvc.parseEventSearchForm(this.eventSearchForm);
+    this.loadEvents();
+  }
+
   onPageChange(event: any): void {
 
     this.page = event.page;
     this.size = event.rows;
-
-    this.loadEvents(this.page, this.size, this.selectedCountry);
-  }
-
-  simplifyVenueName(venueName: string): string {
-
-    const indicators: string[] = ['remote', 'online', 'webinar', 'virtual', 'zoom'];
-
-    for (const indicator of indicators) {
-
-      if (venueName.toLowerCase().includes(indicator)) {
-        return 'Online Event';
-      }
-    }
-    return venueName;
+    this.loadEvents();
   }
 }

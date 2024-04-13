@@ -1,9 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable } from 'rxjs';
-import { EventPage } from '../models/eventcard';
 import { FormGroup } from '@angular/forms';
-import { EventSearch } from '../models/eventsearch';
+import { Observable } from 'rxjs';
+import { EventPage, EventSearch } from '../models/event';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +11,22 @@ import { EventSearch } from '../models/eventsearch';
 export class EventListService {
 
   private httpClient = inject(HttpClient);
+
+  public retrieveEvents(searchParams: EventSearch, page: number, size: number): Observable<EventPage> {
+
+    const params = new HttpParams()
+      .set('eventName', searchParams.eventName)
+      .set('venueName', searchParams.venueName)
+      .set('country', searchParams.country)
+      .set('startAfter', searchParams.startAfter.getTime().toString())
+      .set('startBefore', searchParams.startBefore.getTime().toString())
+      .set('page', page)
+      .set('size', size);
+    
+    console.info(params);
+
+    return this.httpClient.get<EventPage>("/api/events", { params: params });
+  }
 
   parseEventSearchForm(eventSearchForm: FormGroup): EventSearch {
 
@@ -27,14 +42,16 @@ export class EventListService {
     return searchParams;
   }
 
+  simplifyVenueName(venueName: string): string {
 
-  public retrieveEvents(page: number, size: number, country: string): Observable<EventPage> {
+    const indicators: string[] = ['remote', 'online', 'webinar', 'virtual', 'zoom'];
 
-    const params = new HttpParams()
-      .set('country', country)
-      .set('page', page)
-      .set('size', size);
+    for (const indicator of indicators) {
 
-    return this.httpClient.get<EventPage>("/api/events", { params: params});
+      if (venueName.toLowerCase().includes(indicator)) {
+        return 'Online Event';
+      }
+    }
+    return venueName;
   }
 }
