@@ -19,4 +19,17 @@ export class EventListComponent implements OnInit {
 
     this.eventList$ = this.eventListSvc.retrieveEvents();
   }
+
+  simplifyVenueName(venueName: string): string {
+
+    const indicators: string[] = ['online', 'virtual', 'zoom'];
+
+    for (const indicator of indicators) {
+
+      if (venueName.toLowerCase().includes(indicator)) {
+        return 'Online Event';
+      }
+    }
+    return venueName;
+  }
 }
