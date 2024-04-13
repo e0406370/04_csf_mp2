@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import vttp.csf.mp2.backend.models.EventPage;
+import vttp.csf.mp2.backend.models.EventSearch;
 import vttp.csf.mp2.backend.services.EventService;
 
 @RestController
@@ -21,11 +22,21 @@ public class EventController {
 
   @GetMapping(path = "")
   public ResponseEntity<EventPage> retrieveEventCards(
+      @RequestParam(required = false) String eventName,
+      @RequestParam(required = false) String venueName,
+      @RequestParam(required = false) String country,
+      @RequestParam(required = false) String startAfter,
+      @RequestParam(required = false) String startBefore,
       @RequestParam(required = true, defaultValue = "0") int page,
-      @RequestParam(required = true, defaultValue = "20") int size,
-      @RequestParam(required = false) String country) {
+      @RequestParam(required = true, defaultValue = "20") int size) {
+    
+    EventSearch searchParams = new EventSearch(eventName, venueName, country, startAfter, startBefore);
 
-    EventPage events = eventSvc.retrieveEventCards(page, size, country);
+    System.out.println(searchParams);
+
+    EventPage events = eventSvc.retrieveEventCards(searchParams, page, size);
+
+    System.out.println(events);
 
     return ResponseEntity
         .status(HttpStatus.OK)

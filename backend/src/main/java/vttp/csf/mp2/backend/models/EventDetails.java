@@ -1,6 +1,7 @@
 package vttp.csf.mp2.backend.models;
 
 public record EventDetails(
+    
     String eventID,
     String name,
     String description,

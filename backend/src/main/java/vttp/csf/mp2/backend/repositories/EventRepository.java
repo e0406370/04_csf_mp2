@@ -15,13 +15,14 @@ import org.springframework.data.mongodb.core.aggregation.LimitOperation;
 import org.springframework.data.mongodb.core.aggregation.MatchOperation;
 import org.springframework.data.mongodb.core.aggregation.SkipOperation;
 import org.springframework.data.mongodb.core.aggregation.SortOperation;
-import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Repository;
 
 import vttp.csf.mp2.backend.models.EventCard;
 import vttp.csf.mp2.backend.models.EventDetails;
 import vttp.csf.mp2.backend.models.EventPage;
+import vttp.csf.mp2.backend.models.EventSearch;
 import vttp.csf.mp2.backend.utility.Constants;
+import vttp.csf.mp2.backend.utility.EventUtility;
 
 @Repository
 public class EventRepository {
@@ -32,6 +33,9 @@ public class EventRepository {
 
   @Value("${mongo.collection.events}")
   private String eventsCollection;
+
+  @Autowired
+  private EventUtility eventUtils;
 
   public Document storeEventDetails(EventDetails event) {
 
@@ -57,9 +61,9 @@ public class EventRepository {
     return eventDoc;
   }
   
-  public EventPage retrieveEventCards(int page, int size, String country) {
+  public EventPage retrieveEventCards(EventSearch searchParams, int page, int size) {
 
-    MatchOperation matchOps = Aggregation.match(Criteria.where("country").is(country));
+    MatchOperation matchOps = Aggregation.match(eventUtils.returnMatchCriteria(searchParams));
     SortOperation sortOps = Aggregation.sort(Sort.by(Direction.ASC, "start"));
 
     AggregationResults<EventCard> totalResults = mongoTemplate.aggregate(
