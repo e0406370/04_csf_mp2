@@ -7,3 +7,11 @@
   height: 100%;
   width: 100%;
 }
+
+.record-paginator {
+  margin-top: 20px;
+}
+
+.record-panel {
+  margin-top: 10px;
+}

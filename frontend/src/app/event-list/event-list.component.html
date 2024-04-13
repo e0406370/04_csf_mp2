@@ -16,7 +16,7 @@
               {{ event.name }}
             </h6>
             <p class="card-text text-secondary-emphasis">
-              {{ simplifyVenueName(event.venueName) }} [{{ event.country }}]
+              {{ simplifyVenueName(event.venueName) }} <span><br/></span> [{{ event.country }}]
             </p>
           </div>
           <p-divider type="dashed" class="mb-3"></p-divider>
@@ -44,6 +44,23 @@
     </div>
 
     <br/>
-    <p-paginator [rows]="20" [totalRecords]="totalRecords" [rowsPerPageOptions]="[20, 40, 60]" (onPageChange)="onPageChange($event)"></p-paginator>
+    <div class="record-paginator d-flex justify-content-center">
+      <p-paginator
+        [rows]="20"
+        [totalRecords]="totalRecords"
+        [rowsPerPageOptions]="[20, 40, 60]"
+        [showJumpToPageDropdown]="true"
+        [showJumpToPageInput]="true"
+        (onPageChange)="onPageChange($event)"
+      >
+      </p-paginator>
+    </div>
+    
+    <div class="record-panel d-flex justify-content-center">      
+      <p-panel header="Total Results" class="text-center">
+        {{ totalRecords }}
+      </p-panel>
+    </div>
+
   </div>
 </div>

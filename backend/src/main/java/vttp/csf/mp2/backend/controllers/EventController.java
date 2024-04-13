@@ -23,17 +23,11 @@ public class EventController {
   public ResponseEntity<EventPage> retrieveEventCards(
       @RequestParam(required = true, defaultValue = "0") int page,
       @RequestParam(required = true, defaultValue = "20") int size) {
-    
-
-    System.out.println(page);
-    System.out.println(size);
 
     EventPage events = eventSvc.retrieveEventCards(page, size);
-    System.out.println(events.totalRecords());
-    System.out.println(events.events());
 
     return ResponseEntity 
         .status(HttpStatus.OK)
-        .body(eventSvc.retrieveEventCards(page, size));
+        .body(events);
   }
 }

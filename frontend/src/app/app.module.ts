@@ -12,6 +12,7 @@ import { CardModule } from 'primeng/card';
 import { DividerModule } from 'primeng/divider';
 import { MenubarModule } from 'primeng/menubar';
 import { PaginatorModule } from 'primeng/paginator';
+import { PanelModule } from 'primeng/panel';
 import { ToastModule } from 'primeng/toast';
 import { MessagesModule } from 'primeng/messages';
 import { NgOtpInputModule } from 'ng-otp-input';
@@ -75,6 +76,7 @@ import { AgeFromMillisecondsPipe } from "./utility/age.pipe";
         DividerModule,
         MenubarModule,
         PaginatorModule,
+        PanelModule,
         ToastModule,
         MessagesModule,
         NgOtpInputModule,

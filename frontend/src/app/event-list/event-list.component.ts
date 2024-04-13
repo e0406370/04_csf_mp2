@@ -15,9 +15,12 @@ export class EventListComponent implements OnInit {
   eventList!: EventCard[];
   totalRecords!: number;
 
+  page: number = 0;
+  size: number = 20;
+
   ngOnInit(): void {
 
-    this.loadEvents(0, 20);
+    this.loadEvents(this.page, this.size);
   }
 
   loadEvents(page: number, size: number) {
@@ -31,13 +34,10 @@ export class EventListComponent implements OnInit {
 
   onPageChange(event: any): void {
 
-    const page = event.page;
-    const size = event.rows;
+    this.page = event.page;
+    this.size = event.rows;
 
-    console.info(page);
-    console.info(size);
-
-    this.loadEvents(page, size);
+    this.loadEvents(this.page, this.size);
   }
 
   simplifyVenueName(venueName: string): string {
