@@ -12,3 +12,21 @@ export const PASSWORD_REGEX: string =
 
 export const ERROR_MESSAGE: string =
   'Unknown error occurred. Please try again later.';
+
+export const SELECTED_COUNTRIES: string[] = [
+  'Australia',
+  'Brunei',
+  'Denmark',
+  'Indonesia',
+  'Japan',
+  'Malaysia',
+  'Myanmar',
+  'New Zealand',
+  'Singapore',
+  'Switzerland',
+  'South Korea',
+  'Taiwan',
+  'Thailand',
+  'United Kingdom',
+  'United Arab Emirates',
+];

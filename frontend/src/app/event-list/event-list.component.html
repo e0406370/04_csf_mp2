@@ -1,6 +1,79 @@
 <div class="main-box">
   <div class="container">
 
+    <div class="error-box alert alert-primary text-decoration-none p-2 rounded">
+      <h1 class="profile-heading text-center text-primary-emphasis">
+        <span><ion-icon name="search"></ion-icon></span>
+        Event Search
+      </h1>
+    </div>
+    <br />
+
+    <div class="row justify-content-center align-items-center">
+      <div class="col-md-8">
+        <div class="card text-bg-dark mb-3">
+          <div class="card-body">
+            
+            <form [formGroup]="eventSearchForm" (ngSubmit)="submitEventSearchForm()">
+
+              <div class="row">
+                <div class="col-sm-3">
+                  <h5 class="mb-0 text-warning">
+                    <span><ion-icon name="search-circle"></ion-icon></span>
+                    Event Name
+                  </h5>
+                </div>
+                <div class="col-sm-9">
+                  <input
+                    type="text"
+                    class="text-bg-dark"
+                    id="eventName"
+                    formControlName="eventName"
+                    style="border-color: #fff; color: #000; background-color: #333; width: 50%;"/>
+                </div>
+              </div>
+              <hr>
+
+              <div class="row">
+                <div class="col-sm-3">
+                  <h5 class="mb-0 text-warning">
+                    <span><ion-icon name="location"></ion-icon></span>
+                    Country
+                  </h5>
+                </div>
+                <div class="col-sm-9">
+                  <select name="country" class="text-bg-dark custom-select-box" formControlName="country">
+                    <option *ngFor="let country of selectedCountries" [ngValue]="country">
+                      {{ country }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <hr>
+
+              <div class="row">
+                <div class="col-sm-6">
+                  <button type="submit" class="btn btn-primary">
+                    Search Events
+                  </button>
+                </div>
+              </div>
+
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="error-box alert alert-primary text-decoration-none p-2 rounded">
+      <h1 class="profile-heading text-center text-primary-emphasis">
+        <span><ion-icon name="navigate"></ion-icon></span>
+        Event Results
+      </h1>
+    </div>
+    <br />
+
     <div class="row row-cols-4 g-4">
       <div class="col" *ngFor="let event of eventList">
 
@@ -24,7 +97,7 @@
           <div class="row mb-1 justify-content-center">
             
             <div class="col-4 text-center">
-              <ion-icon name="eye"></ion-icon>
+              <ion-icon name="information-circle"></ion-icon>
               <p>Details</p>
             </div>
 
