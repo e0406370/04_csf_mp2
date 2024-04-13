@@ -12,8 +12,8 @@ public class EventService {
   @Autowired
   private EventRepository eventRepo;
 
-  public EventPage retrieveEventCards(int page, int size) {
+  public EventPage retrieveEventCards(int page, int size, String country) {
     
-    return eventRepo.retrieveEventCards(page, size);
+    return eventRepo.retrieveEventCards(page, size, country);
   }
 }

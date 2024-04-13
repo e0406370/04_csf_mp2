@@ -22,11 +22,12 @@ public class EventController {
   @GetMapping(path = "")
   public ResponseEntity<EventPage> retrieveEventCards(
       @RequestParam(required = true, defaultValue = "0") int page,
-      @RequestParam(required = true, defaultValue = "20") int size) {
+      @RequestParam(required = true, defaultValue = "20") int size,
+      @RequestParam(required = false) String country) {
 
-    EventPage events = eventSvc.retrieveEventCards(page, size);
+    EventPage events = eventSvc.retrieveEventCards(page, size, country);
 
-    return ResponseEntity 
+    return ResponseEntity
         .status(HttpStatus.OK)
         .body(events);
   }

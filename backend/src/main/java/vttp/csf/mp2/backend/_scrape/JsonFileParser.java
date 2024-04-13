@@ -9,14 +9,11 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.springframework.stereotype.Component;
-
 import jakarta.json.Json;
 import jakarta.json.JsonArray;
 import jakarta.json.JsonObject;
 import jakarta.json.JsonReader;
 
-@Component
 public class JsonFileParser {
 
   public static void main(String[] args) {

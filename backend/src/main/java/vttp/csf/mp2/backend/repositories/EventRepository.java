@@ -57,9 +57,9 @@ public class EventRepository {
     return eventDoc;
   }
   
-  public EventPage retrieveEventCards(int page, int size) {
+  public EventPage retrieveEventCards(int page, int size, String country) {
 
-    MatchOperation matchOps = Aggregation.match(Criteria.where("country").is("Taiwan"));
+    MatchOperation matchOps = Aggregation.match(Criteria.where("country").is(country));
     SortOperation sortOps = Aggregation.sort(Sort.by(Direction.ASC, "start"));
 
     AggregationResults<EventCard> totalResults = mongoTemplate.aggregate(

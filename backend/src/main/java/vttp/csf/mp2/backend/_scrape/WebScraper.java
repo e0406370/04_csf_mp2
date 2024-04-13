@@ -11,13 +11,10 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-import org.springframework.stereotype.Component;
-
 import jakarta.json.JsonArray;
 
 import vttp.csf.mp2.backend.utility.Utils;
 
-@Component
 public class WebScraper {
 
   // private static final String[] countriesList = new String[] {
