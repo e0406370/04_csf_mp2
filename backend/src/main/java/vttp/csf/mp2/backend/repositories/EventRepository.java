@@ -11,13 +11,16 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.aggregation.LimitOperation;
 import org.springframework.data.mongodb.core.aggregation.MatchOperation;
+import org.springframework.data.mongodb.core.aggregation.SkipOperation;
 import org.springframework.data.mongodb.core.aggregation.SortOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Repository;
 
 import vttp.csf.mp2.backend.models.EventCard;
 import vttp.csf.mp2.backend.models.EventDetails;
+import vttp.csf.mp2.backend.models.EventPage;
 import vttp.csf.mp2.backend.utility.Constants;
 
 @Repository
@@ -54,16 +57,28 @@ public class EventRepository {
     return eventDoc;
   }
   
-  public List<EventCard> retrieveEventCards() {
+  public EventPage retrieveEventCards(int page, int size) {
 
     MatchOperation matchOps = Aggregation.match(Criteria.where("country").is("Taiwan"));
-
     SortOperation sortOps = Aggregation.sort(Sort.by(Direction.ASC, "start"));
 
-    Aggregation pipeline = Aggregation.newAggregation(matchOps, sortOps);
+    AggregationResults<EventCard> totalResults = mongoTemplate.aggregate(
+      Aggregation.newAggregation(matchOps, sortOps),
+      eventsCollection,
+      EventCard.class
+    );
+    long totalRecords = totalResults.getMappedResults().size();
 
-    AggregationResults<EventCard> results = mongoTemplate.aggregate(pipeline, eventsCollection, EventCard.class);
+    SkipOperation skipOps = Aggregation.skip(page * size);
+    LimitOperation limitOps = Aggregation.limit(size);
 
-    return results.getMappedResults();
+    AggregationResults<EventCard> paginatedResults = mongoTemplate.aggregate(
+      Aggregation.newAggregation(matchOps, sortOps, skipOps, limitOps),
+      eventsCollection,
+      EventCard.class
+    );
+    List<EventCard> events = paginatedResults.getMappedResults();
+
+    return new EventPage(events, totalRecords);
   }
 }

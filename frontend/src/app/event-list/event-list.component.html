@@ -1,8 +1,8 @@
 <div class="main-box">
   <div class="container">
 
-    <div class="row row-cols-4 g-4" *ngIf="eventList$ | async as events">
-      <div class="col" *ngFor="let event of events;">
+    <div class="row row-cols-4 g-4">
+      <div class="col" *ngFor="let event of eventList">
 
         <div class="card text-bg-dark border-secondary mx-4">
 
@@ -43,5 +43,7 @@
       </div>
     </div>
 
+    <br/>
+    <p-paginator [rows]="20" [totalRecords]="totalRecords" [rowsPerPageOptions]="[20, 40, 60]" (onPageChange)="onPageChange($event)"></p-paginator>
   </div>
 </div>

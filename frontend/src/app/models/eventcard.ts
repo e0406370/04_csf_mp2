@@ -7,3 +7,9 @@ export interface EventCard {
   venueName: string;
   country: string;
 }
+
+export interface EventPage {
+
+  events: EventCard[];
+  totalRecords: number;
+}
