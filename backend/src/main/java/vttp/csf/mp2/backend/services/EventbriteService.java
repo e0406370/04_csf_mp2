@@ -16,7 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import jakarta.json.JsonObject;
 
-import vttp.csf.mp2.backend.models.Event;
+import vttp.csf.mp2.backend.models.EventDetails;
 import vttp.csf.mp2.backend.repositories.EventRepository;
 import vttp.csf.mp2.backend.utility.Utils;
 
@@ -81,7 +81,7 @@ public class EventbriteService {
     String latitude = jsonPayload.getJsonObject("venue").getString("latitude");
     String longitude = jsonPayload.getJsonObject("venue").getString("longitude");
 
-    eventRepo.storeEvent(new Event(eventID, name, description, link, start, end, created, logo, venueAddress, venueName, latitude, longitude, returnProperCase(selectedCountry)));
+    eventRepo.storeEventDetails(new EventDetails(eventID, name, description, link, start, end, created, logo, venueAddress, venueName, latitude, longitude, returnProperCase(selectedCountry)));
   }
   
   public void retrieveEventbriteDataInBulk() {

@@ -16,7 +16,8 @@ import org.springframework.data.mongodb.core.aggregation.SortOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Repository;
 
-import vttp.csf.mp2.backend.models.Event;
+import vttp.csf.mp2.backend.models.EventCard;
+import vttp.csf.mp2.backend.models.EventDetails;
 import vttp.csf.mp2.backend.utility.Constants;
 
 @Repository
@@ -29,7 +30,7 @@ public class EventRepository {
   @Value("${mongo.collection.events}")
   private String eventsCollection;
 
-  public Document storeEvent(Event event) {
+  public Document storeEventDetails(EventDetails event) {
 
     Document eventDoc = new Document();
 
@@ -53,7 +54,7 @@ public class EventRepository {
     return eventDoc;
   }
   
-  public List<Event> retrieveEvents() {
+  public List<EventCard> retrieveEventCards() {
 
     MatchOperation matchOps = Aggregation.match(Criteria.where("country").is("Taiwan"));
 
@@ -61,7 +62,7 @@ public class EventRepository {
 
     Aggregation pipeline = Aggregation.newAggregation(matchOps, sortOps);
 
-    AggregationResults<Event> results = mongoTemplate.aggregate(pipeline, eventsCollection, Event.class);
+    AggregationResults<EventCard> results = mongoTemplate.aggregate(pipeline, eventsCollection, EventCard.class);
 
     return results.getMappedResults();
   }

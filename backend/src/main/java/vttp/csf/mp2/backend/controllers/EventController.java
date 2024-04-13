@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import vttp.csf.mp2.backend.models.Event;
+import vttp.csf.mp2.backend.models.EventCard;
 import vttp.csf.mp2.backend.services.EventService;
 
 @RestController
@@ -21,11 +21,10 @@ public class EventController {
   private EventService eventSvc;
 
   @GetMapping(path = "")
-  public ResponseEntity<List<Event>> retrieveEvents() {
+  public ResponseEntity<List<EventCard>> retrieveEventCards() {
 
     return ResponseEntity
         .status(HttpStatus.OK)
-        .body(eventSvc.retrieveEvents());
+        .body(eventSvc.retrieveEventCards());
   }
-
 }

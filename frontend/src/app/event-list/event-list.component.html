@@ -5,9 +5,8 @@
       <div class="col" *ngFor="let event of events;">
 
         <div class="card text-bg-dark border-secondary mx-4">
-          <a [href]="event.link" target="_blank" rel="noopener noreferrer">
-            <img [src]="event.logo" height="256px" width="512px" class="card-img-top"/>
-          </a>
+
+          <img [src]="event.logo" height="256px" width="512px" class="card-img-top"/>
 
           <div class="card-header text-truncate text-warning-emphasis" title="{{ event.start | date:'EEEE, dd MMMM \'at\' hh:mm a' }}">
             {{ event.start | date:"EEEE, dd MMMM 'at' hh:mm a" }}
@@ -17,7 +16,7 @@
               {{ event.name }}
             </h6>
             <p class="card-text text-secondary-emphasis">
-              {{ event.venueName }}
+              {{ event.venueName }} [{{ event.country }}]
             </p>
           </div>
           <p-divider type="dashed" class="mb-3"></p-divider>
