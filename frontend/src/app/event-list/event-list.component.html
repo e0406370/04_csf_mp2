@@ -117,10 +117,11 @@
             <p-divider type="dashed" class="mb-3"></p-divider>
   
             <div class="row mb-1 justify-content-center">
-              
               <div class="col-4 text-center">
-                <ion-icon name="information-circle"></ion-icon>
-                <p>Details</p>
+                <a [routerLink]="['/events', event.eventID]" class="text-decoration-none">
+                  <ion-icon name="information-circle"></ion-icon>
+                  <p>Details</p>
+                </a>
               </div>
   
               <div class="col-4 text-center">

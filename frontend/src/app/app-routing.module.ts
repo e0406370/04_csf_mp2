@@ -11,6 +11,7 @@ import { UserRegistrationComponent } from './user-registration/user-registration
 import { notCompletedRegistration, validateLogin, validateUserConfirmation } from './utility/guards';
 import { UserLogoutComponent } from './user-logout/user-logout.component';
 import { EventListComponent } from './event-list/event-list.component';
+import { EventDetailsComponent } from './event-details/event-details.component';
 
 
 const appRoutes: Routes = [
@@ -48,6 +49,10 @@ const appRoutes: Routes = [
   {
     path: 'events',
     component: EventListComponent
+  },
+  {
+    path: 'events/:eventID',
+    component: EventDetailsComponent
   },
   {
     path: '**',
