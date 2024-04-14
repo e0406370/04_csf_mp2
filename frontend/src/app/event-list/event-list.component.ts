@@ -1,8 +1,9 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { EventCard, EventSearch, INIT_SEARCH_PARAMS } from '../models/event';
 import { SELECTED_COUNTRIES } from '../utility/constants';
 import { EventListService } from './event-list.service';
+import { Paginator } from 'primeng/paginator';
 
 @Component({
   selector: 'app-event-list',
@@ -11,6 +12,8 @@ import { EventListService } from './event-list.service';
 })
   
 export class EventListComponent implements OnInit {
+
+  @ViewChild('paginator') paginator!: Paginator;
 
   private fb = inject(FormBuilder);
   eventListSvc = inject(EventListService);
@@ -43,7 +46,9 @@ export class EventListComponent implements OnInit {
 
   loadEvents() {
 
-    this.eventListSvc.retrieveEvents(this.searchParams, this.page, this.size).subscribe((data) => {
+    this.eventListSvc
+      .retrieveEvents(this.searchParams, this.page, this.size)
+      .subscribe((data) => {
 
       this.eventList = data.events;
       this.totalRecords = data.totalRecords;
@@ -54,6 +59,9 @@ export class EventListComponent implements OnInit {
   
     this.searchParams = this.eventListSvc.parseEventSearchForm(this.eventSearchForm);
     this.loadEvents();
+
+    this.page = 0;
+    this.paginator.changePage(this.page);
   }
 
   onPageChange(event: any): void {

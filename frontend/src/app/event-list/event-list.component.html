@@ -108,6 +108,7 @@
               <div class="row">
                 <div class="col-sm-6">
                   <button type="submit" class="btn btn-primary">
+                    <i class="pi pi-search"></i>
                     Search Events
                   </button>
                 </div>
@@ -173,6 +174,7 @@
     <br/>
     <div class="record-paginator d-flex justify-content-center">
       <p-paginator
+        #paginator
         [rows]="20"
         [totalRecords]="totalRecords"
         [rowsPerPageOptions]="[20, 40, 60]"
