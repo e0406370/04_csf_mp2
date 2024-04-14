@@ -1,16 +1,24 @@
-<h1>Event Details</h1>
-<div>
-  <p>Event ID: {{ eventDetails.eventID }}</p>
-  <p>Name: {{ eventDetails.name }}</p>
-  <p>Description: {{ eventDetails.description }}</p>
-  <p>Link: {{ eventDetails.link }}</p>
-  <p>Start: {{ eventDetails.start }}</p>
-  <p>End: {{ eventDetails.end }}</p>
-  <p>Created: {{ eventDetails.created }}</p>
-  <p>Logo: {{ eventDetails.logo }}</p>
-  <p>Venue Address: {{ eventDetails.venueAddress }}</p>
-  <p>Venue Name: {{ eventDetails.venueName }}</p>
-  <p>Latitude: {{ eventDetails.latitude }}</p>
-  <p>Longitude: {{ eventDetails.longitude }}</p>
-  <p>Country: {{ eventDetails.country }}</p>
+<div class="main-box">
+  <div class="container">
+
+    <div class="card text-bg-dark border-secondary mx-4">
+      <h1>Event Details</h1>
+      <div>
+        <p>Event ID: {{ eventID }}</p>
+        <p>Name: {{ eventDetails.name }}</p>
+        <p>Description: {{ eventDetails.description }}</p>
+        <p>Link: {{ eventDetails.link }}</p>
+        <p>Start: {{ eventDetails.start }}</p>
+        <p>End: {{ eventDetails.end }}</p>
+        <p>Created: {{ eventDetails.created }}</p>
+        <p>Logo: {{ eventDetails.logo }}</p>
+        <p>Venue Address: {{ eventDetails.venueAddress }}</p>
+        <p>Venue Name: {{ eventDetails.venueName }}</p>
+        <p>Latitude: {{ eventDetails.latitude }}</p>
+        <p>Longitude: {{ eventDetails.longitude }}</p>
+        <p>Country: {{ eventDetails.country }}</p>
+      </div>
+    </div>
+
+  </div>
 </div>
