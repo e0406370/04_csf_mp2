@@ -3,17 +3,17 @@ export interface EventSearch {
   eventName: string;
   venueName: string;
   country: string;
-  startAfter: Date;
-  startBefore: Date;
+  startAfter: string;
+  startBefore: string;
 }
 
 export const INIT_SEARCH_PARAMS: EventSearch = {
 
-  eventName: "",
-  venueName: "",
+  eventName: '',
+  venueName: '',
   country: 'Singapore',
-  startAfter: new Date(),
-  startBefore: new Date(),
+  startAfter: '',
+  startBefore: '',
 }
 
 export interface EventCard {

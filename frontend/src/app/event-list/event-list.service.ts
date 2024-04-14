@@ -18,8 +18,8 @@ export class EventListService {
       .set('eventName', searchParams.eventName)
       .set('venueName', searchParams.venueName)
       .set('country', searchParams.country)
-      .set('startAfter', searchParams.startAfter.getTime().toString())
-      .set('startBefore', searchParams.startBefore.getTime().toString())
+      .set('startAfter', searchParams.startAfter)
+      .set('startBefore', searchParams.startBefore)
       .set('page', page)
       .set('size', size);
     
@@ -30,13 +30,21 @@ export class EventListService {
 
   parseEventSearchForm(eventSearchForm: FormGroup): EventSearch {
 
+    const startAfter = !isNaN(Date.parse(eventSearchForm.get("startAfter")?.value))
+      ? Date.parse(eventSearchForm.get("startAfter")?.value).toString()
+      : '';
+    
+    const startBefore = !isNaN(Date.parse(eventSearchForm.get("startBefore")?.value))
+      ? Date.parse(eventSearchForm.get("startBefore")?.value).toString()
+      : '';
+
     const searchParams: EventSearch = {
 
       eventName: eventSearchForm.get("eventName")?.value,
       venueName: eventSearchForm.get("venueName")?.value,
       country: eventSearchForm.get("country")?.value,
-      startAfter: new Date(eventSearchForm.get("startAfter")?.value),
-      startBefore: new Date(eventSearchForm.get("startBefore")?.value),
+      startAfter: startAfter,
+      startBefore: startBefore,
     }
 
     return searchParams;

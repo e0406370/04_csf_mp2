@@ -36,8 +36,8 @@ export class EventListComponent implements OnInit {
       eventName: this.fb.control<string>(INIT_SEARCH_PARAMS.eventName),
       venueName: this.fb.control<string>(INIT_SEARCH_PARAMS.venueName),
       country: this.fb.control<string>(INIT_SEARCH_PARAMS.country),
-      startAfter: this.fb.control<Date>(INIT_SEARCH_PARAMS.startAfter),
-      startBefore: this.fb.control<Date>(INIT_SEARCH_PARAMS.startBefore),
+      startAfter: this.fb.control<string>(INIT_SEARCH_PARAMS.startAfter),
+      startBefore: this.fb.control<string>(INIT_SEARCH_PARAMS.startBefore),
     })
   }
 
