@@ -10,7 +10,6 @@ import { MaterialModule } from './material/material.module';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { CardModule } from 'primeng/card';
 import { DividerModule } from 'primeng/divider';
-import { MenubarModule } from 'primeng/menubar';
 import { PaginatorModule } from 'primeng/paginator';
 import { PanelModule } from 'primeng/panel';
 import { ToastModule } from 'primeng/toast';
@@ -74,7 +73,6 @@ import { AgeFromMillisecondsPipe } from "./utility/age.pipe";
         AutoFocusModule,
         CardModule,
         DividerModule,
-        MenubarModule,
         PaginatorModule,
         PanelModule,
         ToastModule,

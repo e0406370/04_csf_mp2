@@ -22,8 +22,6 @@ export class EventListService {
       .set('startBefore', searchParams.startBefore)
       .set('page', page)
       .set('size', size);
-    
-    console.info(params);
 
     return this.httpClient.get<EventPage>("/api/events", { params: params });
   }
