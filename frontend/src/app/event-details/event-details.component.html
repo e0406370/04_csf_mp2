@@ -25,10 +25,63 @@
 
           </div>
         </div>
-  
+
         <div class="col">
           <div class="card text-bg-dark">
-            <p>Event ID: {{ eventID }}</p>
+
+            <div class="card-body">
+              <p class="fs-6 fw-bold text-decoration-underline">
+                Event ID
+              </p>
+              <p class="card-text fs-6">
+                <span>
+                  {{ eventID }} by
+                </span>
+                <span>
+                  <a [href]="eventDetails.link">
+                    Eventbrite
+                  </a>
+                </span>
+              </p>
+              <p-divider type="solid"></p-divider>
+              <br />
+
+              <p class="fs-6 fw-bold text-decoration-underline">
+                Date and Time
+              </p>
+              <p class="card-text fs-6">
+                <span class="fw-bold">
+                  Start
+                </span>
+                <span><br /></span>
+                <span>
+                  {{ eventDetails.start | date:"EEEE, dd MMMM yyyy 'at' hh:mm a" }} SGT
+                </span>
+                <span><br /></span>
+                <span><br /></span>
+                <span class="fw-bold">
+                  End
+                </span>
+                <span><br /></span>
+                <span>
+                  {{ eventDetails.end | date:"EEEE, dd MMMM yyyy 'at' hh:mm a" }} SGT
+                </span>
+              </p>
+              <p-divider type="solid"></p-divider>
+              <br />
+
+              <p class="fs-6 fw-bold text-decoration-underline">
+                Location
+              </p>
+              <p class="card-text fs-6">
+                {{ eventDetails.venueName }}
+              </p>
+              <p class="card-text fs-6">
+                {{ eventDetails.venueAddress }}
+              </p>
+
+            </div>
+
           </div>
         </div>
   
