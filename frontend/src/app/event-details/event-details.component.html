@@ -1,7 +1,47 @@
 <div class="main-box">
   <div class="container">
 
+    <div class="error-box alert alert-dark rounded">
+      <div class="row row-cols-2">
+
+        <div class="col">
+          <div class="card text-bg-dark">
+            <img [src]="eventDetails.logo" height="256px" width="250px" class="card-img-top"/>
+
+            <div class="card-body">
+              <h4 class="card-title lh-sm justify-content-center">
+                {{ eventDetails.name }}
+              </h4>
+              <p-divider type="solid"></p-divider>
+              <br />
+
+              <p class="fs-6 fw-bold text-decoration-underline">
+                Description
+              </p>
+              <p class="card-text fs-6">
+                {{ eventDetails.description }}
+              </p>
+            </div>
+
+          </div>
+        </div>
+  
+        <div class="col">
+          <div class="card text-bg-dark">
+            <p>Event ID: {{ eventID }}</p>
+          </div>
+        </div>
+  
+      </div>
+    </div>
+
+
+
+
     <div class="card text-bg-dark border-secondary mx-4">
+
+      <img [src]="eventDetails.logo" height="256px" width="250px" class="card-img-top"/>
+
       <h1>Event Details</h1>
       <div>
         <p>Event ID: {{ eventID }}</p>
