@@ -1,5 +1,9 @@
+.main-box {
+  min-height: 100vh;
+}
+
 .container {
-  margin-top: 25px;
+  margin-top: 15px;
   margin-bottom: 50px;
 }
 

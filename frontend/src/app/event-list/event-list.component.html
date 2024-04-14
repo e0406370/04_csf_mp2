@@ -81,67 +81,83 @@
     </div>
     <br />
 
-    <div class="row row-cols-4 g-4">
-      <div class="col" *ngFor="let event of eventList">
-
-        <div class="card text-bg-dark border-secondary mx-4">
-
-          <img [src]="event.logo" height="256px" width="512px" class="card-img-top"/>
-
-          <div class="card-header text-truncate text-warning-emphasis" title="{{ event.start | date:'EEEE, dd MMMM \'at\' hh:mm a' }}">
-            {{ event.start | date:"EEEE, dd MMMM 'at' hh:mm a" }}
-          </div>
-          <div class="card-body">
-            <h6 class="card-title">
-              {{ event.name }}
-            </h6>
-            <p class="card-text text-secondary-emphasis">
-              {{ eventListSvc.simplifyVenueName(event.venueName) }} <span><br/></span> [{{ event.country }}]
-            </p>
-          </div>
-          <p-divider type="dashed" class="mb-3"></p-divider>
-
-          <div class="row mb-1 justify-content-center">
-            
-            <div class="col-4 text-center">
-              <ion-icon name="information-circle"></ion-icon>
-              <p>Details</p>
-            </div>
-
-            <div class="col-4 text-center">
-              <ion-icon name="star"></ion-icon>
-              <p>Bookmark</p>
-            </div>
-
-            <div class="col-4 text-center">
-              <ion-icon name="ticket"></ion-icon>
-              <p>Register</p>
-            </div>
-          </div>
-        </div>
-
+    @if (eventList.length == 0) {
+      <div class="error-box alert alert-danger text-decoration-none p-3 rounded justify-content-center align-items-center">
+        <h1 class="text-center">
+          <h2 class="alert-heading fs-1">
+            <ion-icon name="alert-circle-outline"></ion-icon>
+            Unable to find any events.
+          </h2>
+          <p class="fs-5">
+            Consider adjusting the filters and modifiying the search query to match your needs precisely.
+          </p>
+        </h1>
       </div>
-    </div>
+    }
 
-    <br/>
-    <div class="record-paginator d-flex justify-content-center">
-      <p-paginator
-        #paginator
-        [rows]="20"
-        [totalRecords]="totalRecords"
-        [rowsPerPageOptions]="[20, 40, 60]"
-        [showJumpToPageDropdown]="true"
-        [showJumpToPageInput]="true"
-        (onPageChange)="onPageChange($event)"
-      >
-      </p-paginator>
-    </div>
-    
-    <div class="record-panel d-flex justify-content-center">      
-      <p-panel header="Total Results" class="text-center">
-        {{ totalRecords }}
-      </p-panel>
-    </div>
+    @else {
+      <div class="row row-cols-4 g-4">
+        <div class="col" *ngFor="let event of eventList">
+  
+          <div class="card text-bg-dark border-secondary mx-4">
+  
+            <img [src]="event.logo" height="256px" width="512px" class="card-img-top"/>
+  
+            <div class="card-header text-truncate text-warning-emphasis" title="{{ event.start | date:'EEEE, dd MMMM \'at\' hh:mm a' }}">
+              {{ event.start | date:"EEEE, dd MMMM 'at' hh:mm a" }}
+            </div>
+            <div class="card-body">
+              <h6 class="card-title">
+                {{ event.name }}
+              </h6>
+              <p class="card-text text-secondary-emphasis">
+                {{ eventListSvc.simplifyVenueName(event.venueName) }} <span><br/></span> [{{ event.country }}]
+              </p>
+            </div>
+            <p-divider type="dashed" class="mb-3"></p-divider>
+  
+            <div class="row mb-1 justify-content-center">
+              
+              <div class="col-4 text-center">
+                <ion-icon name="information-circle"></ion-icon>
+                <p>Details</p>
+              </div>
+  
+              <div class="col-4 text-center">
+                <ion-icon name="star"></ion-icon>
+                <p>Bookmark</p>
+              </div>
+  
+              <div class="col-4 text-center">
+                <ion-icon name="ticket"></ion-icon>
+                <p>Register</p>
+              </div>
+            </div>
+          </div>
+  
+        </div>
+      </div>
+  
+      <br/>
+      <div class="record-paginator d-flex justify-content-center">
+        <p-paginator
+          #paginator
+          [rows]="20"
+          [totalRecords]="totalRecords"
+          [rowsPerPageOptions]="[20, 40, 60]"
+          [showJumpToPageDropdown]="true"
+          [showJumpToPageInput]="true"
+          (onPageChange)="onPageChange($event)"
+        >
+        </p-paginator>
+      </div>
+      
+      <div class="record-panel d-flex justify-content-center">      
+        <p-panel header="Total Results" class="text-center">
+          {{ totalRecords }}
+        </p-panel>
+      </div>
+    }
 
   </div>
 </div>
