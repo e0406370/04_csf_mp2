@@ -31,6 +31,23 @@ public class Utils {
     return LocalDate.parse(date);
   }
 
+  public static String returnDateTimeFromMilliseconds(long longDateValue, boolean isDateAfter) {
+
+    DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+
+    LocalDateTime dateTime = Instant.ofEpochMilli(longDateValue)
+        .atZone(ZoneId.systemDefault())
+        .toLocalDateTime();
+
+    if (isDateAfter) {
+      dateTime = dateTime.withHour(0).withMinute(0).withSecond(0);
+    } else {
+      dateTime = dateTime.withHour(23).withMinute(59).withSecond(59);
+    }
+
+    return dateTime.format(formatter);
+  }
+
   public static JsonObject returnMessageInJson(String message) {
 
     return Json.createObjectBuilder()
