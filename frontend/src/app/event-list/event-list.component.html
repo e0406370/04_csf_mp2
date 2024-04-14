@@ -1,131 +1,83 @@
 <div class="main-box">
   <div class="container">
 
-    <div class="error-box alert alert-primary text-decoration-none p-2 rounded">
-      <h1 class="profile-heading text-center text-primary-emphasis">
-        <span><ion-icon name="search"></ion-icon></span>
-        Event Search
-      </h1>
-    </div>
-    <br />
+    <div class="error-box alert alert-dark text-decoration-none p-2 rounded">
+      <form [formGroup]="eventSearchForm" (ngSubmit)="submitEventSearchForm()">
+        <div class="row">
 
-    <div class="row justify-content-center align-items-center">
-      <div class="col-md-8">
-        <div class="card text-bg-dark mb-3">
-          <div class="card-body">
-            
-            <form [formGroup]="eventSearchForm" (ngSubmit)="submitEventSearchForm()">
-
-              <div class="row">
-                <div class="col-sm-3">
-                  <h5 class="mb-0 text-warning">
-                    <span><ion-icon name="search-circle"></ion-icon></span>
-                    Event Name
-                  </h5>
-                </div>
-                <div class="col-sm-9">
-                  <input
-                    type="text"
-                    class="text-bg-dark"
-                    id="eventName"
-                    formControlName="eventName"
-                  />
-                </div>
-              </div>
-              <hr>
-
-              <div class="row">
-                <div class="col-sm-3">
-                  <h5 class="mb-0 text-warning">
-                    <span><ion-icon name="location"></ion-icon></span>
-                    Venue Name
-                  </h5>
-                </div>
-                <div class="col-sm-9">
-                  <input
-                    type="text"
-                    class="text-bg-dark"
-                    id="venueName"
-                    formControlName="venueName"
-                  />
-                </div>
-              </div>
-              <hr>
-
-              <div class="row">
-                <div class="col-sm-3">
-                  <h5 class="mb-0 text-warning">
-                    <span><ion-icon name="flag"></ion-icon></span>
-                    Country
-                  </h5>
-                </div>
-                <div class="col-sm-9">
-                  <select name="country" class="text-bg-dark custom-select-box" formControlName="country">
-                    <option *ngFor="let country of selectedCountries" [ngValue]="country">
-                      {{ country }}
-                    </option>
-                  </select>
-                </div>
-              </div>
-              <hr>
-
-              <div class="row">
-                <div class="col-sm-3">
-                  <h5 class="mb-0 text-warning">
-                    <span><ion-icon name="calendar"></ion-icon></span>
-                    Start After
-                  </h5>
-                </div>
-                <div class="col-sm-9">
-                  <input
-                    type="date"
-                    class="text-bg-dark"
-                    id="startAfter"
-                    formControlName="startAfter"
-                  />
-                </div>
-              </div>
-              <hr>
-
-              <div class="row">
-                <div class="col-sm-3">
-                  <h5 class="mb-0 text-warning">
-                    <span><ion-icon name="calendar"></ion-icon></span>
-                    Start Before
-                  </h5>
-                </div>
-                <div class="col-sm-9">
-                  <input
-                    type="date"
-                    class="text-bg-dark"
-                    id="startAfter"
-                    formControlName="startBefore"
-                  />
-                </div>
-              </div>
-              <hr>
-
-              <div class="row">
-                <div class="col-sm-6">
-                  <button type="submit" class="btn btn-primary">
-                    <i class="pi pi-search"></i>
-                    Search Events
-                  </button>
-                </div>
-              </div>
-
-            </form>
-
+          <div class="col">
+            <h6 class="text-warning">
+              <span><ion-icon name="search-circle"></ion-icon></span>
+              Event Name
+            </h6>
+            <input
+              type="text"
+              class="text-bg-dark"
+              id="eventName"
+              formControlName="eventName"
+            />
           </div>
-        </div>
-      </div>
-    </div>
 
-    <div class="error-box alert alert-primary text-decoration-none p-2 rounded">
-      <h1 class="profile-heading text-center text-primary-emphasis">
-        <span><ion-icon name="navigate"></ion-icon></span>
-        Event Results
-      </h1>
+          <div class="col">
+            <h6 class="text-warning">
+              <span><ion-icon name="location"></ion-icon></span>
+              Venue Name
+            </h6>
+            <input
+              type="text"
+              class="text-bg-dark"
+              id="venueName"
+              formControlName="venueName"
+            />
+          </div>
+
+          <div class="col">
+            <h6 class="text-warning">
+              <span><ion-icon name="flag"></ion-icon></span>
+              Country
+            </h6>
+            <select name="country" class="text-bg-dark custom-select-box" id="country" formControlName="country">
+              <option *ngFor="let country of selectedCountries" [ngValue]="country">
+                {{ country }}
+              </option>
+            </select>
+          </div>
+
+          <div class="col">
+            <h6 class="text-warning">
+              <span><ion-icon name="calendar"></ion-icon></span>
+              Start After
+            </h6>
+            <input
+              type="date"
+              class="text-bg-dark"
+              id="startAfter"
+              formControlName="startAfter"
+            />
+          </div>
+
+          <div class="col">
+            <h6 class="text-warning">
+              <span><ion-icon name="calendar"></ion-icon></span>
+              Start Before
+            </h6>
+            <input
+              type="date"
+              class="text-bg-dark"
+              id="startBefore"
+              formControlName="startBefore"
+            />
+          </div>
+
+          <div class="col">
+            <button type="submit" class="btn btn-primary mt-2">
+              <i class="pi pi-search"></i>
+              Search Events
+            </button>
+          </div>
+  
+        </div>
+      </form>
     </div>
     <br />
 
