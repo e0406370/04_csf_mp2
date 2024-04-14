@@ -1,0 +1,32 @@
+{
+  "theme_color": "#f69435",
+  "background_color": "#f69435",
+  "display": "browser",
+  "scope": "/",
+  "start_url": "/",
+  "name": "event_manager",
+  "short_name": "event_manager",
+  "description": "A simple web application that serves as your go-to platform for creating your own events and discovering exciting gatherings through the Eventbrite API. Easily find events by title, venue, country, and/or date range.",
+  "icons": [
+    {
+      "src": "icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
