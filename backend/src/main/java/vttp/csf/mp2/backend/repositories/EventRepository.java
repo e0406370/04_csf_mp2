@@ -92,6 +92,6 @@ public class EventRepository {
     Criteria criteria = Criteria.where("eventID").is(eventID);
     Query query = Query.query(criteria);
 
-    return Optional.ofNullable(mongoTemplate.find(query, EventDetails.class, eventID).getFirst());
+    return Optional.ofNullable(mongoTemplate.findOne(query, EventDetails.class, eventsCollection));
   }
 }
