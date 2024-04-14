@@ -31,7 +31,7 @@ public class Utils {
     return LocalDate.parse(date);
   }
 
-  public static String returnDateTimeFromMilliseconds(long longDateValue, boolean isDateAfter) {
+  public static String returnDateTimeInISOFromMilliseconds(long longDateValue, boolean isDateAfter) {
 
     DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
 
@@ -41,7 +41,8 @@ public class Utils {
 
     if (isDateAfter) {
       dateTime = dateTime.withHour(0).withMinute(0).withSecond(0);
-    } else {
+    } 
+    else {
       dateTime = dateTime.withHour(23).withMinute(59).withSecond(59);
     }
 

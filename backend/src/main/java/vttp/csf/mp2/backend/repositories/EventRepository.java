@@ -64,15 +64,15 @@ public class EventRepository {
   public EventPage retrieveEventCards(EventSearch searchParams, int page, int size) {
 
     MatchOperation matchOps = Aggregation.match(eventUtils.returnMatchCriteria(searchParams));
-    SortOperation sortOps = Aggregation.sort(Sort.by(Direction.ASC, "start"));
 
     AggregationResults<EventCard> totalResults = mongoTemplate.aggregate(
-      Aggregation.newAggregation(matchOps, sortOps),
+      Aggregation.newAggregation(matchOps),
       eventsCollection,
       EventCard.class
     );
     long totalRecords = totalResults.getMappedResults().size();
 
+    SortOperation sortOps = Aggregation.sort(Sort.by(Direction.ASC, "start"));
     SkipOperation skipOps = Aggregation.skip(page * size);
     LimitOperation limitOps = Aggregation.limit(size);
 

@@ -31,12 +31,7 @@ public class EventController {
       @RequestParam(required = true, defaultValue = "20") int size) {
     
     EventSearch searchParams = new EventSearch(eventName, venueName, country, startAfter, startBefore);
-
-    System.out.println(searchParams);
-
     EventPage events = eventSvc.retrieveEventCards(searchParams, page, size);
-
-    System.out.println(events);
 
     return ResponseEntity
         .status(HttpStatus.OK)
