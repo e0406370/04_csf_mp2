@@ -36,7 +36,7 @@ public class Messages {
       """;
       
   public static final String FAILURE_USER_NOT_FOUND = """
-      User profile is not available.
+      This user profile is not available.
       """;
       
   public static final String FAILURE_USERNAME_NOT_FOUND = """
@@ -59,5 +59,10 @@ public class Messages {
   public static final String FAILURE_INCORRECT_CONFIRMATION_CODE = """
       Incorrect confirmation code.
       """;
+      
+  public static final String FAILURE_EVENT_NOT_FOUND = """
+      This event is not available.
+      """;
+      
 }
 

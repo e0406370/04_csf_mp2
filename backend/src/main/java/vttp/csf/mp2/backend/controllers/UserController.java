@@ -137,14 +137,14 @@ public class UserController {
       appMetricsSvc.incrementProfileAccessMetric();
 
       return ResponseEntity
-      .status(HttpStatus.OK) // 200 OK
-      .body(Utils.returnResponseInJson(response).toString());
-    }
+          .status(HttpStatus.OK) // 200 OK
+          .body(Utils.returnResponseInJson(response).toString());
+    } 
     catch (UserException e) {
 
       return ResponseEntity
-      .status(HttpStatus.NOT_FOUND) // 404 NOT FOUND
-      .body(Utils.returnMessageInJson(e.getMessage()).toString());
+          .status(HttpStatus.NOT_FOUND) // 404 NOT FOUND
+          .body(Utils.returnMessageInJson(e.getMessage()).toString());
     }
   }
 }

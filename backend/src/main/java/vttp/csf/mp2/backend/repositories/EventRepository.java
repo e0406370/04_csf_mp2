@@ -1,6 +1,7 @@
 package vttp.csf.mp2.backend.repositories;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import org.springframework.data.mongodb.core.aggregation.LimitOperation;
 import org.springframework.data.mongodb.core.aggregation.MatchOperation;
 import org.springframework.data.mongodb.core.aggregation.SkipOperation;
 import org.springframework.data.mongodb.core.aggregation.SortOperation;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import vttp.csf.mp2.backend.models.EventCard;
@@ -60,16 +63,15 @@ public class EventRepository {
 
     return eventDoc;
   }
-  
+
   public EventPage retrieveEventCards(EventSearch searchParams, int page, int size) {
 
     MatchOperation matchOps = Aggregation.match(eventUtils.returnMatchCriteria(searchParams));
 
     AggregationResults<EventCard> totalResults = mongoTemplate.aggregate(
-      Aggregation.newAggregation(matchOps),
-      eventsCollection,
-      EventCard.class
-    );
+        Aggregation.newAggregation(matchOps),
+        eventsCollection,
+        EventCard.class);
     long totalRecords = totalResults.getMappedResults().size();
 
     SortOperation sortOps = Aggregation.sort(Sort.by(Direction.ASC, "start"));
@@ -77,12 +79,19 @@ public class EventRepository {
     LimitOperation limitOps = Aggregation.limit(size);
 
     AggregationResults<EventCard> paginatedResults = mongoTemplate.aggregate(
-      Aggregation.newAggregation(matchOps, sortOps, skipOps, limitOps),
-      eventsCollection,
-      EventCard.class
-    );
+        Aggregation.newAggregation(matchOps, sortOps, skipOps, limitOps),
+        eventsCollection,
+        EventCard.class);
     List<EventCard> events = paginatedResults.getMappedResults();
 
     return new EventPage(events, totalRecords);
+  }
+
+  public Optional<EventDetails> retrieveEventDetails(String eventID) {
+
+    Criteria criteria = Criteria.where("eventID").is(eventID);
+    Query query = Query.query(criteria);
+
+    return Optional.ofNullable(mongoTemplate.find(query, EventDetails.class, eventID).getFirst());
   }
 }
