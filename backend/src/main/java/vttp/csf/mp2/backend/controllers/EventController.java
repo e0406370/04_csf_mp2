@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import vttp.csf.mp2.backend.models.EventPage;
 import vttp.csf.mp2.backend.models.EventSearch;
+import vttp.csf.mp2.backend.services.ApplicationMetricsService;
 import vttp.csf.mp2.backend.services.EventService;
 
 @RestController
@@ -19,6 +20,9 @@ public class EventController {
 
   @Autowired
   private EventService eventSvc;
+
+  @Autowired
+  private ApplicationMetricsService appMetricsSvc;
 
   @GetMapping(path = "")
   public ResponseEntity<EventPage> retrieveEventCards(
@@ -32,6 +36,7 @@ public class EventController {
     
     EventSearch searchParams = new EventSearch(eventName, venueName, country, startAfter, startBefore);
     EventPage events = eventSvc.retrieveEventCards(searchParams, page, size);
+    appMetricsSvc.incrementEventSearchMetric();
 
     return ResponseEntity
         .status(HttpStatus.OK)

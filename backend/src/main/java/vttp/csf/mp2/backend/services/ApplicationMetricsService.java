@@ -14,6 +14,7 @@ public class ApplicationMetricsService {
   private final Counter confirmCounter;
   private final Counter deleteCounter;
   private final Counter profileAccessCounter;
+  private final Counter eventSearchCounter;
 
   @Autowired
   public ApplicationMetricsService(MeterRegistry registry) {
@@ -37,6 +38,10 @@ public class ApplicationMetricsService {
     profileAccessCounter = Counter.builder("profile_access_counter")
         .description("Tracks the number of times a profile is accessed on the site")
         .register(registry);
+
+    eventSearchCounter = Counter.builder("event_search_counter")
+        .description("Tracks the number of times an event search is performed on the site")
+        .register(registry);
   }
 
   public void incrementRegisterMetric() {
@@ -57,5 +62,9 @@ public class ApplicationMetricsService {
 
   public void incrementProfileAccessMetric() {
     profileAccessCounter.increment();
+  }
+
+  public void incrementEventSearchMetric() {
+    eventSearchCounter.increment();
   }
 }
