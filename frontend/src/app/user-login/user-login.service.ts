@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
 
-import { LoginDetails } from '../models/logindetails';
+import { LoginDetails } from '../models/user';
 
 
 @Injectable({

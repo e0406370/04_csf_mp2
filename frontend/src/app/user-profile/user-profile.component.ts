@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Profile } from '../models/profile';
+import { Profile } from '../models/user';
 
 import { ERROR_MESSAGE } from '../utility/constants';
 import { SessionStore } from '../utility/session.store';
