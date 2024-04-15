@@ -10,12 +10,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.json.JsonObject;
+
 import vttp.csf.mp2.backend.exceptions.EventException;
 import vttp.csf.mp2.backend.models.EventDetails;
 import vttp.csf.mp2.backend.models.EventPage;
 import vttp.csf.mp2.backend.models.EventSearch;
 import vttp.csf.mp2.backend.services.ApplicationMetricsService;
 import vttp.csf.mp2.backend.services.EventService;
+import vttp.csf.mp2.backend.utility.EventUtility;
 import vttp.csf.mp2.backend.utility.Utils;
 
 @RestController
@@ -24,6 +27,9 @@ public class EventController {
 
   @Autowired
   private EventService eventSvc;
+
+  @Autowired
+  private EventUtility eventUtils;
 
   @Autowired
   private ApplicationMetricsService appMetricsSvc;
@@ -49,15 +55,16 @@ public class EventController {
   }
 
   @GetMapping(path = "/{eventID}")
-  public ResponseEntity<?> retrieveEventDetails(@PathVariable String eventID) {
+  public ResponseEntity<String> retrieveEventDetails(@PathVariable String eventID) {
 
     try {
 
       EventDetails event = eventSvc.retrieveEventDetails(eventID);
+      JsonObject response = eventUtils.returnEventDetailsInJson(event);
 
       return ResponseEntity
           .status(HttpStatus.OK) // 200 OK
-          .body(event);
+          .body(Utils.returnResponseInJson(response).toString());
     }
 
     catch (EventException e) {

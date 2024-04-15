@@ -3,6 +3,10 @@ package vttp.csf.mp2.backend.utility;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Component;
 
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
+
+import vttp.csf.mp2.backend.models.EventDetails;
 import vttp.csf.mp2.backend.models.EventSearch;
 
 @Component
@@ -28,7 +32,7 @@ public class EventUtility {
       String startBeforeDateTime = Utils.returnDateTimeInISOFromMilliseconds(startBeforeLong, false);
 
       criteria.and("start").gte(startAfterDateTime).lte(startBeforeDateTime);
-    }
+    } 
     else if (!searchParams.startAfter().isEmpty()) {
       Long startAfterLong = Long.parseLong(searchParams.startAfter());
 
@@ -38,12 +42,31 @@ public class EventUtility {
     } 
     else if (!searchParams.startBefore().isEmpty()) {
       Long startBeforeLong = Long.parseLong(searchParams.startBefore());
-      
+
       String startBeforeDateTime = Utils.returnDateTimeInISOFromMilliseconds(startBeforeLong, false);
 
       criteria.and("start").lte(startBeforeDateTime);
     }
 
     return criteria;
+  }
+
+  public JsonObject returnEventDetailsInJson(EventDetails event) {
+
+    return Json.createObjectBuilder()
+        .add("eventID", event.eventID())
+        .add("name", event.name())
+        .add("description", event.description())
+        .add("link", event.link())
+        .add("start", event.start())
+        .add("end", event.end())
+        .add("created", event.created())
+        .add("logo", event.logo())
+        .add("venueAddress", event.venueAddress())
+        .add("venueName", event.venueName())
+        .add("latitude", Double.parseDouble(event.latitude()))
+        .add("longitude", Double.parseDouble(event.longitude()))
+        .add("country", event.country())
+        .build();
   }
 }
