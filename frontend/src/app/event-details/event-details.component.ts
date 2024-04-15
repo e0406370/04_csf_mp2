@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UtilityService } from '../utility/utility.service';
 import { EventDetailsService } from './event-details.service';
-import { ERROR_MESSAGE } from '../utility/constants';
+import { COUNTRY_TIMEZONES, ERROR_MESSAGE } from '../utility/constants';
 import { EventDetails } from '../models/event';
 import { EventMapService } from './event-map.service';
 
@@ -23,6 +23,7 @@ export class EventDetailsComponent implements OnInit {
 
   eventID!: string;
   eventDetails!: EventDetails;
+  timezoneMap = COUNTRY_TIMEZONES;
 
   ngOnInit(): void {
 

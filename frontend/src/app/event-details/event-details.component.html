@@ -55,7 +55,8 @@
                 </span>
                 <span><br /></span>
                 <span>
-                  {{ eventDetails.start | date:"EEEE, dd MMMM yyyy 'at' hh:mm a" }} SGT
+                  {{ eventDetails.start | date:"EEEE, dd MMMM yyyy 'at' hh:mm a" }}
+                  {{ timezoneMap[eventDetails.country]}}
                 </span>
                 <span><br /></span>
                 <span><br /></span>
@@ -64,7 +65,8 @@
                 </span>
                 <span><br /></span>
                 <span>
-                  {{ eventDetails.end | date:"EEEE, dd MMMM yyyy 'at' hh:mm a" }} SGT
+                  {{ eventDetails.end | date:"EEEE, dd MMMM yyyy 'at' hh:mm a" }}
+                  {{ timezoneMap[eventDetails.country]}}
                 </span>
               </p>
               <p-divider type="solid"></p-divider>
