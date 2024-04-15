@@ -84,4 +84,10 @@ export class EventListComponent implements OnInit {
       this.sortOrder = 'NONE';
     }
   }
+
+  resetParams(): void {
+
+    this.eventSearchForm = this.createEventSearchForm();
+    this.sortOrder = 'NONE';
+  }
 }
