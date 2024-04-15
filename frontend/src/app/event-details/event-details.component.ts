@@ -33,7 +33,7 @@ export class EventDetailsComponent implements OnInit {
         .then(res => {
           
           this.eventDetails = res;
-          this.loadEventMap();
+          this.eventMapSvc.loadEventMap(this.eventDetails.latitude, this.eventDetails.longitude);
         })
         .catch(err => {
           
@@ -41,25 +41,5 @@ export class EventDetailsComponent implements OnInit {
           this.router.navigate(['/error']);
         })
     })
-  }
-
-  loadEventMap(): void {
-
-    this.eventMapSvc.loadEventMap()
-      .then(() => {
-
-        const position = { lat: +this.eventDetails.latitude, lng: +this.eventDetails.longitude }
-
-        new google.maps.Map(document.getElementById("map")!, {
-          center: position,
-          zoom: 15,
-        })
-
-        console.info('Success: Map loaded');
-      })
-      .catch(err => {
-
-        console.error('Error: Map not loaded', err);
-      })
   }
 }
