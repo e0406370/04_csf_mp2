@@ -30,3 +30,5 @@ export const SELECTED_COUNTRIES: string[] = [
   'United Kingdom',
   'United Arab Emirates',
 ];
+
+export const MAPS_API_KEY: string = 'AIzaSyBYk-vIXx1hrdCxyBNJ7ubJ7I6HvcSCVxQ';
