@@ -22,14 +22,14 @@ export class EventMapService {
     return Promise.all([maps, marker]);
   }
 
-  public loadEventMap(latitude: string, longitude: string): void {
+  public loadEventMap(latitude: number, longitude: number): void {
 
     this.loadEventMapLibraries()
       .then(() => {
 
         const position = {
-          lat: +latitude,
-          lng: +longitude,
+          lat: latitude,
+          lng: longitude,
         };
 
         const map = new google.maps.Map(document.getElementById('map')!, {

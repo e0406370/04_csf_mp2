@@ -32,7 +32,7 @@ export class EventDetailsComponent implements OnInit {
       this.eventDetailsSvc.retrieveEventDetails(this.eventID)
         .then(res => {
           
-          this.eventDetails = res;
+          this.eventDetails = res?.response;
           this.eventMapSvc.loadEventMap(this.eventDetails.latitude, this.eventDetails.longitude);
         })
         .catch(err => {

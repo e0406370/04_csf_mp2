@@ -44,7 +44,7 @@ export interface EventDetails {
   logo: string;
   venueAddress: string;
   venueName: string;
-  latitude: string;
-  longitude: string;
+  latitude: number;
+  longitude: number;
   country: string;
 }
