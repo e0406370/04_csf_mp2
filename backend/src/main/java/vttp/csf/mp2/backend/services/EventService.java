@@ -18,9 +18,9 @@ public class EventService {
   @Autowired
   private EventRepository eventRepo;
 
-  public EventPage retrieveEventCards(EventSearch searchParams, int page, int size) {
+  public EventPage retrieveEventCards(EventSearch searchParams, String sortOrder, int page, int size) {
 
-    return eventRepo.retrieveEventCards(searchParams, page, size);
+    return eventRepo.retrieveEventCards(searchParams, sortOrder, page, size);
   }
   
   public EventDetails retrieveEventDetails(String eventID) throws EventException {

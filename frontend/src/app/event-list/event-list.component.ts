@@ -26,6 +26,7 @@ export class EventListComponent implements OnInit {
   totalRecords!: number;
   page: number = 0;
   size: number = 20;
+  sortOrder: 'ASC' | 'DESC' | 'NONE' = 'NONE';
 
   ngOnInit(): void {
 
@@ -47,7 +48,7 @@ export class EventListComponent implements OnInit {
   loadEvents() {
 
     this.eventListSvc
-      .retrieveEvents(this.searchParams, this.page, this.size)
+      .retrieveEvents(this.searchParams, this.sortOrder, this.page, this.size)
       .subscribe((data) => {
 
       this.eventList = data.events;
@@ -69,5 +70,18 @@ export class EventListComponent implements OnInit {
     this.page = event.page;
     this.size = event.rows;
     this.loadEvents();
+  }
+
+  toggleSortOrder(sortOption: string): void {
+
+    if (sortOption === 'ASC') {
+      this.sortOrder = 'ASC';
+    }
+    else if (sortOption === 'DESC') {
+      this.sortOrder = 'DESC';
+    }
+    else if (sortOption === 'NONE') {
+      this.sortOrder = 'NONE';
+    }
   }
 }

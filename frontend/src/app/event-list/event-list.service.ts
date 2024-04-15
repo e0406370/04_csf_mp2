@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { EventPage, EventSearch } from '../models/event';
+import { EventCard, EventPage, EventSearch } from '../models/event';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class EventListService {
 
   private httpClient = inject(HttpClient);
 
-  public retrieveEvents(searchParams: EventSearch, page: number, size: number): Observable<EventPage> {
+  public retrieveEvents(searchParams: EventSearch, sortOrder: string, page: number, size: number): Observable<EventPage> {
 
     const params = new HttpParams()
       .set('eventName', searchParams.eventName)
@@ -20,6 +20,7 @@ export class EventListService {
       .set('country', searchParams.country)
       .set('startAfter', searchParams.startAfter)
       .set('startBefore', searchParams.startBefore)
+      .set('sortOrder', sortOrder)
       .set('page', page)
       .set('size', size);
 

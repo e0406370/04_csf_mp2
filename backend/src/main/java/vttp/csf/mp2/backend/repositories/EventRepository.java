@@ -1,5 +1,6 @@
 package vttp.csf.mp2.backend.repositories;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,12 +8,15 @@ import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationOperation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.aggregation.LimitOperation;
 import org.springframework.data.mongodb.core.aggregation.MatchOperation;
 import org.springframework.data.mongodb.core.aggregation.SkipOperation;
+import org.springframework.data.mongodb.core.aggregation.SortOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
@@ -61,21 +65,37 @@ public class EventRepository {
     return eventDoc;
   }
 
-  public EventPage retrieveEventCards(EventSearch searchParams, int page, int size) {
+  public EventPage retrieveEventCards(EventSearch searchParams, String sortOrder, int page, int size) {
+
+    List<AggregationOperation> pipeline = new ArrayList<>();
 
     MatchOperation matchOps = Aggregation.match(eventUtils.returnMatchCriteria(searchParams));
+    pipeline.add(matchOps);
 
     AggregationResults<EventCard> totalResults = mongoTemplate.aggregate(
-        Aggregation.newAggregation(matchOps),
+        Aggregation.newAggregation(pipeline),
         eventsCollection,
         EventCard.class);
     long totalRecords = totalResults.getMappedResults().size();
 
+    if (!sortOrder.equals("NONE")) {
+
+      SortOperation sortOps = Aggregation.sort(
+        sortOrder.equals("ASC")
+          ? Sort.by("start").ascending()
+          : Sort.by("start").descending()
+      );
+      pipeline.add(sortOps);
+    }
+
     SkipOperation skipOps = Aggregation.skip(page * size);
+    pipeline.add(skipOps);
+
     LimitOperation limitOps = Aggregation.limit(size);
+    pipeline.add(limitOps);
 
     AggregationResults<EventCard> paginatedResults = mongoTemplate.aggregate(
-        Aggregation.newAggregation(matchOps, skipOps, limitOps),
+        Aggregation.newAggregation(pipeline),
         eventsCollection,
         EventCard.class);
     List<EventCard> events = paginatedResults.getMappedResults();

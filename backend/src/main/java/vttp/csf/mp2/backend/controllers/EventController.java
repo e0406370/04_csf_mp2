@@ -41,12 +41,13 @@ public class EventController {
       @RequestParam(required = false) String country,
       @RequestParam(required = false) String startAfter,
       @RequestParam(required = false) String startBefore,
+      @RequestParam(required = true, defaultValue = "NONE") String sortOrder,
       @RequestParam(required = true, defaultValue = "0") int page,
       @RequestParam(required = true, defaultValue = "20") int size) {
 
     EventSearch searchParams = new EventSearch(eventName, venueName, country, startAfter, startBefore);
 
-    EventPage events = eventSvc.retrieveEventCards(searchParams, page, size);
+    EventPage events = eventSvc.retrieveEventCards(searchParams, sortOrder, page, size);
     appMetricsSvc.incrementEventSearchMetric();
 
     return ResponseEntity
