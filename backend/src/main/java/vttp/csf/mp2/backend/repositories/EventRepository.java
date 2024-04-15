@@ -74,12 +74,11 @@ public class EventRepository {
         EventCard.class);
     long totalRecords = totalResults.getMappedResults().size();
 
-    SortOperation sortOps = Aggregation.sort(Sort.by(Direction.ASC, "start"));
     SkipOperation skipOps = Aggregation.skip(page * size);
     LimitOperation limitOps = Aggregation.limit(size);
 
     AggregationResults<EventCard> paginatedResults = mongoTemplate.aggregate(
-        Aggregation.newAggregation(matchOps, sortOps, skipOps, limitOps),
+        Aggregation.newAggregation(matchOps, skipOps, limitOps),
         eventsCollection,
         EventCard.class);
     List<EventCard> events = paginatedResults.getMappedResults();
