@@ -57,8 +57,9 @@ public class EventQueries {
       """;
 
   public static final String SQL_RETRIEVE_EVENT_REGISTRATION_ATTENDEES = """
-      SELECT CONCAT(`user_id`, '-', `user_name`) FROM `users`
-        WHERE `user_id` = (
+      SELECT CONCAT(`user_id`, '-', `user_name`)
+      FROM `users`
+        WHERE `user_id` IN (
           SELECT `user_id` FROM `event_registrations`
           WHERE `event_id` = ?
         )
