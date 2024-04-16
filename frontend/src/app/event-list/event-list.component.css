@@ -30,3 +30,7 @@
 .searchBtn {
   white-space: nowrap;
 }
+
+.clickable-ion-icon:hover {
+  cursor: pointer;
+}
