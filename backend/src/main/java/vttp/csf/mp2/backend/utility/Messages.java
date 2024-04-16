@@ -40,6 +40,10 @@ public class Messages {
   public static final String SUCCESS_EVENT_REMOVE_REGISTRATION = """
       You have successfully removed this event from your registrations.
       """;
+      
+  public static final String SUCCESS_EVENT_CREATION = """
+      You have successfully created a new event.
+      """;
 
   public static final String FAILURE_EMAIL_EXISTS = """
       This email is already registered.

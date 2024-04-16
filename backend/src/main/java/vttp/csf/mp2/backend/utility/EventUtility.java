@@ -1,5 +1,7 @@
 package vttp.csf.mp2.backend.utility;
 
+import java.util.UUID;
+
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Component;
 
@@ -82,5 +84,11 @@ public class EventUtility {
     String country = eventObj.getString("country");
 
     return new EventCard(eventID, name, start, logo, venue, country);
+  }
+
+  // generate a 8-character UUID
+  public String generateEventID() {
+
+    return UUID.randomUUID().toString().substring(0, 8);
   }
 }

@@ -34,7 +34,7 @@ export class EventMapService {
 
         const map = new google.maps.Map(document.getElementById('map')!, {
           center: position,
-          zoom: 16,
+          zoom: 17,
         });
 
         const marker = new google.maps.Marker({

@@ -1,6 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Loader } from '@googlemaps/js-api-loader';
 import { MAPS_API_KEY } from '../utility/constants';
+import { AbstractControl, FormGroup, ValidationErrors } from '@angular/forms';
+import { CreationDetails, Place } from '../models/creation';
+import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +13,10 @@ import { MAPS_API_KEY } from '../utility/constants';
 export class EventCreationService {
 
   marker!: google.maps.Marker;
+  place!: Place;
+  cannotSubmit: boolean = true;
+
+  private httpClient = inject(HttpClient);
 
   private loader = new Loader(
     {
@@ -77,7 +85,18 @@ export class EventCreationService {
           
           this.updateInfoWindow(content, place.location);
           this.marker.setPosition(place.location);
-          
+
+          // important
+          this.place = {
+            venue: place.displayName,
+            address: place.formattedAddress,
+            latitude: place.location.lat(),
+            longitude: place.location.lng(),
+          }
+          this.cannotSubmit = false;
+          console.info(this.place);
+          console.info(this.cannotSubmit);
+
           console.info('Place location: ', place.location.lat(), place.location.lng());
           console.info('Place location: ', this.marker.getPosition()?.lat(), this.marker.getPosition()?.lng());
         })
@@ -102,4 +121,38 @@ export class EventCreationService {
       shouldFocus: false,
     });
   }
+
+  futureDateValidator(ctrl: AbstractControl): ValidationErrors | null {
+
+    const currentDate = new Date();
+    const selectedDate = new Date(ctrl.value);
+
+    if (currentDate > selectedDate) {
+
+      return { notFutureDate: true } as ValidationErrors;
+    }
+
+    return null;
+  }
+
+  parseEventCreationForm(eventCreationForm: FormGroup): any {
+
+    const creation: CreationDetails = {
+
+      name: eventCreationForm.get("name")?.value,
+      description: eventCreationForm.get("description")?.value,
+      logo: eventCreationForm.get("logo")?.value || "https://deae.jp/wp-content/uploads/2018/06/tapple-shashin-nosetakunai.png",
+      start: eventCreationForm.get("start")?.value,
+      end: eventCreationForm.get("end")?.value,
+    }
+
+    const place: Place = this.place;
+
+    return { creation, place };
+  }
+
+  public createEvent(details: any): Promise<any> {
+
+    return firstValueFrom(this.httpClient.post<any>("/api/events/create", details));
+  } 
 }

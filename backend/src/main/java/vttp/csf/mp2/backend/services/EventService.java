@@ -106,4 +106,34 @@ public class EventService {
 
     return eventRepo.retrieveEventRegistrationAttendees(eventID);
   }
+
+  public String createEvent(String payload) {
+
+    JsonObject jsonPayload = Utils.returnPayloadInJson(payload);
+
+    JsonObject creationObj = jsonPayload.getJsonObject("creation");
+    String name = creationObj.getString("name");
+    String description = creationObj.getString("description");
+    String logo = creationObj.getString("logo");
+    String start = creationObj.getString("start");
+    String end = creationObj.getString("end");
+
+    JsonObject placeObj = jsonPayload.getJsonObject("place");
+    String venue = placeObj.getString("venue");
+    String address = placeObj.getString("address");
+    String latitude = String.valueOf(placeObj.getJsonNumber("latitude").doubleValue());
+    String longitude = String.valueOf(placeObj.getJsonNumber("longitude").doubleValue());
+
+    String eventID = eventUtils.generateEventID();
+    String link = "https://www.eventbrite.sg/e/mayday-sg-festival-2024-presented-by-merchcow-tickets-858621248267"; // placeholder link
+    String created = Utils.returnCurrentTimeStamp();
+    String country = "Singapore"; // default country
+
+    EventDetails event = new EventDetails(eventID, name, description, link, start, end, created, logo, address, venue, latitude, longitude, country);
+    
+    System.out.println(event);
+    eventRepo.storeEventDetails(event);
+
+    return eventID;
+  }
 }

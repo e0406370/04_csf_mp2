@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.json.Json;
 import jakarta.json.JsonObject;
 
 import vttp.csf.mp2.backend.exceptions.EventException;
@@ -174,5 +175,16 @@ public class EventController {
     return ResponseEntity
         .status(HttpStatus.OK) // 200 OK
         .body(attendees);
+  }
+
+  @PostMapping(path = "/create")
+  public ResponseEntity<String> createEvent(@RequestBody String payload) {
+
+    String eventID = eventSvc.createEvent(payload);
+    JsonObject response = Json.createObjectBuilder().add("eventID", eventID).build();
+
+    return ResponseEntity
+      .status(HttpStatus.OK) // 201 CREATED
+      .body(Utils.returnMessageWithResponseInJson(Messages.SUCCESS_EVENT_CREATION, response).toString());
   }
 }

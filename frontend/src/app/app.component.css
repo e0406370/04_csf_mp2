@@ -19,7 +19,7 @@
 }
 
 .current-time {
-  width: 305px;
+  width: 345px;
 }
 
 .navi-button {
@@ -38,10 +38,10 @@
 }
 
 .navi-button-lg {
-  width: 150px;
+  width: 175px;
 }
 
-.navi-button-homepage {
+.navi-button-create {
   background: rgb(25, 3, 79);
 }
 

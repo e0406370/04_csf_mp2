@@ -25,7 +25,7 @@ const appRoutes: Routes = [
   },
   {
     path: '',
-    component: MainComponent
+    component: UserLoginComponent
   },
   {
     path: 'account',

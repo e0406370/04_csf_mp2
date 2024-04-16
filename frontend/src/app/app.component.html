@@ -9,17 +9,17 @@
 
   <div class="current-time text-primary-emphasis"> {{ currentDateDayTime }}</div>
 
-  <a [routerLink]="['/']">
-    <button type="button" class="navi-button navi-button-lg navi-button-homepage">
-      <i class="pi pi-home"></i>
-      Homepage
-    </button>
-  </a>
-
   <a [routerLink]="['/events']">
     <button type="button" class="navi-button navi-button-lg navi-button-search">
       <i class="pi pi-search"></i>
-      Find Events
+      Search Events
+    </button>
+  </a>
+
+  <a [routerLink]="['/creation']">
+    <button type="button" class="navi-button navi-button-lg navi-button-create">
+      <i class="pi pi-plus-circle"></i>
+      Create Events
     </button>
   </a>
 

@@ -1,4 +1,106 @@
-<div class="place-autocomplete-card" id="place-autocomplete-card">
-  <p>Search for a place here:</p>
+<div class="main-box">
+  <div class="container">
+    
+    <div class="error-box alert alert-secondary text-decoration-none p-2 mb-3 rounded">
+      <h1 class="profile-heading text-center text-warning">
+        Event Creation
+      </h1>  
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <div class="place-autocomplete-card" id="place-autocomplete-card">
+          <p class="text-black">Search for a location here:</p>
+        </div>
+        <div id="map" style="height: 425px; width: 500px"></div>
+        <div class="alert alert-box alert-warning mt-2" style="width: 520px">
+          <ion-icon name="warning-outline"></ion-icon>
+          Please set the Event Location using the search bar above.
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card text-bg-dark border-secondary mx-4">
+          <form [formGroup]="eventCreationForm" (ngSubmit)="submitEventCreationForm()">
+        
+            <div class="card-body">
+
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="name" class="fs-6 mt-1">Event Name</label>
+                  <label for="name" class="fs-6">(required)</label>
+                </div>
+                <div class="col-md-8 mt-1">
+                  <input type="text" formControlName="name" class="form-control" id="name">
+                  <small class="text-danger" *ngIf="eventCreationForm.get('name')?.hasError('maxlength')">
+                    Event name must have a max. of 100 chars!
+                  </small>
+                </div>
+              </div>
+
+              <div class="row mt-3">
+                <div class="col-md-4">
+                  <label for="description" class="fs-6 mt-1">Event Description</label>
+                  <label for="description" class="fs-6">(required)</label>
+                </div>
+                <div class="col-md-8 mt-1">
+                  <textarea formControlName="description" class="form-control" id="description" rows="3" cols="50">
+                  </textarea>
+                  <small class="text-danger" *ngIf="eventCreationForm.get('description')?.hasError('maxlength')">
+                    Event description must have a max. of 256 chars!
+                  </small>
+                </div>
+              </div>
+
+              <div class="row mt-3">
+                <div class="col-md-4">
+                  <label for="logo" class="fs-6 mt-1">Event Logo URL</label>
+                  <label for="logo" class="fs-6">(optional)</label>
+                </div>
+                <div class="col-md-8 mt-1">
+                  <input type="text" formControlName="logo" class="form-control" id="logo">
+                  <small class="text-danger" *ngIf="eventCreationForm.get('logo')?.hasError('maxlength')">
+                    Event logo URL must have a max. of 256 chars!
+                  </small>
+                </div>
+              </div>
+
+              <div class="row mt-3">
+                <div class="col-md-4">
+                  <label for="start" class="fs-6 mt-1">Event Start</label>
+                  <label for="start" class="fs-6">(required)</label>
+                </div>
+                <div class="col-md-8 mt-1">
+                  <input type="datetime-local" formControlName="start" class="form-control" id="start">
+                  <small class="text-danger" *ngIf="eventCreationForm.get('start')?.hasError('notFutureDate')">
+                    Event start must be in the future!
+                  </small>
+                </div>
+              </div>
+
+              <div class="row mt-3">
+                <div class="col-md-4">
+                  <label for="end" class="fs-6 mt-1">Event End</label>
+                  <label for="end" class="fs-6">(required)</label>
+                </div>
+                <div class="col-md-8 mt-1">
+                  <input type="datetime-local" formControlName="end" class="form-control" id="end">
+                  <small class="text-danger" *ngIf="eventCreationForm.get('end')?.hasError('notFutureDate')">
+                    Event end must be in the future!
+                  </small>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-block mt-3" [disabled]="isFormInvalid()">
+                Create Event
+              </button>
+
+            </div>
+          
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>
-<div id="map" style="height: 425px; width: 500px"></div>

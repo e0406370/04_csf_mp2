@@ -24,3 +24,11 @@
 #map #infowindow-content {
   display: inline;
 }
+
+.main-box {
+  min-height: 100vh;
+}
+
+.container {
+  margin-bottom: 50px;
+}
