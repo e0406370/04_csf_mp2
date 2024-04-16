@@ -1,9 +1,9 @@
 <div class="main-box">
   <div class="container">
 
-    <div class="error-box alert alert-secondary text-decoration-none p-3 rounded">
+    <div class="error-box alert alert-secondary text-decoration-none p-2 mb-3 rounded">
       <h1 class="profile-heading text-center text-warning">
-        Bookmarked Events
+        Bookmarked Events ({{ (bookmarkedEvents$ | async)?.length }})
       </h1>  
     </div>
 

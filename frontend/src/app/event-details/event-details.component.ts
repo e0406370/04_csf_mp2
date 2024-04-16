@@ -24,6 +24,7 @@ export class EventDetailsComponent implements OnInit {
   eventID!: string;
   eventDetails!: EventDetails;
   timezoneMap = COUNTRY_TIMEZONES;
+  bookmarkCount !: string;
 
   ngOnInit(): void {
 
@@ -42,5 +43,8 @@ export class EventDetailsComponent implements OnInit {
           this.router.navigate(['/error']);
         })
     })
+
+    this.eventDetailsSvc.retrieveEventBookmarkCount(this.eventID)
+      .then((res) => {this.bookmarkCount = res})
   }
 }

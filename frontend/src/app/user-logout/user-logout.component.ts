@@ -11,7 +11,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
     trigger('progressBarAnimation', [
       transition(':enter', [
         style({ width: '0%' }),
-        animate('3500ms', style({ width: '100%' })),
+        animate('2500ms', style({ width: '100%' })),
       ]),
     ]),
   ],
@@ -27,6 +27,6 @@ export class UserLogoutComponent implements OnInit {
     setTimeout(() => {
       this.router.navigate(['/login']);
       this.utilitySvc.generateSuccessMessage('You have logged out successfully. Hope to see you again!');
-    }, 3500);
+    }, 2500);
   }
 }
