@@ -7,6 +7,16 @@
   margin-bottom: 50px;
 }
 
+.rowBtn {
+  display: flex;
+  justify-content: center;
+}
+
+.actionBtn {
+  padding: 0.2rem 0.4rem;
+  width: 105px;
+}
+
 .return-box {
   position: relative;
   max-width: 350px;

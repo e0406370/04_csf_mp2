@@ -12,27 +12,42 @@
       *ngIf="(bookmarkedEvents$ | async)?.length !== 0; else showErrorMessage"
     >
       <thead>
-        <tr>
-          <th>I/N</th>
-          <th>Name</th>
-          <th>Start Date</th>
-          <th>Venue</th>
-          <th>Country</th>
-          <th>Image</th>
+        <tr class="text-center fs-4">
+          <th class="text-primary-emphasis">I/N</th>
+          <th class="text-primary-emphasis">Name</th>
+          <th class="text-primary-emphasis">Start Date</th>
+          <th class="text-primary-emphasis">Venue</th>
+          <th class="text-primary-emphasis">Country</th>
+          <th class="text-primary-emphasis">Image</th>
+          <th class="text-primary-emphasis">Actions</th>
         </tr>
       </thead>
     
       <tbody>
-        <tr *ngFor="let event of bookmarkedEvents$ | async; let index_number = index">
+        <tr *ngFor="let event of bookmarkedEvents$ | async; let index_number = index" class="fs-5">
           <td>{{ index_number + 1 }}</td>
           <td>{{ event.name }}</td>
-          <td>{{ event.start }}</td>
+          <td>{{ event.start | date:"EEEE, dd MMMM 'at' hh:mm a" }}</td>
           <td>{{ event.venueName }}</td>
           <td>{{ event.country }}</td>
           <td>
             <a [routerLink]="['/events', event.eventID]">
-              <img [src]="event.logo" height="250px" width="250px" />
+              <img [src]="event.logo" height="200px" width="200px" />
             </a>
+          </td>
+          <td class="align-items-center col">
+            <div class="row rowBtn">
+              <button class="btn btn-primary btn-sm mt-5 actionBtn">
+                <ion-icon name="information-circle"></ion-icon>
+                View
+              </button>
+            </div>
+            <div class="row rowBtn">
+              <button class="btn btn-danger btn-sm mt-4 mb-2 actionBtn">
+                <ion-icon name="close-circle-outline"></ion-icon>
+                Remove
+              </button>
+            </div>
           </td>
         </tr>
       </tbody>
