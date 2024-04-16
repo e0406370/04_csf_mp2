@@ -19,6 +19,7 @@ import { NgOtpInputModule } from 'ng-otp-input';
 import { AppComponent } from './app.component';
 import { ErrorComponent } from './error/error.component';
 import { MainComponent } from './main/main.component';
+import { UserAccountComponent } from './user-account/user-account.component';
 import { UserConfirmationComponent } from './user-confirmation/user-confirmation.component';
 import { UserLoginComponent } from './user-login/user-login.component';
 import { UserLogoutComponent } from './user-logout/user-logout.component';
@@ -27,6 +28,7 @@ import { UserRegistrationComponent } from './user-registration/user-registration
 import { EventListComponent } from './event-list/event-list.component';
 import { EventDetailsComponent } from './event-details/event-details.component';
 import { EventBookmarksComponent } from './event-bookmarks/event-bookmarks.component';
+import { EventRegistrationsComponent } from './event-registrations/event-registrations.component';
 
 import { MessageService } from 'primeng/api';
 import { UtilityService } from './utility/utility.service';
@@ -39,15 +41,16 @@ import { UserRegistrationService } from './user-registration/user-registration.s
 import { EventListService } from './event-list/event-list.service';
 import { EventDetailsService } from './event-details/event-details.service';
 import { EventBookmarksService } from './event-bookmarks/event-bookmarks.service';
+import { EventRegistrationsService } from './event-registrations/event-registrations.service';
 
 import { AgeFromMillisecondsPipe } from './utility/age.pipe';
-import { UserAccountComponent } from './user-account/user-account.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ErrorComponent,
     MainComponent,
+    UserAccountComponent,
     UserConfirmationComponent,
     UserLoginComponent,
     UserLogoutComponent,
@@ -56,7 +59,7 @@ import { UserAccountComponent } from './user-account/user-account.component';
     EventListComponent,
     EventDetailsComponent,
     EventBookmarksComponent,
-    UserAccountComponent,
+    EventRegistrationsComponent,
   ],
   providers: [
     MessageService,
@@ -70,6 +73,7 @@ import { UserAccountComponent } from './user-account/user-account.component';
     EventListService,
     EventDetailsService,
     EventBookmarksService,
+    EventRegistrationsService,
     provideAnimationsAsync(),
   ],
   bootstrap: [AppComponent],

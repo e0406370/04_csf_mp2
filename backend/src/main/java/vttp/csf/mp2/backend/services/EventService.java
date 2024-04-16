@@ -84,7 +84,21 @@ public class EventService {
     if (eventRepo.isRegistrationExists(userID, event.eventID())) {
       throw new EventException(Messages.FAILURE_EVENT_REGISTRATION_EXISTS);
     }
-    
+
     eventRepo.createEventRegistration(userID, event);
+  }
+  
+  public List<EventCard> retrieveEventRegistrations(String userID) {
+
+    return eventRepo.retrieveEventRegistrations(userID);
+  }
+
+  public void removeEventRegistration(String payload) {
+
+    JsonObject jsonPayload = Utils.returnPayloadInJson(payload);
+    String userID = jsonPayload.getString("userID");
+    String eventID = jsonPayload.getString("eventID");
+
+    eventRepo.removeEventRegistration(userID, eventID);
   }
 }

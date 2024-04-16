@@ -5,22 +5,22 @@ import { EventCard } from '../models/event';
 import { ERROR_MESSAGE, ERROR_NOT_LOGGED_IN_MESSAGE } from '../utility/constants';
 import { SessionStore } from '../utility/session.store';
 import { UtilityService } from '../utility/utility.service';
-import { EventBookmarksService } from './event-bookmarks.service';
+import { EventRegistrationsService } from './event-registrations.service';
 
 @Component({
-  selector: 'app-event-bookmarks',
-  templateUrl: './event-bookmarks.component.html',
-  styleUrl: './event-bookmarks.component.css',
+  selector: 'app-event-registrations',
+  templateUrl: './event-registrations.component.html',
+  styleUrl: './event-registrations.component.css'
 })
   
-export class EventBookmarksComponent implements OnInit {
+export class EventRegistrationsComponent implements OnInit {
 
   private router = inject(Router);
   private sessionStore = inject(SessionStore);
   private utilitySvc = inject(UtilityService);
-  private eventBookmarksSvc = inject(EventBookmarksService);
+  private eventRegistrationsSvc = inject(EventRegistrationsService);
 
-  bookmarkedEvents$!: Observable<EventCard[]>;
+  registeredEvents$!: Observable<EventCard[]>;
 
   ngOnInit(): void {
 
@@ -30,16 +30,16 @@ export class EventBookmarksComponent implements OnInit {
     }
 
     const userID = this.sessionStore.getLoggedID();
-    this.bookmarkedEvents$ = this.eventBookmarksSvc.retrieveEventBookmarks(userID);
+    this.registeredEvents$ = this.eventRegistrationsSvc.retrieveEventRegistrations(userID);
   }
 
-  removeEventBookmark(eventID: string): void {
+  removeEventRegistration(eventID: string): void {
 
     const userID = this.sessionStore.getLoggedID();
-    this.eventBookmarksSvc.removeEventBookmark(userID, eventID)
+    this.eventRegistrationsSvc.removeEventRegistration(userID, eventID)
       .then(res => {
         this.utilitySvc.generateSuccessMessage(res?.message);
-        this.bookmarkedEvents$ = this.eventBookmarksSvc.retrieveEventBookmarks(userID);
+        this.registeredEvents$ = this.eventRegistrationsSvc.retrieveEventRegistrations(userID);
       })
       .catch(err => {
         this.utilitySvc.generateErrorMessage(err?.error?.message || ERROR_MESSAGE);

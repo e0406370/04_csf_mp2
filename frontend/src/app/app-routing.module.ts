@@ -2,18 +2,19 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { ErrorComponent } from './error/error.component';
+import { EventBookmarksComponent } from './event-bookmarks/event-bookmarks.component';
+import { EventDetailsComponent } from './event-details/event-details.component';
+import { EventListComponent } from './event-list/event-list.component';
+import { EventRegistrationsComponent } from './event-registrations/event-registrations.component';
 import { MainComponent } from './main/main.component';
+import { UserAccountComponent } from './user-account/user-account.component';
 import { UserConfirmationComponent } from './user-confirmation/user-confirmation.component';
-import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserLoginComponent } from './user-login/user-login.component';
+import { UserLogoutComponent } from './user-logout/user-logout.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserRegistrationComponent } from './user-registration/user-registration.component';
 
 import { notCompletedRegistration, validateLogin, validateUserConfirmation } from './utility/guards';
-import { UserLogoutComponent } from './user-logout/user-logout.component';
-import { EventListComponent } from './event-list/event-list.component';
-import { EventDetailsComponent } from './event-details/event-details.component';
-import { EventBookmarksComponent } from './event-bookmarks/event-bookmarks.component';
-import { UserAccountComponent } from './user-account/user-account.component';
 
 
 const appRoutes: Routes = [
@@ -63,6 +64,10 @@ const appRoutes: Routes = [
   {
     path: 'bookmarks',
     component: EventBookmarksComponent,
+  },
+  {
+    path: 'registrations',
+    component: EventRegistrationsComponent,
   },
   {
     path: '**',

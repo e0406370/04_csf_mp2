@@ -145,4 +145,24 @@ public class EventController {
           .body(Utils.returnMessageInJson(e.getMessage()).toString());
     }
   }
+
+  @GetMapping(path = "/registrations/{userID}")
+  public ResponseEntity<List<EventCard>> retrieveEventRegistrations(@PathVariable String userID) {
+
+    List<EventCard> registeredEvents = eventSvc.retrieveEventRegistrations(userID);
+
+    return ResponseEntity
+        .status(HttpStatus.OK) // 200 OK
+        .body(registeredEvents);
+  }
+
+  @PostMapping(path = "/registrations/remove")
+  public ResponseEntity<String> removeEventRegistration(@RequestBody String payload) {
+
+    eventSvc.removeEventRegistration(payload);
+
+    return ResponseEntity
+        .status(HttpStatus.OK) // 200 OK
+        .body(Utils.returnMessageInJson(Messages.SUCCESS_EVENT_REMOVE_REGISTRATION).toString());
+  }
 }

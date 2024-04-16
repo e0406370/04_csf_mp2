@@ -177,4 +177,23 @@ public class EventRepository {
         event.country()
     ) > 0;
   }
+  
+  public List<EventCard> retrieveEventRegistrations(String userID) {
+
+    return jdbcTemplate.query(EventQueries.SQL_RETRIEVE_EVENT_REGISTRATIONS,
+        (rs, rowNum) -> 
+        new EventCard(
+            rs.getString("event_id"),
+            rs.getString("event_name"),
+            rs.getString("event_start"),
+            rs.getString("event_logo"),
+            rs.getString("event_venue"),
+            rs.getString("event_country")
+        ), userID);
+  }
+
+  public boolean removeEventRegistration(String userID, String eventID) {
+
+    return jdbcTemplate.update(EventQueries.SQL_REMOVE_EVENT_REGISTRATION, userID, eventID) > 0;
+  }
 }
