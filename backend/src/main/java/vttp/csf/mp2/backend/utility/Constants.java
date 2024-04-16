@@ -12,5 +12,5 @@ public class Constants {
   public static final long EXPIRATION_TIME_MINS = 30;
   public static final long SCHEDULED_INTERVAL_MINS = 5;
 
-  public static final String DOMAIN_NAME = "http://localhost:4200";
+  public static final String DOMAIN_NAME = "http://khai-amy-e0406370.com";
 }
