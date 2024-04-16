@@ -1,7 +1,10 @@
-.error-box {
-  position: relative;
-  max-width: 550px;
-  margin: 10 auto;
+.main-box {
+  min-height: 100vh;
+}
+
+.container {
+  margin-top: 10px;
+  margin-bottom: 50px;
 }
 
 .return-box {
