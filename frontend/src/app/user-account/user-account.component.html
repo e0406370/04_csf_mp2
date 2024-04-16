@@ -6,7 +6,7 @@
         Account Overview
         <br /> 
         <span class="fs-2 font-monospace text-decoration-underline">
-          User: {{loggedName}}
+          User: {{ loggedName }}, ID: {{ loggedID }}
         </span>
       </h1>
     </div>
@@ -28,16 +28,19 @@
       </div>
 
       <div class="col-md-4 mb-4">
-        <div class="alert alert-warning text-center p-4">
-          <h2>
-            <i class="pi pi-star-fill fs-2"></i>
-            Bookmarks
-          </h2>
-          <p class="fs-5">
-            View your bookmarked events
-          </p>
-        </div>
+        <a [routerLink]="['/bookmarks']" class="text-decoration-none">
+          <div class="alert alert-warning text-center p-4">
+            <h2>
+              <i class="pi pi-star-fill fs-2"></i>
+              Bookmarks
+            </h2>
+            <p class="fs-5">
+              View your bookmarked events
+            </p>
+          </div>
+        </a>
       </div>
+
       <div class="col-md-4 mb-4">
         <div class="alert alert-primary text-center p-4">
           <h2>
