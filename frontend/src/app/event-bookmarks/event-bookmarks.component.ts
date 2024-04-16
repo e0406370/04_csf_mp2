@@ -1,11 +1,11 @@
 import { Component, OnInit, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { EventCard } from '../models/event';
 import { SessionStore } from '../utility/session.store';
 import { UtilityService } from '../utility/utility.service';
 import { EventBookmarksService } from './event-bookmarks.service';
-import { ERROR_NOT_LOGGED_IN_MESSAGE } from '../utility/constants';
-import { Router } from '@angular/router';
+import { ERROR_MESSAGE, ERROR_NOT_LOGGED_IN_MESSAGE } from '../utility/constants';
 
 @Component({
   selector: 'app-event-bookmarks',
@@ -31,5 +31,18 @@ export class EventBookmarksComponent implements OnInit {
 
     const userID = this.sessionStore.getLoggedID();
     this.bookmarkedEvents$ = this.eventBookmarksSvc.retrieveEventBookmarks(userID);
+  }
+
+  removeEventBookmark(eventID: string): void {
+
+    const userID = this.sessionStore.getLoggedID();
+    this.eventBookmarksSvc.removeEventBookmark(userID, eventID)
+      .then(res => {
+        this.utilitySvc.generateSuccessMessage(res?.message);
+        this.bookmarkedEvents$ = this.eventBookmarksSvc.retrieveEventBookmarks(userID);
+      })
+      .catch(err => {
+        this.utilitySvc.generateErrorMessage(err?.error?.message || ERROR_MESSAGE);
+    })
   }
 }

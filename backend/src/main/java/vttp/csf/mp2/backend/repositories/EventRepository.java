@@ -146,4 +146,9 @@ public class EventRepository {
             rs.getString("event_country")
         ), userID);
   }
+
+  public boolean removeEventBookmark(String userID, String eventID) {
+
+    return jdbcTemplate.update(EventQueries.SQL_REMOVE_EVENT_BOOKMARK, userID, eventID) > 0;
+  }
 }

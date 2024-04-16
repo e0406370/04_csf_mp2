@@ -107,4 +107,14 @@ public class EventController {
         .status(HttpStatus.OK) // 200 OK
         .body(bookmarkedEvents);
   }
+
+  @PostMapping(path = "/bookmarks/remove")
+  public ResponseEntity<String> removeEventBookmark(@RequestBody String payload) {
+
+    eventSvc.removeEventBookmark(payload);
+
+    return ResponseEntity
+        .status(HttpStatus.OK) // 200 OK
+        .body(Utils.returnMessageInJson(Messages.SUCCESS_EVENT_REMOVE_BOOKMARK).toString());
+  }
 }

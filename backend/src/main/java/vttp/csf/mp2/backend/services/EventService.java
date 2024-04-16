@@ -60,4 +60,13 @@ public class EventService {
 
     return eventRepo.retrieveEventBookmarks(userID);
   }
+
+  public void removeEventBookmark(String payload) {
+
+    JsonObject jsonPayload = Utils.returnPayloadInJson(payload);
+    String userID = jsonPayload.getString("userID");
+    String eventID = jsonPayload.getString("eventID");
+
+    eventRepo.removeEventBookmark(userID, eventID);
+  }
 }

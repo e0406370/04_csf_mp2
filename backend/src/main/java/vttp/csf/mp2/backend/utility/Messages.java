@@ -29,6 +29,10 @@ public class Messages {
       You have successfully bookmarked this event.
       """;
       
+  public static final String SUCCESS_EVENT_REMOVE_BOOKMARK = """
+      You have successfully removed this event from your bookmarks.
+      """;
+      
   public static final String FAILURE_EMAIL_EXISTS = """
       This email is already registered.
       Please choose a different email.

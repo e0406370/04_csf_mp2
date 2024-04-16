@@ -19,4 +19,10 @@ public class EventQueries {
         FROM `event_bookmarks`
         WHERE `user_id` = ?
       """;
+
+  public static final String SQL_REMOVE_EVENT_BOOKMARK = """
+      DELETE FROM `event_bookmarks`
+        WHERE `user_id` = ?
+        AND `event_id` = ?
+      """;
 }
