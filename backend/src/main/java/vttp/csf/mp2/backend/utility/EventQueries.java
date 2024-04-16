@@ -15,7 +15,7 @@ public class EventQueries {
       """;
 
   public static final String SQL_RETRIEVE_EVENT_BOOKMARKS = """
-      SELECT `event_id`
+      SELECT `event_id`, `event_name`, `event_start`, `event_logo`, `event_venue`, `event_country`
         FROM `event_bookmarks`
         WHERE `user_id` = ?
       """;

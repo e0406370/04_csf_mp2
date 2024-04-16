@@ -130,12 +130,20 @@ public class EventRepository {
         event.start(),
         event.logo(),
         event.venueName(),
-        event.country()
-    ) > 0;
+        event.country()) > 0;
   }
 
   public List<EventCard> retrieveEventBookmarks(String userID) {
 
-    return jdbcTemplate.queryForList(EventQueries.SQL_RETRIEVE_EVENT_BOOKMARKS, EventCard.class, userID);
+    return jdbcTemplate.query(EventQueries.SQL_RETRIEVE_EVENT_BOOKMARKS,
+        (rs, rowNum) -> 
+        new EventCard(
+            rs.getString("event_id"),
+            rs.getString("event_name"),
+            rs.getString("event_start"),
+            rs.getString("event_logo"),
+            rs.getString("event_venue"),
+            rs.getString("event_country")
+        ), userID);
   }
 }
