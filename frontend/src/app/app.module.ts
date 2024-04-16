@@ -41,6 +41,7 @@ import { EventDetailsService } from './event-details/event-details.service';
 import { EventBookmarksService } from './event-bookmarks/event-bookmarks.service';
 
 import { AgeFromMillisecondsPipe } from './utility/age.pipe';
+import { UserAccountComponent } from './user-account/user-account.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { AgeFromMillisecondsPipe } from './utility/age.pipe';
     EventListComponent,
     EventDetailsComponent,
     EventBookmarksComponent,
+    UserAccountComponent,
   ],
   providers: [
     MessageService,

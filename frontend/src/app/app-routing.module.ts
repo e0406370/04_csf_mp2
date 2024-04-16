@@ -13,6 +13,7 @@ import { UserLogoutComponent } from './user-logout/user-logout.component';
 import { EventListComponent } from './event-list/event-list.component';
 import { EventDetailsComponent } from './event-details/event-details.component';
 import { EventBookmarksComponent } from './event-bookmarks/event-bookmarks.component';
+import { UserAccountComponent } from './user-account/user-account.component';
 
 
 const appRoutes: Routes = [
@@ -23,6 +24,10 @@ const appRoutes: Routes = [
   {
     path: '',
     component: MainComponent
+  },
+  {
+    path: 'account',
+    component: UserAccountComponent
   },
   {
     path: 'confirm/:userID',
@@ -52,12 +57,12 @@ const appRoutes: Routes = [
     component: EventListComponent
   },
   {
-    path: 'events/bookmarks',
-    component: EventBookmarksComponent,
-  },
-  {
     path: 'events/:eventID',
     component: EventDetailsComponent
+  },
+  {
+    path: 'bookmarks',
+    component: EventBookmarksComponent,
   },
   {
     path: '**',
