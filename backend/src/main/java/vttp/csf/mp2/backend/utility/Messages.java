@@ -25,6 +25,10 @@ public class Messages {
       Thank you for using the service.
       """;
       
+  public static final String SUCCESS_EVENT_CREATE_BOOKMARK = """
+      You have successfully bookmarked this event.
+      """;
+      
   public static final String FAILURE_EMAIL_EXISTS = """
       This email is already registered.
       Please choose a different email.
@@ -64,5 +68,8 @@ public class Messages {
       This event is not available.
       """;
       
+  public static final String FAILURE_EVENT_BOOKMARK_EXISTS = """
+      You have already bookmarked this event.
+      """;
 }
 

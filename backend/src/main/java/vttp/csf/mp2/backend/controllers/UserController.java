@@ -54,7 +54,7 @@ public class UserController {
     catch (UserException e) {
 
       return ResponseEntity
-          .status(HttpStatus.CONFLICT) // 409 CREATED
+          .status(HttpStatus.CONFLICT) // 409 CONFLICT
           .body(Utils.returnMessageInJson(e.getMessage()).toString());
     }
   }

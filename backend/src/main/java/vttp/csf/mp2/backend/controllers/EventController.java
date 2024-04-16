@@ -6,6 +6,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +21,7 @@ import vttp.csf.mp2.backend.models.EventSearch;
 import vttp.csf.mp2.backend.services.ApplicationMetricsService;
 import vttp.csf.mp2.backend.services.EventService;
 import vttp.csf.mp2.backend.utility.EventUtility;
+import vttp.csf.mp2.backend.utility.Messages;
 import vttp.csf.mp2.backend.utility.Utils;
 
 @RestController
@@ -59,7 +62,6 @@ public class EventController {
   public ResponseEntity<String> retrieveEventDetails(@PathVariable String eventID) {
 
     try {
-
       EventDetails event = eventSvc.retrieveEventDetails(eventID);
       JsonObject response = eventUtils.returnEventDetailsInJson(event);
 
@@ -69,10 +71,28 @@ public class EventController {
     }
 
     catch (EventException e) {
-
       return ResponseEntity
           .status(HttpStatus.NOT_FOUND) // 404 NOT FOUND
           .body(Utils.returnMessageInJson(e.getMessage()).toString());
     }
   }
+
+  @PostMapping(path = "/bookmark")
+  public ResponseEntity<String> createEventBookmark(@RequestBody String payload) {
+
+    try {
+      eventSvc.createEventBookmark(payload);
+
+      return ResponseEntity
+          .status(HttpStatus.CREATED) // 201 CREATED
+          .body(Utils.returnMessageInJson(Messages.SUCCESS_EVENT_CREATE_BOOKMARK).toString());
+    }
+
+    catch (EventException e) {
+      return ResponseEntity
+          .status(HttpStatus.CONFLICT) // 409 CONFLICT
+          .body(Utils.returnMessageInJson(e.getMessage()).toString());
+    }
+  }
+
 }

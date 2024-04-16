@@ -19,6 +19,7 @@ import org.springframework.data.mongodb.core.aggregation.SkipOperation;
 import org.springframework.data.mongodb.core.aggregation.SortOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import vttp.csf.mp2.backend.models.EventCard;
@@ -26,10 +27,14 @@ import vttp.csf.mp2.backend.models.EventDetails;
 import vttp.csf.mp2.backend.models.EventPage;
 import vttp.csf.mp2.backend.models.EventSearch;
 import vttp.csf.mp2.backend.utility.Constants;
+import vttp.csf.mp2.backend.utility.EventQueries;
 import vttp.csf.mp2.backend.utility.EventUtility;
 
 @Repository
 public class EventRepository {
+
+  @Autowired
+  private JdbcTemplate jdbcTemplate;
 
   @Autowired
   @Qualifier(Constants.BEAN_MONGO)
@@ -109,5 +114,15 @@ public class EventRepository {
     Query query = Query.query(criteria);
 
     return Optional.ofNullable(mongoTemplate.findOne(query, EventDetails.class, eventsCollection));
+  }
+
+  public boolean isBookmarkExists(String eventID, String userID) {
+
+    return jdbcTemplate.queryForObject(EventQueries.SQL_CHECK_BOOKMARK_EXISTS, Integer.class, eventID, userID) > 0;
+  }
+
+  public boolean createEventBookmark(String eventID, String userID) {
+
+    return jdbcTemplate.update(EventQueries.SQL_CREATE_EVENT_BOOKMARK, eventID, userID) > 0;
   }
 }
