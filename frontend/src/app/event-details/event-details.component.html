@@ -103,12 +103,31 @@
           <div class="card text-bg-dark">
 
             <div class="card-body">
-              <p class="fs-6 fw-bold text-decoration-underline text-primary-emphasis">
-                <ion-icon name="compass"></ion-icon>
-                {{  bookmarkCount }}
-              </p>
-            </div>
+              <div class="card-header row">
 
+                <div class="col text-center border-end">
+                  <p class="fs-6 fw-bold text-decoration-underline text-primary-emphasis me-2">
+                    <ion-icon name="bookmarks"></ion-icon>
+                    Bookmark Count:
+                  </p>
+                  <p class="fs-4">
+                    {{ bookmarkCount }}
+                  </p>
+                </div>
+
+                <div class="col ms-3 text-center">
+                  <p class="fs-6 fw-bold text-decoration-underline text-primary-emphasis">
+                    <ion-icon name="person-add"></ion-icon>
+                    Registration Count:
+                  </p>
+                  <p class="fs-4">
+                    {{ bookmarkCount }}
+                  </p>
+                </div>
+
+              </div>
+            </div>
+            
           </div>
         </div>
 
