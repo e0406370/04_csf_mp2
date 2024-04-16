@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { EventCard, EventSearch, INIT_SEARCH_PARAMS } from '../models/event';
-import { SELECTED_COUNTRIES } from '../utility/constants';
+import { ERROR_MESSAGE, ERROR_NOT_LOGGED_IN_MESSAGE, SELECTED_COUNTRIES } from '../utility/constants';
 import { EventListService } from './event-list.service';
 import { Paginator } from 'primeng/paginator';
+import { SessionStore } from '../utility/session.store';
+import { UtilityService } from '../utility/utility.service';
 
 @Component({
   selector: 'app-event-list',
@@ -15,6 +17,8 @@ export class EventListComponent implements OnInit {
 
   @ViewChild('paginator') paginator!: Paginator;
 
+  private sessionStore = inject(SessionStore);
+  private utilitySvc = inject(UtilityService);
   private fb = inject(FormBuilder);
   eventListSvc = inject(EventListService);
 
@@ -89,5 +93,23 @@ export class EventListComponent implements OnInit {
 
     this.eventSearchForm = this.createEventSearchForm();
     this.sortOrder = 'NONE';
+  }
+
+  createEventBookmark(eventID: string): void {
+
+    if (!this.sessionStore.isLoggedIn()) {
+      this.utilitySvc.generateErrorMessage(ERROR_NOT_LOGGED_IN_MESSAGE);
+    }
+    else {
+      this.eventListSvc.createEventBookmark(eventID, this.sessionStore.getLoggedID())
+        .then(res => {
+        
+          this.utilitySvc.generateSuccessMessage(res?.message);
+        })
+        .catch(err => {
+
+          this.utilitySvc.generateErrorMessage(err?.error?.message || ERROR_MESSAGE);
+      })
+    }
   }
 }

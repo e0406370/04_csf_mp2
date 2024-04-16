@@ -11,6 +11,8 @@ export const PASSWORD_REGEX: string = '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\
 
 export const ERROR_MESSAGE: string = 'Unknown error occurred. Please try again later.';
 
+export const ERROR_NOT_LOGGED_IN_MESSAGE: string = 'You must be logged in to use this feature.';
+
 export const SELECTED_COUNTRIES: string[] = [
   'Australia',
   'Brunei',

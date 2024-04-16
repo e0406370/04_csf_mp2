@@ -1,8 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { EventCard, EventPage, EventSearch } from '../models/event';
+import { Observable, firstValueFrom } from 'rxjs';
+import { EventPage, EventSearch } from '../models/event';
 
 @Injectable({
   providedIn: 'root'
@@ -60,5 +60,10 @@ export class EventListService {
       }
     }
     return venueName;
+  }
+
+  public createEventBookmark(eventID: string, userID: string) {
+
+    return firstValueFrom(this.httpClient.post<any>("/api/events/bookmark", { eventID, userID }));
   }
 }

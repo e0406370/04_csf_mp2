@@ -37,13 +37,13 @@ CREATE TABLE `user_login`
 -- many to many relationship between `users` and `event_bookmarks`
 CREATE TABLE `event_bookmarks`
 (
-    id             INT           AUTO_INCREMENT PRIMARY KEY,
-    event_id       VARCHAR(20)   NOT NULL,
-    user_id        CHAR(26)      NOT NULL,
+    id             INT          AUTO_INCREMENT PRIMARY KEY,
+    event_id       VARCHAR(20)  NOT NULL,
+    user_id        CHAR(26)     NOT NULL,
 
-    CONSTRAINT fk_user_id        FOREIGN KEY (user_id) REFERENCES `users`(user_id) ON DELETE CASCADE
+    CONSTRAINT fk_event_bookmarks_user_id FOREIGN KEY (user_id) REFERENCES `users`(user_id) ON DELETE CASCADE,
 
-    INDEX idx_event_id      (event_id),cha
+    INDEX idx_event_id      (event_id),
     INDEX idx_user_id       (user_id)
 );
 
