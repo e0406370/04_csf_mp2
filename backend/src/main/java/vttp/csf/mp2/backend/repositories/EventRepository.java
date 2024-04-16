@@ -88,7 +88,8 @@ public class EventRepository {
       SortOperation sortOps = Aggregation.sort(
           sortOrder.equals("ASC")
               ? Sort.by("start").ascending()
-              : Sort.by("start").descending());
+              : Sort.by("start").descending()
+          );
       pipeline.add(sortOps);
     }
 
@@ -130,7 +131,8 @@ public class EventRepository {
         event.start(),
         event.logo(),
         event.venueName(),
-        event.country()) > 0;
+        event.country()
+    ) > 0;
   }
 
   public List<EventCard> retrieveEventBookmarks(String userID) {
@@ -150,5 +152,10 @@ public class EventRepository {
   public boolean removeEventBookmark(String userID, String eventID) {
 
     return jdbcTemplate.update(EventQueries.SQL_REMOVE_EVENT_BOOKMARK, userID, eventID) > 0;
+  }
+
+  public int retrieveEventBookmarkCount(String eventID) {
+
+    return jdbcTemplate.queryForObject(EventQueries.SQL_RETRIEVE_EVENT_BOOKMARK_COUNT, Integer.class, eventID);
   }
 }

@@ -69,4 +69,9 @@ public class EventService {
 
     eventRepo.removeEventBookmark(userID, eventID);
   }
+
+  public int retrieveEventBookmarkCount(String eventID) {
+
+    return eventRepo.retrieveEventBookmarkCount(eventID);
+  }
 }

@@ -25,4 +25,10 @@ public class EventQueries {
         WHERE `user_id` = ?
         AND `event_id` = ?
       """;
+
+  public static final String SQL_RETRIEVE_EVENT_BOOKMARK_COUNT = """
+      SELECT COUNT(*)
+        FROM `event_bookmarks`
+        WHERE `event_id` = ?
+      """;
 }

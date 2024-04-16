@@ -117,4 +117,14 @@ public class EventController {
         .status(HttpStatus.OK) // 200 OK
         .body(Utils.returnMessageInJson(Messages.SUCCESS_EVENT_REMOVE_BOOKMARK).toString());
   }
+
+  @GetMapping(path = "/bookmark/count/{eventID}")
+  public ResponseEntity<String> retrieveEventBookmarkCount(@PathVariable String eventID) {
+
+    int count = eventSvc.retrieveEventBookmarkCount(eventID);
+
+    return ResponseEntity
+        .status(HttpStatus.OK) // 200 OK
+        .body(String.valueOf(count));
+  }
 }
