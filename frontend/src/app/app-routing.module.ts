@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ErrorComponent } from './error/error.component';
 import { EventBookmarksComponent } from './event-bookmarks/event-bookmarks.component';
+import { EventCreationComponent } from './event-creation/event-creation.component';
 import { EventDetailsComponent } from './event-details/event-details.component';
 import { EventListComponent } from './event-list/event-list.component';
 import { EventRegistrationsComponent } from './event-registrations/event-registrations.component';
@@ -63,11 +64,15 @@ const appRoutes: Routes = [
   },
   {
     path: 'bookmarks',
-    component: EventBookmarksComponent,
+    component: EventBookmarksComponent
   },
   {
     path: 'registrations',
-    component: EventRegistrationsComponent,
+    component: EventRegistrationsComponent
+  },
+  {
+    path: 'creation',
+    component: EventCreationComponent
   },
   {
     path: '**',
