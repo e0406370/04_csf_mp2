@@ -25,6 +25,7 @@ export class EventDetailsComponent implements OnInit {
   eventDetails!: EventDetails;
   timezoneMap = COUNTRY_TIMEZONES;
   bookmarkCount !: string;
+  registrationAttendees !: string[];
 
   ngOnInit(): void {
 
@@ -45,6 +46,17 @@ export class EventDetailsComponent implements OnInit {
     })
 
     this.eventDetailsSvc.retrieveEventBookmarkCount(this.eventID)
-      .then((res) => {this.bookmarkCount = res})
+      .then((res) => { this.bookmarkCount = res })
+    
+    this.eventDetailsSvc.retrieveEventRegistrationAttendees(this.eventID)
+      .then((res) => { this.registrationAttendees = res })
+  }
+
+  retrieveAttendeeID(attendee: string): string {
+    return attendee.split("-")[0];
+  }
+
+  retrieveAttendeeName(attendee: string): string {
+    return attendee.split("-")[1];
   }
 }

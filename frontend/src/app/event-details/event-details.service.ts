@@ -19,4 +19,9 @@ export class EventDetailsService {
 
     return firstValueFrom(this.httpClient.get<any>(`/api/events/bookmark/count/${eventID}`));
   }
+
+  public retrieveEventRegistrationAttendees(eventID: string): Promise<any> {
+
+    return firstValueFrom(this.httpClient.get<any>(`/api/events/register/attendees/${eventID}`));
+  }
 }

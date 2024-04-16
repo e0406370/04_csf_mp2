@@ -101,4 +101,9 @@ public class EventService {
 
     eventRepo.removeEventRegistration(userID, eventID);
   }
+
+  public List<String> retrieveEventRegistrationAttendees(String eventID) {
+
+    return eventRepo.retrieveEventRegistrationAttendees(eventID);
+  }
 }

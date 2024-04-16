@@ -121,7 +121,7 @@
                     Registration Count:
                   </p>
                   <p class="fs-4 text-success-emphasis">
-                    {{ bookmarkCount }}
+                    {{ registrationAttendees.length }}
                   </p>
                 </div>
               </div>
@@ -131,21 +131,23 @@
                 <ion-icon name="people"></ion-icon>
                 Attendees:
               </p>
-              <div class="overflow-auto attendees">
-                <ol class="fs-5 ms-3">
-                  <li class="font-monospace">Attendee 1</li>
-                  <li class="font-monospace">Attendee 1</li>
-                  <li class="font-monospace">Attendee 1</li>
-                  <li class="font-monospace">Attendee 1</li>
-                  <li class="font-monospace">Attendee 1</li>
-                  <li class="font-monospace">Attendee 1</li>
-                  <li class="font-monospace">Attendee 1</li>
-                  <li class="font-monospace">Attendee 1</li>
-                  <li class="font-monospace">Attendee 1</li>
-                  <li class="font-monospace">Attendee 1</li>
-                </ol>
-              </div>
 
+              @if(registrationAttendees.length === 0) {
+                <div class="fs-3 font-monospace">
+                  Currently, there are no registrations for this event.
+                </div>
+              }
+              @else {
+                <div class="overflow-auto attendees">
+                  <ol class="fs-5 ms-3">
+                    <li *ngFor="let attendee of registrationAttendees" class="font-monospace">
+                      <a [routerLink]="['/profile', retrieveAttendeeID(attendee)]" class="text-reset font-monospace">
+                        {{ retrieveAttendeeName(attendee) }}
+                      </a>
+                    </li>
+                  </ol>
+                </div>
+              }
             </div>
             
           </div>

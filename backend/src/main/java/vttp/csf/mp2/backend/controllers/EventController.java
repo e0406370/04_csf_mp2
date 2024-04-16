@@ -165,4 +165,14 @@ public class EventController {
         .status(HttpStatus.OK) // 200 OK
         .body(Utils.returnMessageInJson(Messages.SUCCESS_EVENT_REMOVE_REGISTRATION).toString());
   }
+
+  @GetMapping(path = "/register/attendees/{eventID}")
+  public ResponseEntity<List<String>> retrieveEventRegistrationAttendees(@PathVariable String eventID) {
+
+    List<String> attendees = eventSvc.retrieveEventRegistrationAttendees(eventID);
+
+    return ResponseEntity
+        .status(HttpStatus.OK) // 200 OK
+        .body(attendees);
+  }
 }

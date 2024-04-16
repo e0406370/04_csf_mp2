@@ -196,4 +196,9 @@ public class EventRepository {
 
     return jdbcTemplate.update(EventQueries.SQL_REMOVE_EVENT_REGISTRATION, userID, eventID) > 0;
   }
+
+  public List<String> retrieveEventRegistrationAttendees(String eventID) {
+
+    return jdbcTemplate.queryForList(EventQueries.SQL_RETRIEVE_EVENT_REGISTRATION_ATTENDEES, String.class, eventID);
+  }
 }
