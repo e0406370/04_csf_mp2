@@ -1,5 +1,7 @@
 package vttp.csf.mp2.backend.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.json.JsonObject;
 
 import vttp.csf.mp2.backend.exceptions.EventException;
+import vttp.csf.mp2.backend.models.EventCard;
 import vttp.csf.mp2.backend.models.EventDetails;
 import vttp.csf.mp2.backend.models.EventPage;
 import vttp.csf.mp2.backend.models.EventSearch;
@@ -95,4 +98,13 @@ public class EventController {
     }
   }
 
+  @GetMapping(path = "/bookmarks/{userID}")
+  public ResponseEntity<List<EventCard>> retrieveEventBookmarks(@PathVariable String userID) {
+
+    List<EventCard> bookmarkedEvents = eventSvc.retrieveEventBookmarks(userID);
+
+    return ResponseEntity
+        .status(HttpStatus.OK) // 200 OK
+        .body(bookmarkedEvents);
+  }
 }

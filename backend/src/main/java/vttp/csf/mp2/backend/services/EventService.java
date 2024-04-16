@@ -1,5 +1,6 @@
 package vttp.csf.mp2.backend.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import jakarta.json.JsonObject;
 
 import vttp.csf.mp2.backend.exceptions.EventException;
+import vttp.csf.mp2.backend.models.EventCard;
 import vttp.csf.mp2.backend.models.EventDetails;
 import vttp.csf.mp2.backend.models.EventPage;
 import vttp.csf.mp2.backend.models.EventSearch;
@@ -48,5 +50,10 @@ public class EventService {
     }
 
     eventRepo.createEventBookmark(eventID, userID);
+  }
+
+  public List<EventCard> retrieveEventBookmarks(String userID) {
+
+    return eventRepo.retrieveEventBookmarks(userID);
   }
 }

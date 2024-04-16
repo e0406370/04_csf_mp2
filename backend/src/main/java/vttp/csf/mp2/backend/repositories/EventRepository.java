@@ -125,4 +125,16 @@ public class EventRepository {
 
     return jdbcTemplate.update(EventQueries.SQL_CREATE_EVENT_BOOKMARK, eventID, userID) > 0;
   }
+
+  public List<EventCard> retrieveEventBookmarks(String userID) {
+
+    List<String> bookmarkedEventIDs = jdbcTemplate.queryForList(EventQueries.SQL_RETRIEVE_EVENT_BOOKMARKS, String.class, userID);
+    
+    Criteria criteria = Criteria.where("eventID").in(bookmarkedEventIDs);
+    Query query = Query.query(criteria);
+
+    return mongoTemplate.find(query, EventCard.class, eventsCollection);
+  }
+
+
 }
