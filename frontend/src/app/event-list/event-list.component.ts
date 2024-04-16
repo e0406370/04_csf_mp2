@@ -107,7 +107,25 @@ export class EventListComponent implements OnInit {
         })
         .catch(err => {
           this.utilitySvc.generateErrorMessage(err?.error?.message || ERROR_MESSAGE);
-      })
+        }
+      )
+    }
+  }
+
+  createEventRegistration(event: EventCard): void {
+
+    if (!this.sessionStore.isLoggedIn()) {
+      this.utilitySvc.generateErrorMessage(ERROR_NOT_LOGGED_IN_MESSAGE);
+    }
+    else {
+      this.eventListSvc.createEventRegistration(this.sessionStore.getLoggedID(), event)
+        .then(res => {
+          this.utilitySvc.generateSuccessMessage(res?.message);
+        })
+        .catch(err => {
+          this.utilitySvc.generateErrorMessage(err?.error?.message || ERROR_MESSAGE);
+        }
+      )
     }
   }
 }

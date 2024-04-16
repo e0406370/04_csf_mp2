@@ -74,4 +74,17 @@ public class EventService {
 
     return eventRepo.retrieveEventBookmarkCount(eventID);
   }
+
+  public void createEventRegistration(String payload) throws EventException {
+
+    JsonObject jsonPayload = Utils.returnPayloadInJson(payload);
+    String userID = jsonPayload.getString("userID");
+    EventCard event = eventUtils.returnEventCardFromJson(jsonPayload);
+
+    if (eventRepo.isRegistrationExists(userID, event.eventID())) {
+      throw new EventException(Messages.FAILURE_EVENT_REGISTRATION_EXISTS);
+    }
+    
+    eventRepo.createEventRegistration(userID, event);
+  }
 }

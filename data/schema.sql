@@ -52,5 +52,23 @@ CREATE TABLE `event_bookmarks`
     INDEX idx_event_id      (event_id)
 );
 
+-- many to many relationship between `users` and `event_registrations`
+CREATE TABLE `event_registrations`
+(
+    id             INT          AUTO_INCREMENT PRIMARY KEY,
+    user_id        CHAR(26)     NOT NULL,
+    event_id       VARCHAR(20)  NOT NULL,
+    event_name     VARCHAR(100) NOT NULL,
+    event_start    VARCHAR(20)  NOT NULL,
+    event_logo     VARCHAR(256) NOT NULL,
+    event_venue    VARCHAR(128) NOT NULL,
+    event_country  VARCHAR(20)  NOT NULL,
+
+    CONSTRAINT fk_event_registrations_user_id FOREIGN KEY (user_id) REFERENCES `users`(user_id) ON DELETE CASCADE,
+
+    INDEX idx_user_id       (user_id),
+    INDEX idx_event_id      (event_id)
+);
+
 -- grant all privileges on csf_mp2.* to fred@'%';
 -- flush privileges;

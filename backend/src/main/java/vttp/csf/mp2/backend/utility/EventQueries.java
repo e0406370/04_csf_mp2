@@ -31,4 +31,17 @@ public class EventQueries {
         FROM `event_bookmarks`
         WHERE `event_id` = ?
       """;
+
+  public static final String SQL_CHECK_REGISTRATION_EXISTS = """
+      SELECT COUNT(*)
+        FROM `event_registrations`
+        WHERE `user_id` = ?
+        AND `event_id` = ?
+      """;
+
+  public static final String SQL_CREATE_EVENT_REGISTRATION = """
+      INSERT INTO `event_registrations` (`user_id`, `event_id`, `event_name`, `event_start`, `event_logo`, `event_venue`, `event_country`)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+      """;
+
 }

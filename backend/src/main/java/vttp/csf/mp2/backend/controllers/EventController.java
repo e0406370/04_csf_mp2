@@ -127,4 +127,22 @@ public class EventController {
         .status(HttpStatus.OK) // 200 OK
         .body(String.valueOf(count));
   }
+
+  @PostMapping(path = "/register")
+  public ResponseEntity<String> createEventRegistration(@RequestBody String payload) {
+
+    try {
+      eventSvc.createEventRegistration(payload);
+
+      return ResponseEntity
+          .status(HttpStatus.CREATED) // 201 CREATED
+          .body(Utils.returnMessageInJson(Messages.SUCCESS_EVENT_CREATE_REGISTRATION).toString());
+    }
+
+    catch (EventException e) {
+      return ResponseEntity
+          .status(HttpStatus.CONFLICT) // 409 CONFLICT
+          .body(Utils.returnMessageInJson(e.getMessage()).toString());
+    }
+  }
 }

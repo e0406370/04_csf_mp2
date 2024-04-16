@@ -66,4 +66,9 @@ export class EventListService {
 
     return firstValueFrom(this.httpClient.post<any>("/api/events/bookmark", { userID, event }));
   }
+
+  public createEventRegistration(userID: string, event: EventCard) {
+
+    return firstValueFrom(this.httpClient.post<any>("/api/events/register", { userID, event }));
+  }
 }

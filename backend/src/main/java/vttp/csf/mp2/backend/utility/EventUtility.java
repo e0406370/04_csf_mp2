@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
+
 import vttp.csf.mp2.backend.models.EventCard;
 import vttp.csf.mp2.backend.models.EventDetails;
 import vttp.csf.mp2.backend.models.EventSearch;
@@ -79,7 +80,7 @@ public class EventUtility {
     String logo = eventObj.getString("logo");
     String venue = eventObj.getString("venueName");
     String country = eventObj.getString("country");
-    
+
     return new EventCard(eventID, name, start, logo, venue, country);
   }
 }

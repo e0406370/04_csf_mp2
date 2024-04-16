@@ -32,7 +32,15 @@ public class Messages {
   public static final String SUCCESS_EVENT_REMOVE_BOOKMARK = """
       You have successfully removed this event from your bookmarks.
       """;
-      
+
+  public static final String SUCCESS_EVENT_CREATE_REGISTRATION = """
+      You have successfully registered for this event.
+      """;    
+    
+  public static final String SUCCESS_EVENT_REMOVE_REGISTRATION = """
+      You have successfully removed this event from your registrations.
+      """;
+
   public static final String FAILURE_EMAIL_EXISTS = """
       This email is already registered.
       Please choose a different email.
@@ -75,5 +83,8 @@ public class Messages {
   public static final String FAILURE_EVENT_BOOKMARK_EXISTS = """
       You have already bookmarked this event.
       """;
+      
+  public static final String FAILURE_EVENT_REGISTRATION_EXISTS = """
+      You have already registered for this event.
+      """;
 }
-

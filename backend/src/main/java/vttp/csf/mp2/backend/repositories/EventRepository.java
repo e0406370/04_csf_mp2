@@ -158,4 +158,23 @@ public class EventRepository {
 
     return jdbcTemplate.queryForObject(EventQueries.SQL_RETRIEVE_EVENT_BOOKMARK_COUNT, Integer.class, eventID);
   }
+
+  public boolean isRegistrationExists(String userID, String eventID) {
+
+    return jdbcTemplate.queryForObject(EventQueries.SQL_CHECK_REGISTRATION_EXISTS, Integer.class, userID, eventID) > 0;
+  }
+
+  public boolean createEventRegistration(String userID, EventCard event) {
+
+    return jdbcTemplate.update(
+        EventQueries.SQL_CREATE_EVENT_REGISTRATION,
+        userID,
+        event.eventID(),
+        event.name(),
+        event.start(),
+        event.logo(),
+        event.venueName(),
+        event.country()
+    ) > 0;
+  }
 }
