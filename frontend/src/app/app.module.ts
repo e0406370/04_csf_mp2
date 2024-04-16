@@ -26,6 +26,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserRegistrationComponent } from './user-registration/user-registration.component';
 import { EventListComponent } from './event-list/event-list.component';
 import { EventDetailsComponent } from './event-details/event-details.component';
+import { EventBookmarksComponent } from './event-bookmarks/event-bookmarks.component';
 
 import { MessageService } from 'primeng/api';
 import { UtilityService } from './utility/utility.service';
@@ -37,6 +38,7 @@ import { UserProfileService } from './user-profile/user-profile.service';
 import { UserRegistrationService } from './user-registration/user-registration.service';
 import { EventListService } from './event-list/event-list.service';
 import { EventDetailsService } from './event-details/event-details.service';
+import { EventBookmarksService } from './event-bookmarks/event-bookmarks.service';
 
 import { AgeFromMillisecondsPipe } from './utility/age.pipe';
 
@@ -52,6 +54,7 @@ import { AgeFromMillisecondsPipe } from './utility/age.pipe';
     UserRegistrationComponent,
     EventListComponent,
     EventDetailsComponent,
+    EventBookmarksComponent,
   ],
   providers: [
     MessageService,
@@ -64,6 +67,7 @@ import { AgeFromMillisecondsPipe } from './utility/age.pipe';
     UserRegistrationService,
     EventListService,
     EventDetailsService,
+    EventBookmarksService,
     provideAnimationsAsync(),
   ],
   bootstrap: [AppComponent],

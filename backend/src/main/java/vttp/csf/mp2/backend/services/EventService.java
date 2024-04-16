@@ -14,6 +14,7 @@ import vttp.csf.mp2.backend.models.EventDetails;
 import vttp.csf.mp2.backend.models.EventPage;
 import vttp.csf.mp2.backend.models.EventSearch;
 import vttp.csf.mp2.backend.repositories.EventRepository;
+import vttp.csf.mp2.backend.utility.EventUtility;
 import vttp.csf.mp2.backend.utility.Messages;
 import vttp.csf.mp2.backend.utility.Utils;
 
@@ -22,6 +23,9 @@ public class EventService {
 
   @Autowired
   private EventRepository eventRepo;
+
+  @Autowired
+  private EventUtility eventUtils;
 
   public EventPage retrieveEventCards(EventSearch searchParams, String sortOrder, int page, int size) {
 
@@ -42,14 +46,14 @@ public class EventService {
   public void createEventBookmark(String payload) throws EventException {
 
     JsonObject jsonPayload = Utils.returnPayloadInJson(payload);
-    String eventID = jsonPayload.getString("eventID");
     String userID = jsonPayload.getString("userID");
+    EventCard event = eventUtils.returnEventCardFromJson(jsonPayload);
 
-    if (eventRepo.isBookmarkExists(eventID, userID)) {
+    if (eventRepo.isBookmarkExists(userID, event.eventID())) {
       throw new EventException(Messages.FAILURE_EVENT_BOOKMARK_EXISTS);
     }
 
-    eventRepo.createEventBookmark(eventID, userID);
+    eventRepo.createEventBookmark(userID, event);
   }
 
   public List<EventCard> retrieveEventBookmarks(String userID) {

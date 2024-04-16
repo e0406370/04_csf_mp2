@@ -86,10 +86,9 @@ public class EventRepository {
     if (!sortOrder.equals("NONE")) {
 
       SortOperation sortOps = Aggregation.sort(
-        sortOrder.equals("ASC")
-          ? Sort.by("start").ascending()
-          : Sort.by("start").descending()
-      );
+          sortOrder.equals("ASC")
+              ? Sort.by("start").ascending()
+              : Sort.by("start").descending());
       pipeline.add(sortOps);
     }
 
@@ -116,25 +115,27 @@ public class EventRepository {
     return Optional.ofNullable(mongoTemplate.findOne(query, EventDetails.class, eventsCollection));
   }
 
-  public boolean isBookmarkExists(String eventID, String userID) {
+  public boolean isBookmarkExists(String userID, String eventID) {
 
-    return jdbcTemplate.queryForObject(EventQueries.SQL_CHECK_BOOKMARK_EXISTS, Integer.class, eventID, userID) > 0;
+    return jdbcTemplate.queryForObject(EventQueries.SQL_CHECK_BOOKMARK_EXISTS, Integer.class, userID, eventID) > 0;
   }
 
-  public boolean createEventBookmark(String eventID, String userID) {
+  public boolean createEventBookmark(String userID, EventCard event) {
 
-    return jdbcTemplate.update(EventQueries.SQL_CREATE_EVENT_BOOKMARK, eventID, userID) > 0;
+    return jdbcTemplate.update(
+        EventQueries.SQL_CREATE_EVENT_BOOKMARK,
+        userID,
+        event.eventID(),
+        event.name(),
+        event.start(),
+        event.logo(),
+        event.venueName(),
+        event.country()
+    ) > 0;
   }
 
   public List<EventCard> retrieveEventBookmarks(String userID) {
 
-    List<String> bookmarkedEventIDs = jdbcTemplate.queryForList(EventQueries.SQL_RETRIEVE_EVENT_BOOKMARKS, String.class, userID);
-    
-    Criteria criteria = Criteria.where("eventID").in(bookmarkedEventIDs);
-    Query query = Query.query(criteria);
-
-    return mongoTemplate.find(query, EventCard.class, eventsCollection);
+    return jdbcTemplate.queryForList(EventQueries.SQL_RETRIEVE_EVENT_BOOKMARKS, EventCard.class, userID);
   }
-
-
 }

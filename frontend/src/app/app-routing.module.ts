@@ -12,6 +12,7 @@ import { notCompletedRegistration, validateLogin, validateUserConfirmation } fro
 import { UserLogoutComponent } from './user-logout/user-logout.component';
 import { EventListComponent } from './event-list/event-list.component';
 import { EventDetailsComponent } from './event-details/event-details.component';
+import { EventBookmarksComponent } from './event-bookmarks/event-bookmarks.component';
 
 
 const appRoutes: Routes = [
@@ -49,6 +50,10 @@ const appRoutes: Routes = [
   {
     path: 'events',
     component: EventListComponent
+  },
+  {
+    path: 'events/bookmarks',
+    component: EventBookmarksComponent,
   },
   {
     path: 'events/:eventID',

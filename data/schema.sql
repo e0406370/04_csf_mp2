@@ -38,13 +38,18 @@ CREATE TABLE `user_login`
 CREATE TABLE `event_bookmarks`
 (
     id             INT          AUTO_INCREMENT PRIMARY KEY,
-    event_id       VARCHAR(20)  NOT NULL,
     user_id        CHAR(26)     NOT NULL,
+    event_id       VARCHAR(20)  NOT NULL,
+    event_name     VARCHAR(100) NOT NULL,
+    event_start    VARCHAR(20)  NOT NULL,
+    event_logo     VARCHAR(256) NOT NULL,
+    event_venue    VARCHAR(128) NOT NULL,
+    event_country  VARCHAR(20)  NOT NULL,
 
     CONSTRAINT fk_event_bookmarks_user_id FOREIGN KEY (user_id) REFERENCES `users`(user_id) ON DELETE CASCADE,
 
-    INDEX idx_event_id      (event_id),
-    INDEX idx_user_id       (user_id)
+    INDEX idx_user_id       (user_id),
+    INDEX idx_event_id      (event_id)
 );
 
 -- grant all privileges on csf_mp2.* to fred@'%';
