@@ -16,7 +16,8 @@ export class UserAccountComponent implements OnInit {
   private sessionStore = inject(SessionStore);
   private utilitySvc = inject(UtilityService);
 
-  accountUser!: string;
+  loggedName!: string;
+  loggedID!: string;
 
   ngOnInit(): void {
 
@@ -26,7 +27,8 @@ export class UserAccountComponent implements OnInit {
     }
 
     this.sessionStore.getSessionState.subscribe((sess) => {
-      this.accountUser = sess.name;
+      this.loggedName = sess.name;
+      this.loggedID = sess.userID;
     });
   }
 }

@@ -6,23 +6,27 @@
         Account Overview
         <br /> 
         <span class="fs-2 font-monospace text-decoration-underline">
-          User: {{accountUser}}
+          User: {{loggedName}}
         </span>
       </h1>
     </div>
 
     <div class="row">
+
       <div class="col-md-4 mb-4">
-        <div class="alert alert-primary text-center p-4">
-          <h2>
-            <i class="pi pi-user fs-2"></i>
-            Profile
-          </h2>
-          <p class="fs-5">
-            Review your user information
-          </p>
-        </div>
+        <a [routerLink]="['/profile', loggedID]" class="text-decoration-none">
+          <div class="alert alert-primary text-center p-4">
+            <h2>
+              <i class="pi pi-user fs-2"></i>
+              Profile
+            </h2>
+            <p class="fs-5">
+              Review your user information
+            </p>
+          </div>
+        </a>
       </div>
+
       <div class="col-md-4 mb-4">
         <div class="alert alert-warning text-center p-4">
           <h2>
