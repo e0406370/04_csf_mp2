@@ -51,7 +51,7 @@ export class UserLoginComponent implements OnInit {
 
         this.sessionStore.updateSessionState(res.response as SessionState);
 
-        this.router.navigate(['/']);
+        this.router.navigate(['/account']);
       })
       .catch((err) => {
 

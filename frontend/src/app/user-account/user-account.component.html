@@ -1,7 +1,7 @@
 <div class="main-box">
   <div class="container">
 
-    <div class="error-box alert alert-secondary text-decoration-none p-3 rounded mb-5">
+    <div class="error-box alert alert-secondary text-decoration-none p-3 rounded mt-2 mb-5">
       <h1 class="profile-heading text-center text-warning">
         Account Overview
         <br /> 
@@ -52,6 +52,37 @@
             </p>
           </div>
         </a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <a [routerLink]="['/events']" class="text-decoration-none">
+          <div class="alert alert-info text-center p-4">
+            <h2>
+              <i class="pi pi-search fs-2"></i>
+              Find Events
+            </h2>
+            <p class="fs-5">
+              Discover and explore events
+            </p>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <a [routerLink]="['/events']" class="text-decoration-none">
+          <div class="alert alert-secondary text-center p-4">
+            <h2>
+              <i class="pi pi-plus-circle fs-2"></i>
+              Create Events
+            </h2>
+            <p class="fs-5">
+              Organise your own events
+            </p>
+          </div>
+        </a>
+      </div>
     </div>
 
   </div>
